@@ -15,19 +15,29 @@ import SearchDayCom from '../src/component/form/SearchDayCom';
 import OncallBookingCom from './component/form/OncallBookingCom';
 import MenulistCom from './component/header/MenuListCom'
 
+import { PropTypes } from 'prop-types'
+import swal from 'sweetalert'
+
+
 class App extends Component {
+
+static propTypes = {
+  history: PropTypes.object,
+}
+
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-        <MenulistCom />
                 {this.props.children}  
           <Route component={MainApp} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/menulist" component={MenuListCom} />
+            {/* <Route path="/menulist" component={MenuListCom} /> */}
             
-            <Route path="/menu" component={OncallBookingCom} />
+            <Route path="/menu" component={MenuListCom} />
+            
             <Route path="/createAcc" component={CreateAccountCom} />
             <Route path="/forgetpassword" component={ForgetpasswordCom} /> 
 

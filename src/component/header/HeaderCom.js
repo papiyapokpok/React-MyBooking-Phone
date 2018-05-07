@@ -35,6 +35,7 @@ export default class HeaderCom extends Component {
         return(
             <div>
                 <HeaderBox image={logo}/>
+                
             </div>
         )
     }

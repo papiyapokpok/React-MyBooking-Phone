@@ -24,13 +24,13 @@ export default class MainMenuCom extends Component {
         history: PropTypes.object,
     }
 
-    home = () => {
-        this.props.history.push('/menu')
+    index = () => {
+        this.props.history.push('/')
         console.log('test onclick menu')
     }
 
-    homePage = () => {
-        this.props.history.push('/')
+    oncallBook = () => {
+        this.props.history.push('/menu')
     }
 
     search = () => {
@@ -45,7 +45,7 @@ export default class MainMenuCom extends Component {
             var eqPos = cookie.indexOf("=");
             var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
             document.cookie = 'staff_name=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            this.homePage({})
+            this.index({})
         }
     console.log('Logout')
     }
@@ -58,8 +58,8 @@ export default class MainMenuCom extends Component {
         return(
             <div className="main-listMenu">
                 <div className="listMenu">
-                    <MainMenuBox  title={'Home'}  onClick={this.home} />                
-                    <MainMenuBox  title={'- OnCall'} onClick={this.homePage}/>
+                    <MainMenuBox  title={'Home'} />                
+                    <MainMenuBox  title={'- OnCall'} onClick={this.oncallBook}/>
                     <MainMenuBox  title={'- Search'} onClick={this.search}/>  
                     {/* <MainMenuBox  title={'- Cancel'}/>   */}
                     <br />

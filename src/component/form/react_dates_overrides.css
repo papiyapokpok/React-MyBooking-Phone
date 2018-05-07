@@ -880,7 +880,7 @@
   }
   .DateRangePicker_picker__directionLeft {
     left: 0;
-    display: none;
+    /* display: none; */
   }
   .DateRangePicker_picker__directionRight {
     right: 0

@@ -7,7 +7,7 @@ import request from 'superagent';
 import swal from 'sweetalert';
 // import './StyleHome.css';
 
-export default class MainApp extends Component {
+export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
@@ -20,6 +20,30 @@ export default class MainApp extends Component {
         // this.passwordWrong = this.passwordWrong.bind(this);
     }
 
+    componentDidMount() {
+        const checkCookie = this.getCookie('staff_name')
+        if(checkCookie) {
+            this.loginSuccess()
+        } else {
+            this.notLogin()
+        }
+    }
+
+    getCookie = (cname) => {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {    
+                return c.substring(name.length, c.length);
+            } 
+        }
+        return null;                       
+    }
+    
     handleChange(event) {
         if(event.target.id === 'username') {
             this.setState({username: event.target.value});
@@ -112,6 +136,15 @@ export default class MainApp extends Component {
         this.props.history.push('/resetpassword')
     }
 
+
+    loginSuccess = () => {
+        this.props.history.push('/menu')
+    }
+    
+    notLogin = () => {
+        this.props.history.push('/')
+    }
+    
 
     render() {
         const { mainDialogReset } = this.state

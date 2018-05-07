@@ -61,7 +61,7 @@ export default class MenuListCom extends Component {
                             {menuView}
                         </div>
                 </div>
-                    {/* <OncallBookingCom /> */}
+                    <OncallBookingCom />
                     
             </div>
         )
