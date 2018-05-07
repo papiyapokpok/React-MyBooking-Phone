@@ -1,0 +1,105 @@
+form {border: 3px solid #f1f1f1;}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;    
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    /* width: auto; */
+    /* padding: 10px 18px; */
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.containerHome {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+.label {
+    float: left;
+}
+
+/* .labelForget {
+    float: left;
+    color: white;
+} */
+
+.createAccount {
+    font-size: 12px;
+    text-align: left;
+    color: grey;
+}
+
+.forgetPassword {
+    font-size: 12px;
+    color: grey;
+    position: absolute;
+    right: 24px;
+    top: 377px;
+}
+
+.hide {
+    display: none;
+}
+
+.dialogMain {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000bd;
+}
+
+.form {
+    /* position: absolute;
+    margin-top: 40px;
+    background-color: white;
+    color: black;
+    width: 90%;
+    left: 4%;
+    right: 5%;
+    border-radius: 4px;  */
+}
+
+.closeDialog {
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    font-size: 24px;
+}

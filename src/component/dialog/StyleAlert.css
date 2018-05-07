@@ -1,0 +1,28 @@
+.AlertDialog {
+    position: absolute;
+    background-color: rgba(8, 8, 8, 0.438);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.Contain {
+    border: 1px solid rgb(109, 109, 109);
+    margin-top: 50%;
+    width: 360px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px; 
+    font-family: -apple-system-body,helvetca,arial,thonburi,tahoma,Noto Sans,sans-serif;
+    color: #464646;
+}
+
+.Close {
+    float: right;
+    padding: 7px;
+    color: rgb(185, 185, 185);
+    font-family: sans-serif;
+}
+
+
+/* style={{backgroundColor:'#0c85da', height:'100px', borderRadius:'4px', paddingTop:'20px'}} */

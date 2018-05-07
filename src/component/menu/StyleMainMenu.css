@@ -1,0 +1,17 @@
+.main-listMenu {
+    
+}
+
+.menuDivMain {
+    border: 0px solid grey;
+    padding-left: 16px;
+    font-size: 14px;
+}
+
+.cname_ListMenu {
+    position: absolute;
+    bottom: 14px;
+    left: 55px;
+    right: 0;
+    font-size: 14px;
+}
