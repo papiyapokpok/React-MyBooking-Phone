@@ -7,6 +7,9 @@ import logo from '../src/component/assets/imgs/asset-logo.png'
 import HeaderCom from './component/header/HeaderCom';
 import MenuListCom from './component/header/MenuListCom';
 import MainMenuCom from './component/menu/MainMenuCom';
+
+import MyMenuCom from './component/menu/MyMenuCom';
+
 import MainApp from './component/MainApp';
 import HomePage from './component/HomePage';
 import CreateAccountCom from './component/form/CreateAccountCom';
@@ -14,6 +17,7 @@ import ForgetpasswordCom from './component/ForgetpasswordCom';
 import SearchDayCom from '../src/component/form/SearchDayCom';
 import OncallBookingCom from './component/form/OncallBookingCom';
 import MenulistCom from './component/header/MenuListCom'
+import SignOutCom from './component/form/SignOutCom'
 
 import { PropTypes } from 'prop-types'
 import swal from 'sweetalert'
@@ -32,25 +36,32 @@ static propTypes = {
         <header className="App-header">
                 {this.props.children}  
           <Route component={MainApp} />
+          
           <Switch>
+            
             <Route exact path="/" component={HomePage} />
-            {/* <Route path="/menulist" component={MenuListCom} /> */}
+            <Route component={MyMenuCom} /> 
             
-            <Route path="/menu" component={MenuListCom} />
+            <Route path="/menulist" component={MenuListCom} />
             
+            <Route path="/menu" component={MyMenuCom} />
+            <Route path="/search" component={SearchDayCom} />             
+             
             <Route path="/createAcc" component={CreateAccountCom} />
             <Route path="/forgetpassword" component={ForgetpasswordCom} /> 
 
             <Route path="/mainmenu" component={MainMenuCom} /> 
-            <Route path="/search" component={SearchDayCom} />             
+
+            
+            {/* <Route path="/signout" component={SignOutCom} />  */}
+            
+
+            
                         
           </Switch>
+          
         </header>
 
-
-        {/* <main>
-          <Route exact path="/menu" component={MainMenuCom}  />
-        </main> */}
 
 
       </div>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 import HeaderBox from './HeaderBox';
+import MyMenuCom from '../menu/MyMenuCom'
 
 import logo from '../assets/imgs/Kaidee-logo.png';
-import MenulistCom from './MenuListCom';
+import MenulistBox from './MenuListBox';
 
 import { PropTypes } from 'prop-types';
 
@@ -35,7 +36,6 @@ export default class HeaderCom extends Component {
         return(
             <div>
                 <HeaderBox image={logo}/>
-                
             </div>
         )
     }

@@ -72,7 +72,7 @@ export default class OncallBookingCom extends Component {
             return;
         }
         request
-            .post('http://localhost/oncall/bookOncall.php')
+            .post('http://172.25.11.98/oncall/bookOncall.php')
             .set('content-type', 'application/json')
             .send(payload)
             .end((err, res) => {
@@ -133,7 +133,9 @@ export default class OncallBookingCom extends Component {
 
         return(
             <div>
-                <p>Today {this.state.toDay.format('DD-MM-YYYY')}</p>
+                <p>Today {this.state.toDay.format('DD-MM-YYYY')}</p>  
+                <p>Hi, {this.getCookie('staff_name')}</p>
+                              
                 
                 <div style={{marginTop:'40px', textAlign:'center'}}>
                 
@@ -174,7 +176,7 @@ export default class OncallBookingCom extends Component {
                             {AlertNullMessage}
                         </div>
                     </div> 
-                </div>
+                </div>                
             </div>
         )
     }

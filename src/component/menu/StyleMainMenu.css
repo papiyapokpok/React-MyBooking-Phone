@@ -1,17 +1,52 @@
 .main-listMenu {
-    
+    background-color: rgba(0, 0, 0, 0.657);
+    width: 376px;
+    height: 600px;
+    z-index: 1000;
+    margin-top: -17px;
+    margin-left: -17px;
+    -webkit-animation: slideIn 0.7s forwards;
+    animation: slideIn 0.7s forwards;
 }
 
 .menuDivMain {
     border: 0px solid grey;
-    padding-left: 16px;
+    padding-left: 24px;
     font-size: 14px;
+    line-height: 32px;
+    
 }
 
 .cname_ListMenu {
     position: absolute;
-    bottom: 14px;
-    left: 55px;
+    top: -16px;
+    left: 30px;
     right: 0;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 76px;
 }
+
+@-webkit-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @-moz-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }

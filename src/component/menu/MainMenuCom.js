@@ -4,6 +4,12 @@ import MainMenuBox from './MainMenuBox';
 import { PropTypes } from 'prop-types';
 
 export default class MainMenuCom extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            menu: true
+        }
+    }
 
     getCookie = (cname) => {
         var name = cname + "=";
@@ -31,6 +37,7 @@ export default class MainMenuCom extends Component {
 
     oncallBook = () => {
         this.props.history.push('/menu')
+        console.log('Menu list to Booking')
     }
 
     search = () => {
@@ -53,20 +60,27 @@ export default class MainMenuCom extends Component {
 
     render() {
         const staff_name = this.getCookie('staff_name')
-        console.log(staff_name)
+        const { menu } = this.state
+        // let menu = ''
+        // if(menu) {
+        //     menu = false
+        // }
+        
 
         return(
-            <div className="main-listMenu">
-                <div className="listMenu">
-                    <MainMenuBox  title={'Home'} />                
-                    <MainMenuBox  title={'- OnCall'} onClick={this.oncallBook}/>
-                    <MainMenuBox  title={'- Search'} onClick={this.search}/>  
-                    {/* <MainMenuBox  title={'- Cancel'}/>   */}
-                    <br />
+            <div className="main-listMenu" onClick={this.props.menuListClick}>
+                {/* <p>x</p> */}
+                <div className="listMenu" >
                     <div className="cname_ListMenu">
                         <p>{staff_name}</p>
-                        <p onClick={this.signOut}>-Logout-</p>
-                    </div>             
+                    </div>
+                    <br /><br /><br />
+                    <MainMenuBox  title={'- OnCall'} onClick={this.oncallBook}/>
+                    <MainMenuBox  title={'- Report'} onClick={this.search}/> 
+                    <p className="menuDivMain" onClick={this.signOut}>- Logout</p>
+                     
+                <br />
+            
                 </div>
             </div>
         )

@@ -1,6 +1,6 @@
 .logo {
     margin-top: 4px;
-    width: 160px;
+    width: 140px;
     position: relative;
 }
 
@@ -14,8 +14,8 @@
 .logoDiv {
     /* width: 100%;
     background-color: greenyellow; */
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border: 1px solid #e0dddd;    
     border-top: 0px;
     border-left: 0px;
@@ -38,12 +38,12 @@
 .listMenu {
     padding-left: 10px;
     position: absolute;
-    top: 0;
-    left: -16px;
+    top: 17px;
+    left: 0px;
     margin-top: -17px;
     width: 160px;
-    height: 660px;
-    background-color: #055cc7c9;
+    height: 600px;
+    background-color: #055cc7f7;
     z-index: 1000;
     -webkit-animation: slideIn 0.7s forwards;
     animation: slideIn 0.7s forwards;

@@ -110,7 +110,7 @@ export default class OncallCom extends Component {
                 }
 
                 request
-                    .post('http://localhost/postData.php')
+                    .post('http://172.25.11.98/postData.php')
                     .set('content-type', 'application/json')
                     .send(payload)
                     .end((err, res) => {

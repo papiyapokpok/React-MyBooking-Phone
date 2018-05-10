@@ -11,7 +11,7 @@ export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = {           
             mainDialogReset: false,            
             username: '',
             password: '',
@@ -19,12 +19,21 @@ export default class HomePage extends Component {
         this.handleChange = this.handleChange.bind(this);
         // this.passwordWrong = this.passwordWrong.bind(this);
     }
+    
+    // componentDidUpdate = () => {
+    //     swal({
+    //         title: "Default your password!",
+    //         text: "P@ssw0rd",
+    //         icon: "success",
+    //         button: "Done",
+    //       });
+    // }
 
     componentDidMount() {
         const checkCookie = this.getCookie('staff_name')
         if(checkCookie) {
             this.loginSuccess()
-        } else {
+        } else if(checkCookie === null){
             this.notLogin()
         }
     }
@@ -71,7 +80,7 @@ export default class HomePage extends Component {
             password,
         }
         request
-            .post('http://localhost/oncall/login.php')
+            .post('http://172.25.11.98/oncall/login.php')
             .set('content-type', 'application/json')
             .send(payload) 
             .end((err, res) => {
@@ -86,7 +95,12 @@ export default class HomePage extends Component {
                     .then(() => {
                         this.dialog({})
                         console.log('Change')        
-                    });
+                    });                                   
+                }
+
+                else if(res.body.status === true) {
+                    this.setCookie('staff_name', username, 1 )                    
+                    this.loginSuccess({})
                 }
                 
                 else if(res.body.status === false) {
@@ -97,11 +111,6 @@ export default class HomePage extends Component {
                         buttons:false
                     })
                 } 
-
-                else if(res.body.status === true) {
-                    this.setCookie('staff_name', username, 1 )                    
-                    this.loginSuccess({})
-                }
             }, 'json')
     }
 
@@ -129,7 +138,7 @@ export default class HomePage extends Component {
     }
 
     loginSuccess = () => {
-        this.props.history.push('/menu')
+        this.props.history.push('/MyMenuCom')
     }
 
     resetPassword = () => {
@@ -149,13 +158,13 @@ export default class HomePage extends Component {
     render() {
         const { mainDialogReset } = this.state
         const {...res } = this.props
-
+        let sample = this.state
         let dialogChangePassword = ''
         let classHide = ''
         let classShow = 'hide'
 
         if(mainDialogReset) {
-            dialogChangePassword = <ForgetpasswordCom {...this.props} /> 
+            dialogChangePassword = <ForgetpasswordCom username={this.state.username} /> 
         }
 
         return (
@@ -163,10 +172,10 @@ export default class HomePage extends Component {
                 <form >
                     <div className="containerHome">
                         <label className="label"><b>Username</b></label>
-                        <input id="username" value={this.setState.username} type="text" placeholder="Enter Username" onChange={this.handleChange} /> 
+                        <input id="username" value={this.state.username} type="text" placeholder="Enter Username" onChange={this.handleChange} /> 
                         <br />
                         <label className="label"><b>Password</b></label>
-                        <input id="password" value={this.setState.password} type="password" placeholder="Enter Password" maxLength="8" onChange={this.handleChange}/>
+                        <input id="password" value={this.state.password} type="password" placeholder="Enter Password" maxLength="8" onChange={this.handleChange}/>
 
                         <button type="button" onClick={this.login}>Login</button>
                         <button type="button" className="cancelbtn">Cancel</button>

@@ -11,17 +11,34 @@ import menuList from '../assets/imgs/menu-list.png';
 import MainMenuCom from '../menu/MainMenuCom'
 import MenuListBox from '../header/MenuListBox'
 
+import { PropTypes } from 'prop-types';
+
 export default class SearchDayCom extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            menu: false,            
             startDate: null,
             endDate: null,
             focusedInput: null,
             onCallNum: null,
-            menu: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
+    }
+
+    getCookie = (cname) => {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {    
+                return c.substring(name.length, c.length);
+            } 
+        }
+        return null;                        
     }
 
     handleSubmit(event) {
@@ -53,19 +70,19 @@ export default class SearchDayCom extends Component {
     }
 
     getData = () => {
-        const email = this.getCookie('staff_name')        
-        const nameSearch = this.state.nameSearch
+       
+        const staff_name = this.getCookie('staff_name') 
         const startDate = this.state.startDate.format('YYYY-MM-DD')
         const endDate = this.state.endDate.format('YYYY-MM-DD')  
         
         if(startDate) {
             const payload = {
+                staff_name,
                 startDate,
                 endDate,
-                email,
             }
             request
-                .post('http://localhost/oncall/searchDate.php')
+                .post('http://172.25.11.98/oncall/searchDate.php')
                 .set('content-type', 'applecation/json')
                 .send(payload)
                 .end((err, res) => {
@@ -73,7 +90,6 @@ export default class SearchDayCom extends Component {
                 if(res.body.status === false) {
                     swal('You cannot work on Month');
                     this.setState({
-                        nameSearch: '',
                         choose: 'Choose Month',
                     })
                 }
@@ -101,7 +117,7 @@ export default class SearchDayCom extends Component {
             if (willDelete) {
 
                 request
-                .post('http://localhost/deleteDate.php')
+                .post('http://172.25.11.98/deleteDate.php')
                 .set('content-type', 'applecation/json')
                 .send(payload)
                 .end((err, res) => {
@@ -122,9 +138,7 @@ export default class SearchDayCom extends Component {
               this.getData()            
               return false;
             }
-          });
-
-          
+          });          
     }
 
     show = () => {
@@ -136,8 +150,7 @@ export default class SearchDayCom extends Component {
     dataRender = (data) => {
         return Object.keys(data).map(key => {
             return (
-                <tr key={key}>
-                    <td>{data[key].oncallnumber}</td>
+                <tr key={key}><td>{data[key].oncallnumber}</td>
                     <td>{data[key].oncalldate}</td>
                     <td style={{textAlign:'left', paddingLeft:'16px'}}>{data[key].email}</td>
                     {/* <td onClick={() => this.del(data[key].idoncall_log)}>Del.</td> */}
@@ -146,11 +159,42 @@ export default class SearchDayCom extends Component {
         });    
     }
 
+
+    static propTypes = {
+        history: PropTypes.object,
+    }
+
+    // index = () => {
+    //     this.props.history.push('/')
+    //     console.log('test onclick menu')
+    // }
+
+    oncallBook = () => {
+        this.props.history.push('/menu')
+    }
+
+    search = () => {
+        this.props.history.push('/search')
+    }
+
+
+    // signOut = () => {    
+    // var cookies = document.cookie.split(";");
+    //     for (var i = 0; i < cookies.length; i++) {
+    //         var cookie = cookies[i];
+    //         var eqPos = cookie.indexOf("=");
+    //         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    //         document.cookie = 'staff_name=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    //         this.index({})
+    //     }
+    // console.log('Logout')
+    // }
+
     menuListClick = () => {
         this.setState({
             menu: !this.state.menu
         })
-        console.log('Menu List')  
+        console.log('Search Menu List')  
     }
 
     render() {
@@ -162,27 +206,10 @@ export default class SearchDayCom extends Component {
         dataValue = this.dataRender(data);
         rowCount = 'Total: ' + data.length ;
     } 
-
-    let menuView = ''
-    let classHide = ''
-    let classShow = 'hide'
-
-    if(menu) {
-        menuView = <MainMenuCom {...this.props} /> 
-    }
-
         return(
             <div>
-
-                <div>
-                    <MenuListBox image={menuList} onClick={this.menuListClick}/>
-                        <div className="menuViewDiv">
-                            {menuView}
-                        </div>
-                </div>
-                
-                <div style={{marginTop:'40px'}}>
-                    <DateRangePicker orientation="vertical" verticalHeight={390}
+                <div style={{marginTop:'0px'}}>
+                    <DateRangePicker orientation="vertical" verticalHeight={330} 
                         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
                         endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -191,10 +218,12 @@ export default class SearchDayCom extends Component {
                         focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                         onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
                         minimumNights={0} 
-                        isOutsideRange={() => false}/>
+                        isOutsideRange={() => false}
+                        popoverAttachment='bottom right'
+                        popoverTargetAttachment='top right'
+                    />
                 </div>
                 <div>
-                    <br />
                     <button className="Search-Button" onClick={this.onSubmit} >Search</button>
                 </div>
 

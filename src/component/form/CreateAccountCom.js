@@ -63,7 +63,7 @@ export default class CreateAccountBox extends Component {
             password,
         }
         request
-            .post('http://localhost/oncall/createAcc.php')
+            .post('http://172.25.11.98/oncall/createAcc.php')
             .set('content-type', 'application/json')
             .send(payload)
             .end((err, res) => {

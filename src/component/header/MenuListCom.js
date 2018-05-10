@@ -16,26 +16,44 @@ export default class MenuListCom extends Component {
         };
     }
 
-    // getCookie = (cname) => {
-    //     var name = cname + "=";
-    //     var ca = document.cookie.split(';');
-    //     for(var i = 0; i < ca.length; i++) {
-    //         var c = ca[i];
-    //         while (c.charAt(0) === ' ') {
-    //             c = c.substring(1);
-    //         }
-    //         if (c.indexOf(name) === 0) {    
-    //             return c.substring(name.length, c.length);
-    //         } 
-    //     }
-    //     return null;                        
-    // }
+    componentDidMount() {
+        const checkCookie = this.getCookie('staff_name')
+        if(checkCookie) {
+            this.props.history.push('/menu')
+        } else if(checkCookie === null){
+            this.props.history.push('/')
+
+        }
+    }
+
+    getCookie = (cname) => {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {    
+                return c.substring(name.length, c.length);
+            } 
+        }
+        return null;                        
+    }
 
     menuListClick = () => {
         this.setState({
             menu: !this.state.menu
         })
         console.log('Menu List')  
+    }
+    
+    oncallBook = () => {
+        this.props.history.push('/menu')
+    }
+
+    search = () => {
+        this.props.history.push('/search')
     }
 
     render() {
@@ -50,16 +68,17 @@ export default class MenuListCom extends Component {
         let classShow = 'hide'
 
         if(menu) {
-            menuView = <MainMenuCom {...this.props} /> 
+            menuView = <MainMenuCom menuListClick={this.menuListClick} {...this.props} /> 
         }
 
         return(
-            <div>
-                <div>
-                    <MenuListBox image={menuList} onClick={this.menuListClick}/>
+            <div >
+                <div style={{backgroundColor:'black'}}>
+                    {/* <MenuListBox image={menuList} onClick={this.menuListClick}/>
                         <div className="menuViewDiv">
                             {menuView}
-                        </div>
+                        </div> */}
+                        
                 </div>
                     <OncallBookingCom />
                     

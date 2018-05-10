@@ -40,7 +40,7 @@
   border-radius: 14px;
   position: absolute;
   top: 0;
-  left: 100px;
+  left: 80px;
   height: 25px;
   width: 25px;
   background-color: #eee;
@@ -782,7 +782,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
   .DateRangePickerInput__rtl {
     direction: rtl
