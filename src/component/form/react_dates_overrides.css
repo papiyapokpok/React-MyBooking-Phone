@@ -504,6 +504,7 @@
     display: inline-block;
     vertical-align: top;
     min-height: 100%
+
   }
   .CalendarMonthGrid_month__hideForAnimation {
     position: absolute;
@@ -516,7 +517,8 @@
   }
   .DayPickerNavigation_container {
     position: relative;
-    z-index: 2
+    z-index: 2;
+    /* inline-size: 370px; */
   }
   .DayPickerNavigation_container__vertical {
     background: #fff;
@@ -540,7 +542,7 @@
     user-select: none
   }
   .DayPickerNavigation_button__default {
-    border: 1px solid #e4e7e7;
+    /* border: 1px solid #e4e7e7; */
     background-color: #fff;
     color: #757575
   }
@@ -552,16 +554,25 @@
     background: #f2f2f2
   }
   .DayPickerNavigation_button__horizontal {
-    border-radius: 3px;
+    /* border-radius: 3px;
     padding: 6px 9px;
     top: 18px;
-    position: absolute
+    position: absolute */
+    border-radius: 3px;
+    /* padding: 30px 1px; */
+    top: 150px;
+    position: absolute;
+    width: 50px;
   }
   .DayPickerNavigation_leftButton__horizontal {
-    left: 22px
+    left: 0px;
+    width: 57px;
+    top: -7px;
   }
   .DayPickerNavigation_rightButton__horizontal {
-    right: 22px
+    right: 0px;
+    width: 57px;
+    top: -7px;
   }
   .DayPickerNavigation_button__vertical {
     display: inline-block;
@@ -581,7 +592,7 @@
   .DayPickerNavigation_svg__horizontal {
     height: 19px;
     width: 19px;
-    fill: #82888a
+    fill: #0276ff;
   }
   .DayPickerNavigation_svg__vertical {
     height: 42px;
@@ -879,11 +890,14 @@
     direction: rtl
   }
   .DateRangePicker_picker__directionLeft {
-    left: 0;
+    left: -21px;
     /* display: none; */
   }
+  .DateRangePicker_picker__directionLeft_2{
+    left: -22px;
+  }
   .DateRangePicker_picker__directionRight {
-    right: 0
+    right: 30px
   }
   .DateRangePicker_picker__portal {
     background-color: rgba(0,0,0,.3);
@@ -894,7 +908,7 @@
     width: 100%
   }
   .DateRangePicker_picker__fullScreenPortal {
-    background-color: #fff
+    /* background-color: #fff */
   }
   .DateRangePicker_closeButton {
     background: 0 0;

@@ -88,7 +88,7 @@ export default class SearchDayCom extends Component {
                 .end((err, res) => {
                     // console.log(payload)
                 if(res.body.status === false) {
-                    swal('You cannot work on Month');
+                    swal('คุณไม่ได้ถือ OnCall เลยในเดือนนี้ ');
                     this.setState({
                         choose: 'Choose Month',
                     })
@@ -150,9 +150,9 @@ export default class SearchDayCom extends Component {
     dataRender = (data) => {
         return Object.keys(data).map(key => {
             return (
-                <tr key={key}><td>{data[key].oncallnumber}</td>
+                <tr key={key} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}><td>{data[key].oncallnumber}</td>
                     <td>{data[key].oncalldate}</td>
-                    <td style={{textAlign:'left', paddingLeft:'16px'}}>{data[key].email}</td>
+                    <td style={{textAlign:'center'}}>{data[key].accountlog}</td>
                     {/* <td onClick={() => this.del(data[key].idoncall_log)}>Del.</td> */}
                 </tr>
             );            
@@ -208,8 +208,12 @@ export default class SearchDayCom extends Component {
     } 
         return(
             <div>
-                <div style={{marginTop:'0px'}}>
-                    <DateRangePicker orientation="vertical" verticalHeight={330} 
+                <div style={{textAlign:'-webkit-center'}}>
+                    <DateRangePicker 
+                        orientation="horizontal" 
+                        // verticalHeight={330} 
+
+                        horizontalWidth={200}
                         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
                         endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -219,8 +223,10 @@ export default class SearchDayCom extends Component {
                         onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
                         minimumNights={0} 
                         isOutsideRange={() => false}
-                        popoverAttachment='bottom right'
-                        popoverTargetAttachment='top right'
+                        // popoverAttachment='bottom right'
+                        // popoverTargetAttachment='top right'
+                        numberOfMonths={1}
+                        withFullScreenPortal
                     />
                 </div>
                 <div>
@@ -231,9 +237,9 @@ export default class SearchDayCom extends Component {
                     <table className="tebleStyle" style={{border:'1px solid'}}>
                         <thead>
                             <tr>
-                                <th style={{border:'1px solid', backgroundColor:'rgb(41, 236, 17)',paddingLeft:'4px'}}>Oncall</th>
-                                <th style={{border:'1px solid', backgroundColor:'rgb(41, 236, 17)'}}>Date</th> 
-                                <th style={{border:'1px solid', backgroundColor:'rgb(41, 236, 17)'}}>Email</th>
+                                <th style={{border:'1px solid', backgroundColor:'rgb(31, 210, 8)',paddingLeft:'4px'}}>Oncall</th>
+                                <th style={{border:'1px solid', backgroundColor:'rgb(31, 210, 8)'}}>Date</th> 
+                                <th style={{border:'1px solid', backgroundColor:'rgb(31, 210, 8)'}}>Account</th>
                                 {/* <th style={{border:'1px solid', backgroundColor:'rgb(41, 236, 17)'}}>Cancel</th>                                 */}
                             </tr>
                         </thead>

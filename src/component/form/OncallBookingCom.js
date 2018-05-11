@@ -109,7 +109,6 @@ export default class OncallBookingCom extends Component {
         console.log(this.state.onCallNum)       
     }
 
-
     clickClose = () => {
         this.setState({
             AlertNulls: false,
