@@ -80,7 +80,8 @@
   }
 
 .DateInput_input__focused {
-    background-color: rgba(0, 255, 21, 0.856) !important;
+    z-index: 100000;
+    background-color: rgba(6, 221, 250, 0.856) !important;
     color: black;
     font-weight: bold;
 }

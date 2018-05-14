@@ -18,6 +18,23 @@ class BasicExample extends Component {
     Logout.signOut()
   }
 
+  getCookie = (cname) => {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }              
+    }
+    return "";
+    // window.location.reload(true); 
+    console.log               
+  }
+
   render() {
 
     console.log(this.props)
@@ -28,14 +45,18 @@ class BasicExample extends Component {
         <div>
             {/* <HeaderBox image={logo}/> */}
                 <div  style={{marginTop:'8px'}}>
+
                     <Link to="/menu">Booking</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
 
                     <Link to="/search">Search</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
 
-                    <Link onClick={this.signOut} to="/out">Logout</Link>                 
+                    <Link onClick={this.signOut} to="/out">Logout</Link> 
+
                                   
                 </div>
         <hr />
+        <p >Hi, {this.getCookie('staff_name')}  </p>              
+        
 
           {/* <Route exact path="/" component={Home} /> */}
             <Route path="/menu" component={OncallBookingCom} />

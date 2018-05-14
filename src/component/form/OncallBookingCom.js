@@ -133,7 +133,7 @@ export default class OncallBookingCom extends Component {
         return(
             <div>
                 <p>Today {this.state.toDay.format('DD-MM-YYYY')}</p>  
-                <p>Hi, {this.getCookie('staff_name')}</p>
+                {/* <p>Hi, {this.getCookie('staff_name')}</p> */}
                               
                 
                 <div style={{marginTop:'40px', textAlign:'center'}}>

@@ -212,7 +212,6 @@ export default class SearchDayCom extends Component {
                     <DateRangePicker 
                         orientation="horizontal" 
                         // verticalHeight={330} 
-
                         horizontalWidth={200}
                         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -237,9 +236,9 @@ export default class SearchDayCom extends Component {
                     <table className="tebleStyle" style={{border:'1px solid'}}>
                         <thead>
                             <tr>
-                                <th style={{border:'1px solid', backgroundColor:'rgb(31, 210, 8)',paddingLeft:'4px'}}>Oncall</th>
-                                <th style={{border:'1px solid', backgroundColor:'rgb(31, 210, 8)'}}>Date</th> 
-                                <th style={{border:'1px solid', backgroundColor:'rgb(31, 210, 8)'}}>Account</th>
+                                <th style={{border:'1px solid', backgroundColor:'rgb(25, 169, 241)',paddingLeft:'4px'}}>Oncall</th>
+                                <th style={{border:'1px solid', backgroundColor:'rgb(25, 169, 241)'}}>Date</th> 
+                                <th style={{border:'1px solid', backgroundColor:'rgb(25, 169, 241)'}}>Account</th>
                                 {/* <th style={{border:'1px solid', backgroundColor:'rgb(41, 236, 17)'}}>Cancel</th>                                 */}
                             </tr>
                         </thead>
