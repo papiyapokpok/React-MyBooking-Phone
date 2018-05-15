@@ -26,6 +26,19 @@ export default class SearchDayCom extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);  
     }
 
+    componentDidMount =() => {
+        const checkCookie = this.getCookie('staff_name')
+        if(checkCookie) {
+            // this.loginSuccess()
+        this.props.history.push('/search')
+            
+        } else {
+            // this.notLogin()
+            window.location.href = "/"
+            
+        }
+    }
+
     getCookie = (cname) => {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -195,6 +208,11 @@ export default class SearchDayCom extends Component {
             menu: !this.state.menu
         })
         console.log('Search Menu List')  
+    }
+
+
+    loginSuccess = () => {
+        this.props.history.push('/menu')
     }
 
     render() {

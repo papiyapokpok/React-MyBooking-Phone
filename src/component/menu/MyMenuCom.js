@@ -48,7 +48,7 @@ class BasicExample extends Component {
 
                     <Link to="/menu">Booking</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
 
-                    <Link to="/search">Search</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
+                    <Link to="/search">Report</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
 
                     <Link onClick={this.signOut} to="/out">Logout</Link> 
 

@@ -15,28 +15,85 @@ export default class HomePage extends Component {
             mainDialogReset: false,            
             username: '',
             password: '',
+            isButtonDisabled: false,
+            clicks: 0
         }
         this.handleChange = this.handleChange.bind(this);
         // this.passwordWrong = this.passwordWrong.bind(this);
     }
-    
-    // componentDidUpdate = () => {
-    //     swal({
-    //         title: "Default your password!",
-    //         text: "P@ssw0rd",
-    //         icon: "success",
-    //         button: "Done",
-    //       });
-    // }
 
+    handleClick = () => {
+        const clicks = this.state.clicks
+    	this.setState((prevState) => ({
+      	   clicks: prevState.clicks + 1
+        }));
+        console.log(this.state.clicks)
+        this.setCookieLogin('login_time', clicks, 1)
+
+        console.log(this.getCookieLogin('login_time'))
+
+        if(this.getCookieLogin('login_time') >= 2) {
+
+            document.getElementById("isButtonDisabled").disabled = true;
+            this.loginFailed()
+        }
+    }
+
+    setCookieLogin = (cname, cvalue, exdays) => {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        // console.log(cvalue)
+    
+    }
+
+    getCookieLogin = (cname) => {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {    
+                return c.substring(name.length, c.length);
+            } 
+        }
+        return null;                       
+    }
+
+    loginFailed = () => {
+        console.log('login_time')
+        // alert("You exceeded wrong your password!, \n Please contact admin!")
+        swal({
+            title: 'You exceeded wrong your password!',
+            text: 'Please contact admin!',
+            timer: 4000
+        })
+
+    }
+    
     componentDidMount() {
         const checkCookie = this.getCookie('staff_name')
         if(checkCookie) {
             this.loginSuccess()
-        } else if(checkCookie === null){
+        } else {
             this.notLogin()
         }
     }
+
+    // onLaunchClicked = (event) => {
+    //     // event.preventDefault();
+    //     this.setState({
+    //         isButtonDisabled: true
+    //     });
+    //     console.log('dissssssss')
+    //     // **** here's the timeout ****
+    //     setTimeout(() => this.setState({ isButtonDisabled: false }), 7000);
+
+    // // return this.props.onLaunchClicked();
+    // }
 
     getCookie = (cname) => {
         var name = cname + "=";
@@ -104,12 +161,42 @@ export default class HomePage extends Component {
                 }
                 
                 else if(res.body.status === false) {
-                    swal({
-                        title: 'Login Failed !',
-                        text: 'Your password is wrong !',
-                        timer: 4000,
-                        buttons:false
-                    })
+                    this.handleClick()
+                    if(this.getCookieLogin('login_time') == 0 ) {
+                        swal({
+                            title: 'Incorect password!',
+                            // text: 'You have 1 time remaining!',
+                            icon: "warning",
+                            timer: 40000,
+                            dangerMode: true,
+
+                        })
+                        return;
+                    }
+
+                    else if(this.getCookieLogin('login_time') == 1) {
+                        swal({
+                            title: 'Incorect password!',
+                            text: 'You have 1 time remaining!',
+                            icon: "warning",
+                            timer: 40000,
+                            dangerMode: true,
+
+                        })
+                        return;
+                    }
+
+                    else if(this.getCookieLogin('login_time') >= 2) {
+                        swal({
+                            title: 'You exceeded wrong your password!',
+                            text: 'Please contact admin!',
+                            icon: "warning",
+                            timer: 40000,
+                            dangerMode: true,
+                            buttons:false,
+                        })
+                        return;
+                    }
                 } 
             }, 'json')
     }
@@ -177,11 +264,11 @@ export default class HomePage extends Component {
                         <label className="label"><b>Password</b></label>
                         <input id="password" value={this.state.password} type="password" placeholder="Enter Password" maxLength="8" onChange={this.handleChange}/>
 
-                        <button type="button" onClick={this.login}>Login</button>
-                        <button type="button" className="cancelbtn">Cancel</button>
+                        <button id="isButtonDisabled" type="button" onClick={this.login}>Login</button>
+                        {/* <button type="button" className="cancelbtn">Cancel</button>
                         <div className="createAccount">
                             <p onClick={this.createAcc}>Create account</p>                          
-                        </div>
+                        </div> */}
                         {/* <div className="forgetPassword">
                             <p onClick={this.resetPassword}>Forget password</p>  
                         </div> */}

@@ -29,7 +29,17 @@ export default class OncallBookingCom extends Component {
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
-      }
+    }
+//Check cookie
+    componentDidMount() {
+        const checkCookie = this.getCookie('staff_name')
+        if(checkCookie) {
+            this.loginSuccess()
+        } else {
+            window.location.href = "/"
+            // this.props.history.push('/')
+        }
+    }
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.startDate);
@@ -114,6 +124,10 @@ export default class OncallBookingCom extends Component {
             AlertNulls: false,
             defaultAlert: ['Please select oncall number'],
         })
+    }
+
+    loginSuccess = () => {
+        this.props.history.push('/menu')
     }
 
 
