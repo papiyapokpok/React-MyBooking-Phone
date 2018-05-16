@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import HeaderCom from './header/HeaderCom'
-import ForgetpasswordCom from './ForgetpasswordCom';
+import ForgetpasswordCom from './ForgetpasswordCom'
+import HomePageBox from './HomePageBox'
+import ButtonLoginBox from './button/ButtonLoginBox'
 
 import { PropTypes } from 'prop-types';
 import request from 'superagent';
 import swal from 'sweetalert';
+import './StyleHome.css'
+
 // import './StyleHome.css';
 
 export default class HomePage extends Component {
@@ -258,13 +262,13 @@ export default class HomePage extends Component {
             <div>
                 <form >
                     <div className="containerHome">
-                        <label className="label"><b>Username</b></label>
+                        {/* <label className="label"><b>Username</b></label>
                         <input id="username" value={this.state.username} type="text" placeholder="Enter Username" onChange={this.handleChange} /> 
                         <br />
                         <label className="label"><b>Password</b></label>
                         <input id="password" value={this.state.password} type="password" placeholder="Enter Password" maxLength="8" onChange={this.handleChange}/>
 
-                        <button id="isButtonDisabled" type="button" onClick={this.login}>Login</button>
+                        <button id="isButtonDisabled" type="button" onClick={this.login}>Login</button> */}
                         {/* <button type="button" className="cancelbtn">Cancel</button>
                         <div className="createAccount">
                             <p onClick={this.createAcc}>Create account</p>                          
@@ -273,6 +277,13 @@ export default class HomePage extends Component {
                             <p onClick={this.resetPassword}>Forget password</p>  
                         </div> */}
 
+                        <HomePageBox id="username" value={this.state.username} title={'Username'} type="text" 
+                                    placeholder="Enter Username" onChange={this.handleChange} />
+
+                        <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
+                                    placeholder="Enter Password" maxLength="8" onChange={this.handleChange} />
+                        
+                        <ButtonLoginBox  id="isButtonDisabled" type="button" onClick={this.login} title={'Login'}/>
                         <div>
                             {dialogChangePassword}
                         </div>

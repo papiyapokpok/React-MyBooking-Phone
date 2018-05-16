@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './react_dates_overrides.css';
+import OncallBookingBox from './OncallBookingBox'
+import ButtonBookBox from '../button/ButtonBookBox'
 
 import 'react-dates/initialize';
 import { DateRangePicker, DateRangePickerWrapper } from 'react-dates';
@@ -14,8 +16,6 @@ import swal2 from 'sweetalert2';
 import AlertNull from '../dialog/AlertNull';
 
 export default class OncallBookingCom extends Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -65,6 +65,7 @@ export default class OncallBookingCom extends Component {
 
     onCallBooking = (e) => {
         e.preventDefault();
+        console.log('kakakakakakak')
         const staff_name = this.getCookie('staff_name')
         const oncallnumber = this.state.onCallNum
         const toDay = this.state.toDay.format('YYYY-MM-DD')
@@ -130,7 +131,6 @@ export default class OncallBookingCom extends Component {
         this.props.history.push('/menu')
     }
 
-
     render() {
 
         // console.log(this.props) 
@@ -147,49 +147,20 @@ export default class OncallBookingCom extends Component {
         return(
             <div>
                 <p>Today {this.state.toDay.format('DD-MM-YYYY')}</p>  
-                {/* <p>Hi, {this.getCookie('staff_name')}</p> */}
-                              
-                
                 <div style={{marginTop:'40px', textAlign:'center'}}>
-                
-                    <label className="container">HTC Eye One
-                        <input type="radio" id="oncall1" name="oncall" onClick={()=>{this.onCall(1)}}/>
-                        <span className="checkmark"></span>
-                    </label>
-                    <label className="container">Samsung A7
-                        <input type="radio" id="oncall2" name="oncall" onClick={()=>{this.onCall(2)}}/>
-                        <span className="checkmark"></span>
-                    </label>
-                    <div style={{marginTop:'20px'}}>
-                        {/* <DateRangePicker
-                        orientation="vertical" 
-                        verticalHeight={390}
-                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                        startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                        endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }) } // PropTypes.func.isRequired,
-                        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                        onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-                        minimumNights={0}
-                        readOnly={true}  
-                        /> */}
-                    </div>
-                    <div>
-                        <button className="bookButton" onClick={this.onCallBooking} >Comfirm</button>
-                    </div>
+                    <OncallBookingBox label={'HTC Eye One'} type="radio" id="oncall1" name="oncall" onClick={()=>{this.onCall(1)}}/>
+                    <OncallBookingBox label={'Samsung A7'} type="radio" id="oncall2" name="oncall" onClick={()=>{this.onCall(2)}}/>
+                    <ButtonBookBox className="bookButton" onClick={this.onCallBooking} title={'Book Now'}/>
+                    
+                </div> 
 
-                    <div>
-                        <div>
-                            <p>{this.setState.status}</p>
-                        </div>
-                    </div>
+                <div>
                     <div style={{textAlign: '-webkit-center'}}>
                         <div style={{marginTop:'30px'}}>
                             {AlertNullMessage}
                         </div>
-                    </div> 
-                </div>                
+                    </div>
+                </div>                                
             </div>
         )
     }

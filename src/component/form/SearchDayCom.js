@@ -10,6 +10,8 @@ import menuList from '../assets/imgs/menu-list.png';
 
 import MainMenuCom from '../menu/MainMenuCom'
 import MenuListBox from '../header/MenuListBox'
+import ButtonBookBox from '../button/ButtonBookBox'
+import TableViewBox from '../table/TableViewBox'
 
 import { PropTypes } from 'prop-types';
 
@@ -163,10 +165,10 @@ export default class SearchDayCom extends Component {
     dataRender = (data) => {
         return Object.keys(data).map(key => {
             return (
-                <tr key={key} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}><td>{data[key].oncallnumber}</td>
+                <tr key={key} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
+                    <td>{data[key].oncallnumber}</td>
                     <td>{data[key].oncalldate}</td>
                     <td style={{textAlign:'center'}}>{data[key].accountlog}</td>
-                    {/* <td onClick={() => this.del(data[key].idoncall_log)}>Del.</td> */}
                 </tr>
             );            
         });    
@@ -224,13 +226,19 @@ export default class SearchDayCom extends Component {
         dataValue = this.dataRender(data);
         rowCount = 'Total: ' + data.length ;
     } 
+
+    const tableHeader ={
+        border:'1px solid', 
+        backgroundColor:'rgb(25, 169, 241)',
+        paddingLeft:'4px'
+    };
         return(
             <div>
                 <div style={{textAlign:'-webkit-center'}}>
                     <DateRangePicker 
                         orientation="horizontal" 
                         // verticalHeight={330} 
-                        horizontalWidth={200}
+                        // horizontalWidth={200}
                         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
                         endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -247,28 +255,31 @@ export default class SearchDayCom extends Component {
                     />
                 </div>
                 <div>
-                    <button className="Search-Button" onClick={this.onSubmit} >Search</button>
+                    <ButtonBookBox className="Search-Button" onClick={this.onSubmit} title={'Search'} />
                 </div>
+
+
 
                 <div className="divTable">
                     <table className="tebleStyle" style={{border:'1px solid'}}>
                         <thead>
                             <tr>
-                                <th style={{border:'1px solid', backgroundColor:'rgb(25, 169, 241)',paddingLeft:'4px'}}>Oncall</th>
-                                <th style={{border:'1px solid', backgroundColor:'rgb(25, 169, 241)'}}>Date</th> 
-                                <th style={{border:'1px solid', backgroundColor:'rgb(25, 169, 241)'}}>Account</th>
-                                {/* <th style={{border:'1px solid', backgroundColor:'rgb(41, 236, 17)'}}>Cancel</th>                                 */}
+                                <th style={tableHeader}>Oncall</th>
+                                <th style={tableHeader}>Date</th> 
+                                <th style={tableHeader}>Account</th>
                             </tr>
                         </thead>
                         <tbody>
                             {dataValue}
                         </tbody>                            
                     </table>
-                    <div style={{textAlign:'right', padding:'18px', marginRight:'65px'}}>
-                        {rowCount}
-                    </div>
                 </div>
-            </div>                
+                
+                <div style={{textAlign:'right', padding:'18px', marginRight:'65px'}}>
+                        {rowCount}
+                </div>
+            </div> 
+                           
         )
     }
 }

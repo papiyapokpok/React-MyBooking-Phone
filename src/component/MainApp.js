@@ -5,7 +5,6 @@ import MyMenuCom from './menu/MyMenuCom'
 
 export default class MainApp extends Component {
     render() {
-        console.log(this.props)
         return (
             <div>
                 <HeaderCom {...this.props}/>
