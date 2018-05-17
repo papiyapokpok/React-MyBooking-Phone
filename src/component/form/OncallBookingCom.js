@@ -139,6 +139,7 @@ export default class OncallBookingCom extends Component {
         let AlertNullMessage = ''
         let classHide = '';
         let toDay = this.state.toDay
+        
         if(AlertNulls) {
             AlertNullMessage = <AlertNull title={defaultAlert} clickClose={this.clickClose} />
         }

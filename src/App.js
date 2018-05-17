@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Route, Switch } from 'react-router-dom';
-import logo from '../src/component/assets/imgs/asset-logo.png'
+// import logo from '../src/component/assets/imgs/asset-logo.png'
 
 import HeaderCom from './component/header/HeaderCom';
 import MenuListCom from './component/header/MenuListCom';
@@ -21,6 +21,7 @@ import SignOutCom from './component/form/SignOutCom'
 
 import { PropTypes } from 'prop-types'
 import swal from 'sweetalert'
+import AdminMenuCom from './component/menu/AdminMenuCom';
 
 
 class App extends Component {
@@ -51,12 +52,9 @@ static propTypes = {
             <Route path="/forgetpassword" component={ForgetpasswordCom} /> 
 
             <Route path="/mainmenu" component={MainMenuCom} /> 
-
+            <Route path="/adminmenu" component={AdminMenuCom} />
             
             {/* <Route path="/signout" component={SignOutCom} />  */}
-            
-
-            
                         
           </Switch>
           

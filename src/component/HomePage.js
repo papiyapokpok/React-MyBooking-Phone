@@ -25,6 +25,10 @@ export default class HomePage extends Component {
         this.handleChange = this.handleChange.bind(this);
         // this.passwordWrong = this.passwordWrong.bind(this);
     }
+   
+    static PropType = {
+        history: PropTypes.object,
+    }
 
     handleClick = () => {
         const clicks = this.state.clicks
@@ -219,10 +223,7 @@ export default class HomePage extends Component {
         console.log('reset form');
     }
     
-    
-    static PropType = {
-        history: PropTypes.object,
-    }
+
 
     createAcc = () => {
         this.props.history.push('/createAcc')

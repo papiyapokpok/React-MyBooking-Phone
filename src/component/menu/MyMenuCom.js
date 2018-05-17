@@ -8,11 +8,20 @@ import HeaderBox from '../header/HeaderBox'
 import OncallBookingCom from '../form/OncallBookingCom'
 import SignOutCom from '../form/SignOutCom'
 import Logout from '../lib/Logout'
-
+import AdminMenuCom from '../form/AdminMenuCom'
 
 import logo from '../assets/imgs/Kaidee-logo.png';
 
+import createAcc from '../HomePage'
+import HomePage from "../HomePage";
+
 class BasicExample extends Component {
+  constructor(props) {
+    super(props);
+    this.setState = {
+      admin: false
+    }
+  }
   
   signOut = () => {
     Logout.signOut()
@@ -36,23 +45,41 @@ class BasicExample extends Component {
   }
 
   render() {
+    // const { admin } = this.state
 
     console.log(this.props)
+    let hide = {
+      display: 'none'
+    }
+    let show = {
+      display: 'unset'
+    }
+    let admin = ''
+
+    const linkStyle = {
+      textDecoration: 'none',
+    }
+
+    if(this.getCookie('staff_name') == 'admin') {
+      admin = <Link to="/adminmenu" style={linkStyle}>&nbsp; : &nbsp; Admin</Link>
+    }
+
 
 
     return (
       <Router>
         <div>
             {/* <HeaderBox image={logo}/> */}
-                <div  style={{marginTop:'8px'}}>
+                <div  style={{marginTop:'8px', textAlign:'center', textDecoration: 'none'}}>
 
-                    <Link to="/menu">Booking</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
+                    <Link to="/menu" style={linkStyle} >Booking</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
 
-                    <Link to="/search">Report</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
+                    <Link to="/search" style={linkStyle} >Report</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
 
-                    <Link onClick={this.signOut} to="/out">Logout</Link> 
+                    <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>   
+                  
+                    {admin}
 
-                                  
                 </div>
         <hr />
         <p >Hi, {this.getCookie('staff_name')}  </p>              
@@ -61,7 +88,7 @@ class BasicExample extends Component {
           {/* <Route exact path="/" component={Home} /> */}
             <Route path="/menu" component={OncallBookingCom} />
             <Route path="/search" component={SearchDayCom} />
-            {/* <Route path="/out" component={SignOutCom} /> */}
+            <Route path="/adminmenu" component={AdminMenuCom} />
                 
         </div>
       </Router>
