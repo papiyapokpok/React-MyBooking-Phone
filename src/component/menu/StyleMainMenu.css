@@ -17,6 +17,18 @@
     
 }
 
+.divMonth {
+  /* list-style: none; */
+  border: 1px solid;
+  border-color: lightgrey;
+  text-align: center;
+  width: 210px;
+  height: 30px;
+  background-color: rgb(#eaeaea);
+  line-height: 3px;
+  margin-top: 30px;
+}
+
 .cname_ListMenu {
     position: absolute;
     top: -16px;

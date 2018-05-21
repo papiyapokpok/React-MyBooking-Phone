@@ -1,0 +1,137 @@
+.divContain {
+    width: 100%;
+    /* background-color: gray; */
+    height: 40px;
+}
+
+.kdLogo {
+    width: 120px;
+    float: left;
+    margin-left: 8px;
+}
+
+.bell {
+    width: 24px;
+    margin-top: 8px;
+    margin-right: 16px;
+}
+
+.chat {
+    margin-left: 24px;
+    width: 24px;
+    margin-top: 8px;
+}
+
+.labellBell {
+    margin-left: -13px;
+    top: -7px;
+    position: relative;
+    font-size: 14px;
+}
+
+.labellChat {
+    margin-left: 3px;
+    top: -7px;
+    position: relative;
+    font-size: 14px;
+}
+
+.login {
+    position: relative;
+    top: -6px;
+    margin-left: 20px;
+    font-size: 14px;
+    color: rgb(58, 58, 223);
+    
+}
+
+.or {
+    position: relative;
+    top: -6px;
+    margin-left: 10px;
+    font-size: 14px;
+    color: grey;
+}
+.sigin {
+    position: relative;
+    top: -6px;
+    margin-left: 10px;
+    font-size: 14px;
+    color: rgb(58, 58, 223);    
+}
+
+.sell {
+    /* position: relative;
+    top: -6px;
+    margin-left: 30px; */
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    border: 1px solid orange;
+    background-color: orange;
+    border-radius: 8px;
+}
+.divSell {
+    position: absolute;
+    width: 60px;
+    top: 105px;
+    right: 30px;
+    border: 1px solid orange;
+    border-radius: 30px;
+    line-height: 32px;
+    background-color: orange;
+}
+
+.right {
+    background-color: white; 
+    width:80%;
+    float:right;
+    height: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .bell {
+        width: 24px;
+        margin-top: 8px;
+        margin-right: 4px;
+        margin-left: -50px;
+    }
+    
+    /* .chat {
+        margin-left: 24px;
+        width: 24px;
+        margin-top: 8px;
+    } */
+
+    .labellBell {
+        display: none;
+    }
+    
+    .labellChat {
+        display: none;
+    }
+    .login {
+        display: none;
+    }
+    
+    .or {
+        display: none;
+    }
+    .sigin {
+        display: none;   
+    }
+
+    .right {
+        background-color: white; 
+        width:60%;
+        float:right;
+        height: 40px;
+    }
+
+    .left {
+        background-color: white;
+        width: 30%;
+        float: left;
+        height: 40px;
+    }
+}
