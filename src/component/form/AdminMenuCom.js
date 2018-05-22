@@ -45,7 +45,7 @@ export default class AdminMenuCom extends Component {
             numPages: null,
             pageNumber: 1,
             hide: true,
-            choose: 'Choose Month',
+            choose: 'Month',
             menu: false,            
             startDate: null,
             endDate: null,
@@ -53,7 +53,7 @@ export default class AdminMenuCom extends Component {
             onCallNum: null,
             bath:'',
             month: [
-                "",
+                "- Choose Month -",
                 "January",
                 "February",
                 "March",
@@ -149,15 +149,11 @@ export default class AdminMenuCom extends Component {
             }
         }
 
-
-
         show = () => {
             this.setState({
                 hide: !this.state.hide,
             })
         }
-
-
 
         dataRender = (data) => {
             
@@ -183,7 +179,7 @@ export default class AdminMenuCom extends Component {
             });    
         }
 
-        printDocument() {
+        savePDF() {
             console.log('Save to pdf')
             const input = document.getElementById('divToPrint');
 
@@ -195,7 +191,6 @@ export default class AdminMenuCom extends Component {
                     orientation: 'p',
                     unit: 'mm',
                     format: [210, 460],
-                    pageHeight: [300]
                 }
             );
                 pdf.addImage(imgData, 'JPEG', 0, 10);
@@ -214,9 +209,20 @@ export default class AdminMenuCom extends Component {
         }
 
         printReport = () => {
-            // this.setCookiePrint('print_status', 'print', 1)
-            window.print();
-            // this.afterPrint()
+            swal({
+                title: "Do you want to print?",
+                buttons: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                    window.location.reload(),40;
+                    window.print();
+                    this.afterPrint()                       
+                    
+                } else {
+                    this.afterPrint()                       
+                }
+              });
         }
 
         afterPrint = () => {   
@@ -242,12 +248,13 @@ export default class AdminMenuCom extends Component {
         }
     
         clickOnMe = (id, month) => {
+            this.setCookiePrint('print_status', 'print', 1)            
             this.setState({
                 monthSelect: id,
                 choose: month,  //วิธี setState
                 hide: true,
             })
-            this.getData(id)
+            this.getData(id)            
             console.log(id)
         }
          
@@ -320,42 +327,46 @@ export default class AdminMenuCom extends Component {
         width: '36mm'
     };
 
-    const chooseMonth = {
-        position: 'absolute',
-        top: '195px',
-        left: '139px',
-        fontWeight: 'bold'
-    }
     const superMainDiv = {
         textAlign: '-webkit-center',
-        // backgroundColor: 'white',
+        backgroundColor: 'white',
         width: '210mm',
         height: 'auto',
         minHeight: '297mm',
         marginLeft: 'auto',
         marginRight: 'auto',
         marginBottom: '10pt',
-        marginTop: '10pt',
+        marginTop: '1pt',
         lineBreaks:'51pt',
         lineHeight:'16pt',
         paddingBottom: '60px'
     }
+
+    const chooseMonth = {
+        width: '10%',
+        position: 'relative',
+        top: '30px',
+        left: '-333px',
+        textAlign: 'left',
+        paddingLeft: '63px',
+        fontWeight: 'bold'
+    }
     const printStyle = {
+        position: 'relative',        
         width: '30px',
-        position: 'absolute',
-        right: '45px',
-        top: '144px'
+        right: '-360px',
+        top: '88px'
     }
     const pdfStyle = {
+        position: 'relative',        
         width: '50px',
-        position: 'absolute',
-        right: '90px',
-        top: '135px'
+        right: '-276px',
+        top: '94px'
     }
         return(
-            <div style={{backgroundColor:'rgb(245, 245, 245)'}}>
+            <div style={{backgroundColor:'white'}}>
                 <img src={print} alt="print" style={printStyle} onClick={this.printReport}/>
-                <img src={pdf} alt="print" style={pdfStyle} onClick={this.printDocument}/>                
+                <img src={pdf} alt="print" style={pdfStyle} onClick={this.savePDF}/>                
 
                 <ul style={listMonth} className={classHide}>
                     {this.createMonths(this.state.month)}
@@ -364,7 +375,7 @@ export default class AdminMenuCom extends Component {
         <br />
             <div id="divToPrint" className="SupperMainDiv" style={superMainDiv}>
                 <div > 
-                    <h2 style={{paddingTop:'40px'}}>On Call Allowance Request Form</h2>
+                    <h2 style={{paddingTop:'0px', marginTop:'-8px'}}>On Call Allowance Request Form</h2>
                 </div>
                 <div style={chooseMonth}>
                     <p onClick={this.show} >{this.state.choose}</p>
@@ -403,12 +414,12 @@ export default class AdminMenuCom extends Component {
 
 const listMonth = {
     position: 'fixed',
-    top: '201px',
-    left: '126px',
-    backgroundColor: '#e2e2e2',
+    top: '265px',
+    left: '30.3%',
+    backgroundColor: 'rgb(253, 253, 253)',
     listStyle: 'none',
     paddingLeft: '0px',
     marginTop: '0.5px',
-    width: '145px',
+    width: '200px',
     textAlign: 'left'
 }

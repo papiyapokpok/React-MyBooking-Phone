@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import MenuListCom from '../header/MenuListCom'
@@ -11,6 +10,8 @@ import Logout from '../lib/Logout'
 import AdminMenuCom from '../form/AdminMenuCom'
 import MenuTest from '../Amenu/MenuTest'
 import print from '../assets/imgs/print.png'
+import listMenu from '../assets/imgs/menu-list.png'
+
 
 
 import logo from '../assets/imgs/Kaidee-logo.png';
@@ -18,7 +19,8 @@ import logo from '../assets/imgs/Kaidee-logo.png';
 import createAcc from '../HomePage'
 import HomePage from "../HomePage";
 
-class BasicExample extends Component {
+export default class MyMenuCom extends Component {
+
   constructor(props) {
     super(props);
     this.setState = {
@@ -27,12 +29,9 @@ class BasicExample extends Component {
       print: false,
       booking: false,
       report: false,
-      logout: false
+      logout: false,
+      menu: false
     }
-  }
-  
-  signOut = () => {
-    Logout.signOut()
   }
 
   getCookie = (cname) => {
@@ -48,9 +47,27 @@ class BasicExample extends Component {
         }              
     }              
   }
+  
+  signOut = () => {
+    Logout.signOut()
+  }
+
+  setCookieMenu = (cname, cvalue, exdays) => {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    // console.log(cvalue)
+  }
+
+  menuClickLeft = () => {
+    this.setCookieMenu({
+        menu: !this.state.menu
+    })
+}
 
   render() {
-    // const { admin } = this.state
+    // const { menu } = this.state
 
     console.log(this.props)
     let hide = {
@@ -65,9 +82,12 @@ class BasicExample extends Component {
     let booking = ''
     let report = ''
     let logout = ''
+    let menuView = ''
 
     const linkStyle = {
       textDecoration: 'none',
+      color:'white',
+      padding:'18px'
     }
 
     const printStyle = {
@@ -78,12 +98,19 @@ class BasicExample extends Component {
     }
 
     const menuStyle = {
-      marginTop:'8px', 
+      // marginTop:'8px', 
       textAlign:'center', 
       textDecoration: 'none'
     }
     const hideStyle = {
       display: 'none'
+    }
+    const divMenu = {
+      width:'100%',
+      height:'35px',
+      backgroundColor:'#191818e0',
+      color:'white',
+      lineHeight: '35px'
     }
 
   if(this.getCookie('print_status')) {
@@ -93,54 +120,39 @@ class BasicExample extends Component {
     report = <Link to="/search" style={hideStyle} >Report</Link> 
 
     logout = <Link onClick={this.signOut} to="/out" style={hideStyle} >Logout</Link> 
-  } else {
-    console.log('show')
 
+    admin = <Link to="/adminmenu" style={hideStyle}>Alowance</Link>
+    
+  } else if(this.getCookie('staff_name') == 'admin') {
     // test = <Link to="/test" style={linkStyle} >Test</Link>                                      
 
-    booking = <Link to="/menu" style={linkStyle} >Booking &nbsp;&nbsp; : &nbsp;&nbsp;</Link> 
+    menuView =<div style={divMenu}> 
+                  <Link to="/menu" style={linkStyle} >Booking</Link> 
+                  <Link to="/search" style={linkStyle} >Report</Link>
+                  <Link to="/adminmenu" style={linkStyle}>Alowance</Link>                   
+                  <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>
+            </div> 
 
-    report = <Link to="/search" style={linkStyle} >Report &nbsp;&nbsp; : &nbsp;&nbsp;</Link> 
+  
 
-    logout = <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout &nbsp;&nbsp; : &nbsp;&nbsp;</Link> 
-
+  } else {
+    menuView =<div style={divMenu}> 
+                  <Link to="/menu" style={linkStyle} >Booking</Link> 
+                  <Link to="/search" style={linkStyle} >Report</Link>
+                  <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>
+            </div> 
   }
-
-
-  if(  this.getCookie('print_status')) {
-    admin = <Link to="/adminmenu" style={hideStyle}>&nbsp; &nbsp; Alowance</Link>
-  }  
-  if(this.getCookie('staff_name') == 'admin') {
-    admin = <Link to="/adminmenu" style={linkStyle}>&nbsp;&nbsp; Alowance</Link>    
-  }
-
-
-
-
-
+ 
     return (
       <Router>
         <div>
+            {/* <p onClick={this.menuClickLeft}>Menu</p> */}
             <div id="menu"  style={menuStyle}>
 
-              {booking} 
-              {report} 
-              {logout} 
-              
-
-                {/* <Link to="/test" style={linkStyle} >Test</Link> &nbsp;&nbsp; : &nbsp;&nbsp;                                     
-
-                <Link to="/menu" style={linkStyle} >Booking</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
-
-                <Link to="/search" style={linkStyle} >Report</Link> &nbsp;&nbsp; : &nbsp;&nbsp; 
-
-                <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>    */}
-
-              
-                {admin}
+              {menuView} 
 
             </div>
-            <hr style={{border: '0.5px solid #dad9d9'}}/>
+            {/* <hr style={{border: '0.5px solid #dad9d9'}}/> */}
 
             <Route path="/menu" component={OncallBookingCom} />
             <Route path="/search" component={SearchDayCom} />
@@ -153,6 +165,4 @@ class BasicExample extends Component {
     );
   }
 }
-
-export default BasicExample;
 

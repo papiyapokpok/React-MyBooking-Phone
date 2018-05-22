@@ -9,6 +9,8 @@ import request from 'superagent';
 import swal from 'sweetalert';
 import './StyleHome.css'
 
+
+
 // import './StyleHome.css';
 
 export default class HomePage extends Component {
@@ -20,7 +22,9 @@ export default class HomePage extends Component {
             username: '',
             password: '',
             isButtonDisabled: false,
-            clicks: 0
+            clicks: 0,
+            menu: false
+
         }
         this.handleChange = this.handleChange.bind(this);
         // this.passwordWrong = this.passwordWrong.bind(this);
@@ -53,7 +57,6 @@ export default class HomePage extends Component {
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         // console.log(cvalue)
-    
     }
 
     getCookieLogin = (cname) => {
@@ -244,16 +247,17 @@ export default class HomePage extends Component {
     
     notLogin = () => {
         this.props.history.push('/')
-    }
-    
+    }    
 
     render() {
-        const { mainDialogReset } = this.state
+        const { mainDialogReset, menu} = this.state
         const {...res } = this.props
         let sample = this.state
         let dialogChangePassword = ''
         let classHide = ''
         let classShow = 'hide'
+
+        let menuView = ''
 
         if(mainDialogReset) {
             dialogChangePassword = <ForgetpasswordCom username={this.state.username} /> 
