@@ -81,7 +81,13 @@ export default class SearchDayCom extends Component {
 
     onSubmit =  (e) => {
         if(e) e.preventDefault();
-        this.getData()
+        const startDate = this.state.startDate
+        const endDate = this.state.endDate
+        if(startDate, endDate) {
+            this.getData()        
+        } else if(startDate, endDate == null){
+            swal('Please choose start date & end date for search')
+        } 
     }
 
     getData = () => {

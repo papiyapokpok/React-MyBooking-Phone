@@ -66,6 +66,23 @@ export default class MyMenuCom extends Component {
     })
 }
 
+getCookie = (cname) => {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+      }              
+  }
+  return "";
+  // window.location.reload(true); 
+  console.log               
+}
+
   render() {
     // const { menu } = this.state
 
@@ -83,6 +100,7 @@ export default class MyMenuCom extends Component {
     let report = ''
     let logout = ''
     let menuView = ''
+    let accView =''
 
     const linkStyle = {
       textDecoration: 'none',
@@ -121,7 +139,9 @@ export default class MyMenuCom extends Component {
 
     logout = <Link onClick={this.signOut} to="/out" style={hideStyle} >Logout</Link> 
 
-    admin = <Link to="/adminmenu" style={hideStyle}>Alowance</Link>
+    admin = <Link to="/adminmenu" style={hideStyle}>Allowance</Link>
+
+    accView = <p style={hideStyle}>Hi, {this.getCookie('staff_name')}</p>    
     
   } else if(this.getCookie('staff_name') == 'admin') {
     // test = <Link to="/test" style={linkStyle} >Test</Link>                                      
@@ -129,29 +149,32 @@ export default class MyMenuCom extends Component {
     menuView =<div style={divMenu}> 
                   <Link to="/menu" style={linkStyle} >Booking</Link> 
                   <Link to="/search" style={linkStyle} >Report</Link>
-                  <Link to="/adminmenu" style={linkStyle}>Alowance</Link>                   
+                  <Link to="/adminmenu" style={linkStyle}>Allowance</Link>                   
                   <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>
-            </div> 
-
-  
-
+              </div> 
+    accView = <p style={hideStyle}>Hi, {this.getCookie('staff_name')}</p>
   } else {
     menuView =<div style={divMenu}> 
                   <Link to="/menu" style={linkStyle} >Booking</Link> 
                   <Link to="/search" style={linkStyle} >Report</Link>
-                  <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>
-            </div> 
+                  <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link> 
+              </div> 
+    accView = <p>Hi, {this.getCookie('staff_name')}</p>
+             
   }
  
     return (
       <Router>
-        <div>
+        <div>   
+                 
             {/* <p onClick={this.menuClickLeft}>Menu</p> */}
             <div id="menu"  style={menuStyle}>
 
               {menuView} 
+              {accView}
 
             </div>
+            
             {/* <hr style={{border: '0.5px solid #dad9d9'}}/> */}
 
             <Route path="/menu" component={OncallBookingCom} />
