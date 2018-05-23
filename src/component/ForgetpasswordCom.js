@@ -11,7 +11,7 @@ export default class ForgetpasswordCom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props,
+            username: '',
             password: '',
             change: '',
         }
@@ -48,7 +48,7 @@ export default class ForgetpasswordCom extends Component {
 
     updatePassword = (event) => {
         event.preventDefault();        
-        const username = this.props.username
+        const username = this.state.username
         const password = this.state.password
         const payload = {
             username,
@@ -59,28 +59,37 @@ export default class ForgetpasswordCom extends Component {
             .set('content-type', 'application/json')
             .send(payload) 
             .end((err, res) => {
-                if(res.body.status === false) {
+
+                if(res.body.status == true) {
+                    console.log('Successsssssss')
+                    swal({
+                        title: 'You change password complete !',
+                        text: 'Please login again.',
+                        icon: "success",
+                        buttons: true,
+                      })
+                      .then((willDelete) => {
+                        if (willDelete) {
+                            this.setTimeout()
+                        } else {
+                            this.setTimeout()                                                
+                        }
+                      });
+                } else if(res.body.status == false) {
+                    console.log('faileddddddddddddd')
                     swal({
                         title: 'Failed !',
-                        text: 'Your cannot change new password.',
+                        text: 'No Account !',
                         // timer: 4000,
                         buttons:false
                     })
                 } 
-
-                if(res.body.status === true) {
-                    swal({
-                        title: 'You change password complete !',
-                        text: 'Please wait redirect to login again.',
-                        // timer: 9000,
-                        buttons:false                        
-                    })
-                    setTimeout(window.location.reload.bind(window.location), 4000);                     
-                }
             }, 'json')
     }
 
-
+    setTimeout = () => {
+        window.location.href = "/"; 
+    };
 
     
     
@@ -110,14 +119,14 @@ export default class ForgetpasswordCom extends Component {
 
 
                         <label className="label"><b>Username</b></label>
-                        <input id="username" defaultValue={this.props.username} type="text" readOnly/> 
+                        <input id="username" value={this.setState.username} type="text" placeholder="Input your account" onChange={this.handleChange}/> 
 
                         <br />
                         <label className="label"><b>Reset Password</b></label>
                         <input id="password" value={this.setState.password} maxLength="8" type="password" placeholder="Input your new Password (Maximum 8)"  onChange={this.handleChange}/>
 
                         <button type="button" onClick={this.updatePassword}>Comfirm</button>
-                        <button type="button" className="cancelbtn">Clear</button>
+                        <button type="reset"  className="cancelbtn">Clear</button>
                         
                     </div>
                 </form>

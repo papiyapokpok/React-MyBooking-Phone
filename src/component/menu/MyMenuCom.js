@@ -11,7 +11,7 @@ import AdminMenuCom from '../form/AdminMenuCom'
 import MenuTest from '../Amenu/MenuTest'
 import print from '../assets/imgs/print.png'
 import listMenu from '../assets/imgs/menu-list.png'
-
+import ForgetpasswordCom from '../ForgetpasswordCom'
 
 
 import logo from '../assets/imgs/Kaidee-logo.png';
@@ -181,6 +181,8 @@ getCookie = (cname) => {
             <Route path="/search" component={SearchDayCom} />
             <Route path="/adminmenu" component={AdminMenuCom} />
             <Route path="/test" component={MenuTest} />
+            <Route path="/forgetpassword" component={ForgetpasswordCom} />
+            
             
                 
         </div>
