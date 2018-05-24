@@ -23,8 +23,26 @@ import { PropTypes } from 'prop-types'
 import swal from 'sweetalert'
 import AdminMenuCom from './component/menu/AdminMenuCom';
 
+import { DB_CONFIG } from './config/config'
+// import firebase from 'firebase/app'
+import firebase from './firebase.js'
 
 class App extends Component {
+  constructor(props) {
+    super(props); 
+    // this.app = firebase.initializeApp(DB_CONFIG);
+    // this.db = this.app.database().ref().child('username', 'password');
+    this.state = {
+      username: 'name',
+      password: 'oooo'
+    }
+}
+
+handleChange(e) {
+  this.setState({
+    [e.target.username]: e.target.value
+  });
+}
 
 static propTypes = {
   history: PropTypes.object,
@@ -40,7 +58,7 @@ static propTypes = {
           
           <Switch>
             
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={HomePage} username={this.props.username} />
             <Route component={MyMenuCom} /> 
             
             <Route path="/menulist" component={MenuListCom} />

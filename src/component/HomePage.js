@@ -9,8 +9,8 @@ import request from 'superagent';
 import swal from 'sweetalert';
 import './StyleHome.css'
 
-
-
+import firebase from '../firebase.js'
+import App from '../App';
 // import './StyleHome.css';
 
 export default class HomePage extends Component {
@@ -27,9 +27,34 @@ export default class HomePage extends Component {
 
         }
         this.handleChange = this.handleChange.bind(this);
-        // this.passwordWrong = this.passwordWrong.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-   
+
+    handleChange(event) {
+        if(event.target.id === 'username') {
+            this.setState({username: event.target.value});
+            console.log({username: event.target.value})
+        } else if(event.target.id === 'password') { 
+            this.setState({password: event.target.value});
+            console.log({password: event.target.value})
+        }
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const itemsRef = firebase.database().ref('items');
+        const item = {
+          title: this.state.username,
+          user: this.state.password
+        }
+        itemsRef.push(item);
+        this.setState({
+            username: '',
+            password: ''
+        });
+      }
+
+
     static PropType = {
         history: PropTypes.object,
     }
@@ -121,15 +146,7 @@ export default class HomePage extends Component {
         return null;                       
     }
     
-    handleChange(event) {
-        if(event.target.id === 'username') {
-            this.setState({username: event.target.value});
-            console.log({username: event.target.value})
-        } else if(event.target.id === 'password') { 
-            this.setState({password: event.target.value});
-            console.log({password: event.target.value})
-        }
-    }
+
 
     setCookie = (cname, cvalue, exdays) => {
         var d = new Date();
@@ -288,7 +305,7 @@ export default class HomePage extends Component {
                         <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
                                     placeholder="Enter Password" maxLength="8" onChange={this.handleChange} />
                         
-                        <ButtonLoginBox  id="isButtonDisabled" type="button" onClick={this.login} title={'Login'}/>
+                        <ButtonLoginBox  id="isButtonDisabled" type="button" onClick={this.handleSubmit} title={'Login'}/>
                         <div>
                             {dialogChangePassword}
                         </div>
