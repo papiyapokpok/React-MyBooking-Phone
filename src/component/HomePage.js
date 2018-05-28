@@ -9,8 +9,10 @@ import request from 'superagent';
 import swal from 'sweetalert';
 import './StyleHome.css'
 
-import firebase from '../firebase.js'
+import firebase from '../firebase'
+import firebaseui from 'firebaseui'
 import App from '../App';
+import OncallBookingCom from './form/OncallBookingCom';
 // import './StyleHome.css';
 
 export default class HomePage extends Component {
@@ -19,8 +21,9 @@ export default class HomePage extends Component {
         super(props);
         this.state = {           
             mainDialogReset: false,            
-            username: '',
-            password: '',
+            // username: '',
+            // password: '',
+            email: '',
             isButtonDisabled: false,
             clicks: 0,
             menu: false
@@ -52,8 +55,56 @@ export default class HomePage extends Component {
             username: '',
             password: ''
         });
-      }
+    }
 
+    loginGoogle = () => {
+        console.log('Start')
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // console.log(user)
+            // console.log(user.email)
+
+            var aname = 'staff_name'
+            var avalue = user.email
+            var exdays = 1
+            console.log(aname)
+            console.log(avalue)
+            console.log(exdays)
+
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = aname + "=" + avalue + ";" + expires + ";path=/";
+            console.log(avalue)
+            window.location.href = "/"
+            this.componentDidMount()
+        // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            console.log(error)
+            
+          });
+    }
+
+    componentDidMount = () => {
+        const checkCookie = this.getCookie('staff_name')
+        if(checkCookie) {
+            this.loginSuccess()
+        } else {
+            this.notLogin()
+        }
+    }
 
     static PropType = {
         history: PropTypes.object,
@@ -81,7 +132,7 @@ export default class HomePage extends Component {
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        // console.log(cvalue)
+        console.log(cvalue)
     }
 
     getCookieLogin = (cname) => {
@@ -110,14 +161,7 @@ export default class HomePage extends Component {
 
     }
     
-    componentDidMount() {
-        const checkCookie = this.getCookie('staff_name')
-        if(checkCookie) {
-            this.loginSuccess()
-        } else {
-            this.notLogin()
-        }
-    }
+
 
     // onLaunchClicked = (event) => {
     //     // event.preventDefault();
@@ -165,6 +209,7 @@ export default class HomePage extends Component {
             password,
         }
         request
+
             .post('http://172.25.11.98/oncall/login.php')
             .set('content-type', 'application/json')
             .send(payload) 
@@ -298,14 +343,17 @@ export default class HomePage extends Component {
                         {/* <div className="forgetPassword">
                             <p onClick={this.resetPassword}>Forget password</p>  
                         </div> */}
+                        <div id={'firebaseui-auth-container'}>
+                        </div>
+                        
 
-                        <HomePageBox id="username" value={this.state.username} title={'Username'} type="text" 
+                        {/* <HomePageBox id="username" value={this.state.username} title={'Username'} type="text" 
                                     placeholder="Enter Username" onChange={this.handleChange} />
 
                         <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
-                                    placeholder="Enter Password" maxLength="8" onChange={this.handleChange} />
+                                    placeholder="Enter Password" maxLength="8" onChange={this.handleChange} /> */}
                         
-                        <ButtonLoginBox  id="isButtonDisabled" type="button" onClick={this.handleSubmit} title={'Login'}/>
+                        <ButtonLoginBox  id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin with Google'}/>
                         <div>
                             {dialogChangePassword}
                         </div>

@@ -15,6 +15,8 @@ import swal2 from 'sweetalert2';
 
 import AlertNull from '../dialog/AlertNull';
 
+import firebase from '../../firebase'
+
 export default class OncallBookingCom extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +28,7 @@ export default class OncallBookingCom extends Component {
             onCallNum: null,
             AlertNulls: false,
             defaultAlert: ['Please select oncall number'],
+            // db: firebase.firestore()
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
@@ -59,61 +62,132 @@ export default class OncallBookingCom extends Component {
             }              
         }
         return "";
-        // window.location.reload(true); 
-        console.log               
+        // window.location.reload(true);               
     }
-
     onCallBooking = (e) => {
-        e.preventDefault();
-        console.log('kakakakakakak')
-        const staff_name = this.getCookie('staff_name')
+        const email = this.getCookie('staff_name')
         const oncallnumber = this.state.onCallNum
-        const toDay = this.state.toDay.format('YYYY-MM-DD')
-        const payload = {
-            staff_name,
-            oncallnumber,
-            toDay,
-        }
-        if ( oncallnumber === null) {
-            // swal('Please select oncall! ');
-            this.setState({
-                AlertNulls: true,
-            })
-            console.log('Null')
-            return;
-        }
-        request
-            .post('http://172.25.11.98/oncall/bookOncall.php')
-            .set('content-type', 'application/json')
-            .send(payload)
-            .end((err, res) => {
-                // console.log(res.body.status)
-                if(res.body.status === true){
-                    swal({
-                        title: "Complete!",
-                        text: "You booking oncall done",
-                        icon: "success",
+        const toDay = new Date()
+        var db = firebase.firestore();
 
-                    })
-                }
-                
-                if(res.body.status === false) {
+        var start = new Date();
+        start.setHours(0, 0, 0, 0);
+        var end = new Date();
+        end.setHours(23, 59, 59, 999); 
+
+        console.log("start", start, "end", end, "num=", oncallnumber)
+        
+        db.collection("oncalllogs") 
+            .where('dateTime', '>', start)
+            .where('dateTime', '<', end)
+            .where('oncallnumber', '==', oncallnumber)                
+        .get()
+        .then(function(querySnapshot) {
+            console.log(querySnapshot)
+            
+            // 
+                if (querySnapshot.size > 0) {
+                    console.log(querySnapshot.docs[0].data())
+                    const numberName = querySnapshot.docs[0].data().oncallnumber
+                    const emailName = querySnapshot.docs[0].data().email
+                    
+                    var oncallCheckout=JSON.stringify(numberName) 
+                    var emailCheckout=JSON.stringify(emailName) 
+                    
                     swal({
-                        title: "Failed!",
-                        text: "You cannot booking oncall, please try again",
-                        icon: "failed",
+                        title:'This device has already been reserved.',
+                        text: 'OnCall Number: 0'+oncallCheckout+'\n'+'\n'+'Book by: '+emailCheckout,
+                        icon: "warning"
                     })
-                } 
-                
-                if(res.body.status === 'checkout') {
-                    swal({
-                        title: "Failed!",
-                        text: "This device has already been reserved.",
-                        icon: "warning",
-                    })
+                } else {
+                    // console.log('No Data')
+                    this.writeUserData(oncallnumber, email, toDay)
                 }
-            }, 'json')
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
     }
+
+
+
+    writeUserData(oncallnumber, email, toDay) {
+        // var db = firebase.firestore();
+        this.db.collection("oncalllogs").add({
+            oncallnumber: oncallnumber,
+            email: email,
+            dateTime: toDay
+        })
+        .then(function(docRef) {
+            // console.log("Document written with ID: ", docRef.id);
+            swal({
+                title: 'Complete',
+                text: "You booking oncall done",
+                icon:'success'
+            })
+        })
+        .catch(function(error) {
+            // console.error("Error adding document: ", error);
+            swal({
+                title: 'Failed',
+                text: "This device has already been reserved.",
+                icon:'failed'
+            })
+        });
+      }
+
+
+    // onCallBooking = (e) => {
+    //     e.preventDefault();
+    //     console.log('kakakakakakak')
+    //     const staff_name = this.getCookie('staff_name')
+    //     const oncallnumber = this.state.onCallNum
+    //     const toDay = this.state.toDay.format('YYYY-MM-DD')
+    //     const payload = {
+    //         staff_name,
+    //         oncallnumber,
+    //         toDay,
+    //     }
+    //     if ( oncallnumber === null) {
+    //         // swal('Please select oncall! ');
+    //         this.setState({
+    //             AlertNulls: true,
+    //         })
+    //         console.log('Null')
+    //         return;
+    //     }
+    //     request
+    //         .post('http://172.25.11.98/oncall/bookOncall.php')
+    //         .set('content-type', 'application/json')
+    //         .send(payload)
+    //         .end((err, res) => {
+    //             // console.log(res.body.status)
+    //             if(res.body.status === true){
+    //                 swal({
+    //                     title: "Complete!",
+    //                     text: "You booking oncall done",
+    //                     icon: "success",
+
+    //                 })
+    //             }
+                
+    //             if(res.body.status === false) {
+    //                 swal({
+    //                     title: "Failed!",
+    //                     text: "You cannot booking oncall, please try again",
+    //                     icon: "failed",
+    //                 })
+    //             } 
+                
+    //             if(res.body.status === 'checkout') {
+    //                 swal({
+    //                     title: "Failed!",
+    //                     text: "This device has already been reserved.",
+    //                     icon: "warning",
+    //                 })
+    //             }
+    //         }, 'json')
+    // }
 
     onCall = (e) => {
         this.state.onCallNum = e
