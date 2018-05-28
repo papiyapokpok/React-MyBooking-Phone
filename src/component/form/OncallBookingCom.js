@@ -64,6 +64,7 @@ export default class OncallBookingCom extends Component {
         return "";
         // window.location.reload(true);               
     }
+
     onCallBooking = (e) => {
         const email = this.getCookie('staff_name')
         const oncallnumber = this.state.onCallNum
@@ -75,7 +76,7 @@ export default class OncallBookingCom extends Component {
         var end = new Date();
         end.setHours(23, 59, 59, 999); 
 
-        console.log("start", start, "end", end, "num=", oncallnumber)
+        console.log("start", start, "end", end, "num=", oncallnumber)        
         
         db.collection("oncalllogs") 
             .where('dateTime', '>', start)
@@ -84,8 +85,6 @@ export default class OncallBookingCom extends Component {
         .get()
         .then(function(querySnapshot) {
             console.log(querySnapshot)
-            
-            // 
                 if (querySnapshot.size > 0) {
                     console.log(querySnapshot.docs[0].data())
                     const numberName = querySnapshot.docs[0].data().oncallnumber
@@ -101,7 +100,31 @@ export default class OncallBookingCom extends Component {
                     })
                 } else {
                     // console.log('No Data')
-                    this.writeUserData(oncallnumber, email, toDay)
+                    // this.writeUserData(oncallnumber, email, toDay)
+
+                        var db = firebase.firestore();
+                        db.collection("oncalllogs").add({
+                            oncallnumber: oncallnumber,
+                            email: email,
+                            dateTime: toDay
+                        })
+                        .then(function(docRef) {
+                            // console.log("Document written with ID: ", docRef.id);
+                            swal({
+                                title: 'Complete',
+                                text: "You booking oncall done",
+                                icon:'success'
+                            })
+                        })
+                        .catch(function(error) {
+                            // console.error("Error adding document: ", error);
+                            swal({
+                                title: 'Failed',
+                                text: "This device has already been reserved.",
+                                icon:'failed'
+                            })
+                        });
+
                 }
         })
         .catch(function(error) {
@@ -111,30 +134,31 @@ export default class OncallBookingCom extends Component {
 
 
 
-    writeUserData(oncallnumber, email, toDay) {
-        // var db = firebase.firestore();
-        this.db.collection("oncalllogs").add({
-            oncallnumber: oncallnumber,
-            email: email,
-            dateTime: toDay
-        })
-        .then(function(docRef) {
-            // console.log("Document written with ID: ", docRef.id);
-            swal({
-                title: 'Complete',
-                text: "You booking oncall done",
-                icon:'success'
-            })
-        })
-        .catch(function(error) {
-            // console.error("Error adding document: ", error);
-            swal({
-                title: 'Failed',
-                text: "This device has already been reserved.",
-                icon:'failed'
-            })
-        });
-      }
+    // writeUserData = () => {
+    //     console.log("oncallnumber",oncallnumber, "email", email, "toDay", toDay, )                    
+    //     var db = firebase.firestore();
+    //     this.db.collection("oncalllogs").add({
+    //         oncallnumber: oncallnumber,
+    //         email: email,
+    //         dateTime: toDay
+    //     })
+    //     .then(function(docRef) {
+    //         // console.log("Document written with ID: ", docRef.id);
+    //         swal({
+    //             title: 'Complete',
+    //             text: "You booking oncall done",
+    //             icon:'success'
+    //         })
+    //     })
+    //     .catch(function(error) {
+    //         // console.error("Error adding document: ", error);
+    //         swal({
+    //             title: 'Failed',
+    //             text: "This device has already been reserved.",
+    //             icon:'failed'
+    //         })
+    //     });
+    //   }
 
 
     // onCallBooking = (e) => {

@@ -14,6 +14,9 @@ import ButtonBookBox from '../button/ButtonBookBox'
 import TableViewBox from '../table/TableViewBox'
 
 import { PropTypes } from 'prop-types';
+import moment from 'moment'
+
+import firebase from '../../firebase'
 
 export default class SearchDayCom extends Component {
     constructor(props) {
@@ -24,6 +27,7 @@ export default class SearchDayCom extends Component {
             endDate: null,
             focusedInput: null,
             onCallNum: null,
+            load: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
     }
@@ -78,6 +82,46 @@ export default class SearchDayCom extends Component {
         // window.location.reload(true); 
         console.log               
     }
+
+    onCallSearch = (e) => {
+        if(!this.state.startDate && !this.state.endtDate) {
+            swal({
+                title:'Please input start date & end date for search'
+            })
+        } else {
+ 
+            const email = this.getCookie('staff_name')
+            const oncallnumber = this.state.onCallNum
+            var db = firebase.firestore();
+            var start = this.state.startDate.toDate();
+            var end = this.state.endDate.toDate();
+
+            this.setState({data: ''})
+            this.setState({load: true})
+
+            db.collection("oncalllogs") 
+                .where('dateTime', '>', start)
+                .where('dateTime', '<', end) 
+                .where('email', '==', email)
+            .onSnapshot((querySnapshot) => {
+                var data = [];
+                if(querySnapshot.size > 0) {
+                    querySnapshot.forEach((querySnapshot) => {
+                        data.push(querySnapshot.data())
+                    });
+                    this.setState({
+                        data,
+                    })
+                    this.setState({load: false})
+                } else {
+                    swal('No booking on search')
+                    this.setState({load: false})                
+                } 
+            });
+        }
+    
+    }
+
 
     onSubmit =  (e) => {
         if(e) e.preventDefault();
@@ -169,17 +213,16 @@ export default class SearchDayCom extends Component {
     }
 
     dataRender = (data) => {
-        return Object.keys(data).map(key => {
+        return data.map((e, i) => {
             return (
-                <tr key={key} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
-                    <td>{data[key].oncallnumber}</td>
-                    <td>{data[key].oncalldate}</td>
-                    <td style={{textAlign:'center'}}>{data[key].accountlog}</td>
+                <tr key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
+                    <td>{e.oncallnumber}</td>
+                    <td>{moment(e.dateTime).format('Y-MM-DD')}</td>
+                    <td style={{textAlign:'center'}}>{e.email}</td>
                 </tr>
             );            
         });    
     }
-
 
     static propTypes = {
         history: PropTypes.object,
@@ -224,13 +267,18 @@ export default class SearchDayCom extends Component {
     }
 
     render() {
+    const { startDate, endDate, data, menu, load } =this.state
+    
+    let loading = ''
+    if(load) {
+        loading = `Now loading...`
+    }
 
-    const { startDate, endDate, data, menu } =this.state  
     let dataValue = '';
     let rowCount = 'Total: 0';
-    if(data) {
+    if (data) {
         dataValue = this.dataRender(data);
-        rowCount = 'Total: ' + data.length ;
+        rowCount = `Total:  ${data.length} `;  //วิธีการต่อ String
     } 
 
     const tableHeader ={
@@ -261,10 +309,8 @@ export default class SearchDayCom extends Component {
                     />
                 </div>
                 <div>
-                    <ButtonBookBox className="Search-Button" onClick={this.onSubmit} title={'Search'} />
+                    <ButtonBookBox className="Search-Button" onClick={this.onCallSearch} title={'Search'} />
                 </div>
-
-
 
                 <div className="divTable">
                     <table className="tebleStyle" style={{border:'1px solid'}}>
@@ -275,11 +321,14 @@ export default class SearchDayCom extends Component {
                                 <th style={tableHeader}>Account</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                            
                             {dataValue}
                         </tbody>                            
                     </table>
-                </div>
+                </div><br />
+
+                {loading}
+                
                 
                 <div style={{textAlign:'right', padding:'18px', marginRight:'65px'}}>
                         {rowCount}

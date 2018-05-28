@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import firebase from '../../firebase'
 
-
 export default class SignOutCom extends Component {
 
     static propTypes = {

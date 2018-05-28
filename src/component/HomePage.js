@@ -8,6 +8,7 @@ import { PropTypes } from 'prop-types';
 import request from 'superagent';
 import swal from 'sweetalert';
 import './StyleHome.css'
+import glogin from './assets/imgs/glogin.png'
 
 import firebase from '../firebase'
 import firebaseui from 'firebaseui'
@@ -19,24 +20,23 @@ export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {           
+        this.state = {          
             mainDialogReset: false,            
             // username: '',
+            // email: '',            
             // password: '',
-            email: '',
             isButtonDisabled: false,
             clicks: 0,
-            menu: false
-
+            menu: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        if(event.target.id === 'username') {
-            this.setState({username: event.target.value});
-            console.log({username: event.target.value})
+        if(event.target.id === 'email') {
+            this.setState({email: event.target.value});
+            console.log({email: event.target.value})
         } else if(event.target.id === 'password') { 
             this.setState({password: event.target.value});
             console.log({password: event.target.value})
@@ -55,7 +55,7 @@ export default class HomePage extends Component {
             username: '',
             password: ''
         });
-    }
+    }  
 
     loginGoogle = () => {
         console.log('Start')
@@ -70,7 +70,7 @@ export default class HomePage extends Component {
 
             var aname = 'staff_name'
             var avalue = user.email
-            var exdays = 1
+            var exdays = 0.5
             console.log(aname)
             console.log(avalue)
             console.log(exdays)
@@ -201,7 +201,7 @@ export default class HomePage extends Component {
     }
 
     login = (event) => {
-        event.preventDefault();        
+        event.preventDefault();      
         const username = this.state.username
         const password = this.state.password
         const payload = {
@@ -312,7 +312,7 @@ export default class HomePage extends Component {
     }    
 
     render() {
-        const { mainDialogReset, menu} = this.state
+        const { mainDialogReset, menu, load} = this.state
         const {...res } = this.props
         let sample = this.state
         let dialogChangePassword = ''
@@ -320,7 +320,11 @@ export default class HomePage extends Component {
         let classShow = 'hide'
 
         let menuView = ''
-
+        let loading = ''
+        if(load) {
+            loading = `Now loading...`
+        }
+        
         if(mainDialogReset) {
             dialogChangePassword = <ForgetpasswordCom username={this.state.username} /> 
         }
@@ -343,17 +347,16 @@ export default class HomePage extends Component {
                         {/* <div className="forgetPassword">
                             <p onClick={this.resetPassword}>Forget password</p>  
                         </div> */}
-                        <div id={'firebaseui-auth-container'}>
+                        <div id={'firebaseui-auth-container'} >
+                            {/* <HomePageBox id="email" value={this.state.email} title={'Email'} type="text" 
+                                        placeholder="Enter Email" onChange={this.handleChange} />
+
+                            <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
+                                        placeholder="Enter Password" maxLength="8" onChange={this.handleChange} /> */}
+                            
+                            <img style={{width:'240px'}} src={glogin} id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin with Google'}/>
                         </div>
                         
-
-                        {/* <HomePageBox id="username" value={this.state.username} title={'Username'} type="text" 
-                                    placeholder="Enter Username" onChange={this.handleChange} />
-
-                        <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
-                                    placeholder="Enter Password" maxLength="8" onChange={this.handleChange} /> */}
-                        
-                        <ButtonLoginBox  id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin with Google'}/>
                         <div>
                             {dialogChangePassword}
                         </div>
