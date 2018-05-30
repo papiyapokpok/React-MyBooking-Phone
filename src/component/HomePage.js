@@ -28,10 +28,23 @@ export default class HomePage extends Component {
             isButtonDisabled: false,
             clicks: 0,
             menu: false,
+            error: '', 
+            load: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    // componentWillMount = () => {
+    //     firebase.initializeApp({
+    //         apiKey: "AIzaSyDx3NphbbNrXRDKd7tH3AnO4tK9sXEl_6w",
+    //         authDomain: "my-oncall-69.firebaseapp.com",
+    //         databaseURL: "https://my-oncall-69.firebaseio.com",
+    //         projectId: "my-oncall-69",
+    //         storageBucket: "my-oncall-69.appspot.com",
+    //         messagingSenderId: "8354579435"
+    //     })
+    // }
 
     handleChange(event) {
         if(event.target.id === 'email') {
@@ -57,75 +70,21 @@ export default class HomePage extends Component {
         });
     }  
 
-
-    loginGoogle = () => {        
-        var provider = new firebase.auth.GoogleAuthProvider();
-        var email = this.state.email
-        var password = this.state.password
-
-        firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
-                // Handle Errors here.
-                console.log(email)
-                console.log(password)
-
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var user = firebase.auth().currentUser;
-                var name, email, photoUrl, uid, emailVerified;
-
-                console.log(user)
-
-                if (user != null) {
-                name = user.displayName;
-                email = user.email;
-                photoUrl = user.photoURL;
-                emailVerified = user.emailVerified;
-                uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                                // this value to authenticate with your backend server, if
-                                // you have one. Use User.getToken() instead.
-                }
-            });
+    loginGoogle = () => {
+        this.setState({ error: '', load: true });
+        const { email, password } = this.state;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+            this.setState({ error: '', load: true });
+            this.setCookieLogin('staff_name', email, 1) 
+            this.loginSuccess()
+            this.setState({load: false}) 
+        }) 
+        .catch(() => {
+            swal('Password is wrong')
+            this.setState({load: false})
+        });
     }
-
-    // loginGoogle = () => {
-    //     console.log('Start')
-    //     var provider = new firebase.auth.GoogleAuthProvider();
-    //     firebase.auth().signInWithPopup(provider).then(function(result) {
-    //         // This gives you a Google Access Token. You can use it to access the Google API.
-    //         var token = result.credential.accessToken;
-    //         // The signed-in user info.
-    //         var user = result.user;
-    //         // console.log(user)
-    //         // console.log(user.email)
-
-    //         var aname = 'staff_name'
-    //         var avalue = user.email
-    //         var exdays = 0.5
-    //         console.log(aname)
-    //         console.log(avalue)
-    //         console.log(exdays)
-
-    //         var d = new Date();
-    //         d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    //         var expires = "expires="+ d.toUTCString();
-    //         document.cookie = aname + "=" + avalue + ";" + expires + ";path=/";
-    //         console.log(avalue)
-    //         window.location.href = "/"
-    //         this.componentDidMount()
-    //     // ...
-    //       }).catch(function(error) {
-    //         // Handle Errors here.
-    //         var errorCode = error.code;
-    //         var errorMessage = error.message;
-    //         // The email of the user's account used.
-    //         var email = error.email;
-    //         // The firebase.auth.AuthCredential type that was used.
-    //         var credential = error.credential;
-    //         // ...
-    //         console.log(error)
-            
-    //       });
-    // }
 
     componentDidMount = () => {
         const checkCookie = this.getCookie('staff_name')
@@ -339,6 +298,13 @@ export default class HomePage extends Component {
     render() {
         const { mainDialogReset, menu, load} = this.state
         const {...res } = this.props
+        const loadingStyle = {
+            position: 'absolute',
+            paddingTop: '50%',
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'white'
+        }
         let sample = this.state
         let dialogChangePassword = ''
         let classHide = ''
@@ -347,7 +313,7 @@ export default class HomePage extends Component {
         let menuView = ''
         let loading = ''
         if(load) {
-            loading = `Now loading...`
+            loading = <h2 style={loadingStyle}>Now loading...</h2>
         }
         
         if(mainDialogReset) {
@@ -356,6 +322,7 @@ export default class HomePage extends Component {
 
         return (
             <div>
+                {loading}
                 <form >
                     <div className="containerHome">
                         {/* <label className="label"><b>Username</b></label>

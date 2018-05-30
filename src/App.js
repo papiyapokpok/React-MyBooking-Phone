@@ -76,8 +76,11 @@ signOut = () => {
   }).catch(function(error) {
     // An error happened.
   });
+}
 
 
+homePage() {
+  window.location.href = '/'
 }
 
 show = () => {
