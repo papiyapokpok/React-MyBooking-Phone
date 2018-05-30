@@ -346,7 +346,7 @@ export default class HomePage extends Component {
                             <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
                                         placeholder="Enter Password" maxLength="8" onChange={this.handleChange} />
                             
-                            <img style={{width:'240px'}} src={glogin} id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin with Google'}/>
+                            <ButtonLoginBox id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin'}/>
                         </div>
                         
                         <div>

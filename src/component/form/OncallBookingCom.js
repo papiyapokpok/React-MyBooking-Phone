@@ -78,58 +78,88 @@ export default class OncallBookingCom extends Component {
         start.setHours(0, 0, 0, 0);
         var end = new Date();
         end.setHours(23, 59, 59, 999); 
-        
-        db.collection("oncalllogs") 
-            .where('dateTime', '>', start)
-            .where('dateTime', '<', end)
-            .where('oncallnumber', '==', oncallnumber)                
-        .get()
-        .then((querySnapshot) => {
-            this.setState({load: false})
-            
-                if (querySnapshot.size > 0) {                    
-                    console.log(querySnapshot.docs[0].data())
-                    const numberName = querySnapshot.docs[0].data().oncallnumber
-                    const emailName = querySnapshot.docs[0].data().email
-                    
-                    var oncallCheckout=JSON.stringify(numberName) 
-                    var emailCheckout=JSON.stringify(emailName) 
-                    
-                    swal({
-                        title:'This device has already been reserved.',
-                        text: 'OnCall Number: 0'+oncallCheckout+'\n'+'\n'+'Book by: '+emailCheckout,
-                        icon: "warning"
-                    })
-                } else {
-
-                    var db = firebase.firestore();
-                    db.collection("oncalllogs").add({
-                        oncallnumber: oncallnumber,
-                        email: email,
-                        dateTime: toDay
-                    })
-                    .then((docRef) => {
-                        // console.log("Document written with ID: ", docRef.id);
-                        swal({
-                            title: 'Complete',
-                            text: "You booking oncall done",
-                            icon:'success'
-                        })
-                    })
-                    .catch((error) => {
-                        // console.error("Error adding document: ", error);
-                        swal({
-                            title: 'Failed',
-                            text: "This device has already been reserved.",
-                            icon:'failed'
-                        })
-                    });
+        if(oncallnumber == null ) {
+            console.log('Failed, please select number')
+            swal({
+                title:'Cannot booking now!',
+                text:'Please select oncall number!',
+                icon: "warning",
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    this.setState({load: false})
                 }
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
-        
+            })
+        } else {
+            db.collection("oncalllogs") 
+                .where('dateTime', '>', start)
+                .where('dateTime', '<', end)
+                .where('oncallnumber', '==', oncallnumber)                
+            .get()
+            .then((querySnapshot) => {
+                
+                    if (querySnapshot.size > 0) {                    
+                        // console.log(querySnapshot.docs[0].data())
+                        const numberName = querySnapshot.docs[0].data().oncallnumber
+                        const emailName = querySnapshot.docs[0].data().email
+                        
+                        var oncallCheckout=JSON.stringify(numberName) 
+                        var emailCheckout=JSON.stringify(emailName) 
+                        var dateCheckout= moment() .format('Y-MM-DD')
+                        
+                        swal({
+                            title:'This device has already been reserved.',
+                            text: 'Date '+dateCheckout+'\n'+'\n' + 'OnCall Number: 0'+oncallCheckout+'\n'+'\n'+'Book by: '+emailCheckout,
+                            icon: "warning",
+                            dangerMode:'true',
+                            buttons: 'Done'
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                this.setState({load: false})
+                            }
+                        })
+                    } else {
+
+                        var db = firebase.firestore();
+                        db.collection("oncalllogs").add({
+                            oncallnumber: oncallnumber,
+                            email: email,
+                            dateTime: toDay
+                        })
+                        .then((docRef) => {
+                            // console.log("Document written with ID: ", docRef.id);
+                            swal({
+                                title: 'Complete',
+                                text: "You booking oncall done",
+                                icon:'success'
+                            })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    this.setState({load: false})
+                                }
+                            })
+                        })
+                        .catch((error) => {
+                            // console.error("Error adding document: ", error);
+                            swal({
+                                title: 'Failed',
+                                text: "This device has already been reserved.",
+                                icon: "warning",
+                            })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    this.setState({load: false})
+                                }
+                            })
+                        });
+                    }
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });            
+        }        
     }
 
     onCall = (e) => {

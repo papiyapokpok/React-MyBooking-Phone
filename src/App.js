@@ -38,17 +38,9 @@ class App extends Component {
       menu: false,
       img: false,
       logout: false,
-      
+      load: false
     }
 }
-
-// componentDidMount = () => {
-//   if(window.location.href.indexOf("/") > -1) {
-//     this.setState({img: false})
-//  } else {
-//     this.setState({img: true})
-//  }
-// }
 
 handleChange(e) {
   this.setState({
@@ -62,6 +54,8 @@ static propTypes = {
 
 signOut = () => {
   // Logout.signOut()
+  this.show()
+  this.setState({load: true})
   firebase.auth().signOut().then(() => {
     // Sign-out successful.
     var cookies = document.cookie.split(";");
@@ -71,8 +65,9 @@ signOut = () => {
         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = 'staff_name=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
-
     this.homePage()
+    // this.setState({load: false})
+    
   }).catch(function(error) {
     // An error happened.
   });
@@ -108,7 +103,7 @@ getCookie = (cname) => {
 
 
   render() {
-    const { menu, book, img } = this.state
+    const { menu, book, img, load } = this.state
 
     const menuStyle = {
       width: '32px',
@@ -121,7 +116,7 @@ getCookie = (cname) => {
       height: '100%',
       position: 'absolute',
       top: '56px',
-      backgroundColor: 'rgb(108, 110, 111)',
+      backgroundColor: 'rgb(36, 153, 212)',
       zIndex: '999',
       textAlign: 'left',
       paddingLeft: '16px',
@@ -157,30 +152,58 @@ getCookie = (cname) => {
       bottom: '60px',
 
     }
+    const loadingStyle = {
+      position: 'absolute',
+      paddingTop: '50%',
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'white'
+    }
+    let loading =''
+    if(load) {
+      loading = <h2 style={loadingStyle}>Now loading...</h2>
+    }
 
     if(this.getCookie('staff_name')) {
       imgMenu = <img src={menuDraw} style={menuStyle} onClick={this.show}/>
-      
     }
     if(menu) {
-      menuList = (
-        <div>
-          <div style={listMenu}> 
-          <br />
-            <Link to="/home" style={linkStyle} onClick={this.show} >Booking</Link> <br />
-            <Link to="/search" style={linkStyle} onClick={this.show} >Report</Link><br />
-            <Link to="/allowance" style={linkStyle} onClick={this.show} >Allowance</Link> <br />                  
-            <Link to="admin" style={linkStyle} onClick={this.show} >Admin</Link><br />
-            <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link><br />
-            <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
+      if(this.getCookie('staff_name') == 'sretthakan.t@kaidee.com') {
+        menuList = (
+          <div>
+            <div style={listMenu}> 
+            <br />
+              <Link to="/home" style={linkStyle} onClick={this.show} >Booking</Link> <br />
+              <Link to="/search" style={linkStyle} onClick={this.show} >Report</Link><br />
+              <Link to="/allowance" style={linkStyle} onClick={this.show} >Allowance</Link> <br />                  
+              <Link to="admin" style={linkStyle} onClick={this.show} >Admin</Link><br />
+              <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link><br />
+              <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
+            </div>
+            <div  style={overlayStyle} onClick={this.show}/>
           </div>
-          <div  style={overlayStyle} onClick={this.show}/>
-        </div>
-      )
+        )
+      } else {
+        menuList = (
+          <div>
+            <div style={listMenu}> 
+            <br />
+              <Link to="/home" style={linkStyle} onClick={this.show} >Booking</Link> <br />
+              <Link to="/search" style={linkStyle} onClick={this.show} >Report</Link><br />
+              {/* <Link to="/allowance" style={linkStyle} onClick={this.show} >Allowance</Link> <br />                   */}
+              {/* <Link to="admin" style={linkStyle} onClick={this.show} >Admin</Link><br /> */}
+              <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link><br />
+              <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
+            </div>
+            <div  style={overlayStyle} onClick={this.show}/>
+          </div>
+        )
+      }
     }
 
     return (
       <div className="App">
+        {loading}
         <header className="App-header"> {this.props.children}  
           {imgMenu}                
           <Route component={MainApp} />
