@@ -28,7 +28,7 @@ const centerStyle = {
     border: '1px solid black'
 };
 
-export default class AdminMenuCom extends Component {
+export default class AllowanceCom extends Component {
     
     static PropType = {
         history: PropTypes.object,
@@ -68,6 +68,7 @@ export default class AdminMenuCom extends Component {
                 "December",
 
             ],
+            print: true,
         };
         this.handleSubmit = this.handleSubmit.bind(this); 
     }
@@ -156,7 +157,6 @@ export default class AdminMenuCom extends Component {
         }
 
         dataRender = (data) => {
-            
             return Object.keys(data).map(key => {
                 return (
                     <tr key={key} >
@@ -209,24 +209,23 @@ export default class AdminMenuCom extends Component {
         }
 
         printReport = () => {
+            
             swal({
                 title: "Do you want to print?",
                 buttons: true,
               })
               .then((willDelete) => {
                 if (willDelete) {
-                    window.location.reload(),40;
                     window.print();
                     this.afterPrint()                       
-                    
                 } else {
+                    this.setState({})
                     this.afterPrint()                       
                 }
               });
         }
 
-        afterPrint = () => {   
-            window.location.href = "/adminmenu"         
+        afterPrint = () => {           
             var cookies = document.cookie.split(";");
             for (var i = 0; i < cookies.length; i++) {
                 var cookie = cookies[i];

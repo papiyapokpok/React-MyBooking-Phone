@@ -134,77 +134,36 @@ export default class SearchDayCom extends Component {
         } 
     }
 
-    getData = () => {
+    // getData = () => {
        
-        const staff_name = this.getCookie('staff_name') 
-        const startDate = this.state.startDate.format('YYYY-MM-DD')
-        const endDate = this.state.endDate.format('YYYY-MM-DD')  
+    //     const staff_name = this.getCookie('staff_name') 
+    //     const startDate = this.state.startDate.format('YYYY-MM-DD')
+    //     const endDate = this.state.endDate.format('YYYY-MM-DD')  
         
-        if(startDate) {
-            const payload = {
-                staff_name,
-                startDate,
-                endDate,
-            }
-            request
-                .post('http://172.25.11.98/oncall/searchDate.php')
-                .set('content-type', 'applecation/json')
-                .send(payload)
-                .end((err, res) => {
-                    // console.log(payload)
-                if(res.body.status === false) {
-                    swal('คุณไม่ได้ถือ OnCall เลยในเดือนนี้ ');
-                    this.setState({
-                        choose: 'Choose Month',
-                    })
-                }
-                this.setState({data: res.body})
-            })
-        } else {
-            swal("Please choose date for search.");
-        }
-    }
-
-    del = (id) => {
-        const idLog = id
-        // console.log(idLog)
-        const payload = {
-            idLog,
-        }
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this data!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-
-                request
-                .post('http://172.25.11.98/deleteDate.php')
-                .set('content-type', 'applecation/json')
-                .send(payload)
-                .end((err, res) => {
-                    console.log(res)
-
-                    if(res.body.status === false) {
-                        swal('คุณไม่สามารถยกเลิกวันที่ผ่านมาแล้วได้');
-                        this.getData()                 
-                    } else {
-                        swal("Poof! Your data file has been deleted!", {
-                            icon: "success",
-                        });
-                    }
-                })  
-              this.getData()
-            } else {
-              swal("Your imaginary file is safe!");
-              this.getData()            
-              return false;
-            }
-          });          
-    }
+    //     if(startDate) {
+    //         const payload = {
+    //             staff_name,
+    //             startDate,
+    //             endDate,
+    //         }
+    //         request
+    //             .post('http://172.25.11.98/oncall/searchDate.php')
+    //             .set('content-type', 'applecation/json')
+    //             .send(payload)
+    //             .end((err, res) => {
+    //                 // console.log(payload)
+    //             if(res.body.status === false) {
+    //                 swal('คุณไม่ได้ถือ OnCall เลยในเดือนนี้ ');
+    //                 this.setState({
+    //                     choose: 'Choose Month',
+    //                 })
+    //             }
+    //             this.setState({data: res.body})
+    //         })
+    //     } else {
+    //         swal("Please choose date for search.");
+    //     }
+    // }
 
     show = () => {
         this.setState({
@@ -288,6 +247,7 @@ export default class SearchDayCom extends Component {
     };
         return(
             <div>
+                <br />
                 <div style={{textAlign:'-webkit-center'}}>
                     <DateRangePicker 
                         orientation="horizontal" 

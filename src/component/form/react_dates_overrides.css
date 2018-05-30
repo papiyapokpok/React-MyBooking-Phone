@@ -84,8 +84,9 @@
   .bookButton {
     margin-top: 16px;
     width: 80%;
-    position: absolute;
-    right: 40px;
+
+    /* position: absolute;
+    right: 40px;  */
     z-index: -1000;
 
     color: white;
@@ -623,7 +624,7 @@
             box-shadow: none;
     position: relative;
     left: 50%;
-    top: 360px
+    top: 300px
   }
   .DayPicker_portal__vertical {
     position: initial
@@ -932,11 +933,11 @@
     text-decoration: none
   }
   .DateRangePicker_closeButton_svg {
+    position: absolute;
+    top: -40px;
+    right: 16px;
     margin-top: 50px;
     height: 20px;
     width: 20px;
     fill: #cacccd;
-    top: 0px;
-    /* right: 16px; */
-    position: absolute;
   }

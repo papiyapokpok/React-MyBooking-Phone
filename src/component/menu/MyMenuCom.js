@@ -7,7 +7,6 @@ import HeaderBox from '../header/HeaderBox'
 import OncallBookingCom from '../form/OncallBookingCom'
 import SignOutCom from '../form/SignOutCom'
 import Logout from '../lib/Logout'
-import AdminMenuCom from '../form/AdminMenuCom'
 import MenuTest from '../Amenu/MenuTest'
 import print from '../assets/imgs/print.png'
 import listMenu from '../assets/imgs/menu-list.png'
@@ -18,6 +17,9 @@ import logo from '../assets/imgs/Kaidee-logo.png';
 
 import createAcc from '../HomePage'
 import HomePage from "../HomePage";
+import CreateAccountCom from '../form/CreateAccountCom';
+import AllowanceCom from '../form/AllowanceCom'
+import MyAdminCom from './MyAdminCom';
 
 export default class MyMenuCom extends Component {
 
@@ -30,7 +32,7 @@ export default class MyMenuCom extends Component {
       booking: false,
       report: false,
       logout: false,
-      menu: false
+
     }
   }
 
@@ -84,7 +86,6 @@ getCookie = (cname) => {
 }
 
   render() {
-    // const { menu } = this.state
 
     console.log(this.props)
     let hide = {
@@ -104,8 +105,9 @@ getCookie = (cname) => {
 
     const linkStyle = {
       textDecoration: 'none',
-      color:'white',
-      padding:'18px'
+      color:'black',
+      padding:'8px',
+
     }
 
     const printStyle = {
@@ -124,11 +126,27 @@ getCookie = (cname) => {
       display: 'none'
     }
     const divMenu = {
-      width:'100%',
-      height:'35px',
+      position: 'absolute',
+      zIndex: '999',
+      top: '56px',
+      width:'50%',
+      height:'100%',
       backgroundColor:'#191818e0',
       color:'white',
       lineHeight: '35px'
+    }
+
+    const divMenuAdmin = {
+      position: 'absolute',
+      zIndex: '999',
+      top: '56px',
+      width:'50%',
+      height:'100%',
+      backgroundColor:'rgba(25, 123, 210, 0.88)',
+      color:'white',
+      lineHeight: '35px',
+      fontSize: '16px',
+      padding:'0px'
     }
 
   if(this.getCookie('print_status')) {
@@ -143,14 +161,16 @@ getCookie = (cname) => {
 
     accView = <p style={hideStyle}>Hi, {this.getCookie('staff_name')}</p>    
     
-  } else if(this.getCookie('staff_name') == 'admin') {
+  } else if(this.getCookie('staff_name') == 'sretthakan.t@kaidee.com') {
     // test = <Link to="/test" style={linkStyle} >Test</Link>                                      
 
-    menuView =<div style={divMenu}> 
-                  <Link to="/menu" style={linkStyle} >Booking</Link> 
-                  <Link to="/search" style={linkStyle} >Report</Link>
-                  <Link to="/adminmenu" style={linkStyle}>Allowance</Link>                   
-                  <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link>
+    menuView =<div style={divMenuAdmin}> 
+                  <Link to="/menu" style={linkStyle} >Booking</Link> <br />
+                  <Link to="/search" style={linkStyle} >Report</Link><br />
+                  <Link to="/allowance" style={linkStyle}>Allowance</Link> <br />                  
+                  <Link to="admin" style={linkStyle} >Admin</Link><br />
+                  <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link><br />
+                  
               </div> 
     accView = <p style={hideStyle}>Hi, {this.getCookie('staff_name')}</p>
   } else {
@@ -179,9 +199,10 @@ getCookie = (cname) => {
 
             <Route path="/menu" component={OncallBookingCom} />
             <Route path="/search" component={SearchDayCom} />
-            <Route path="/adminmenu" component={AdminMenuCom} />
+            <Route path="/allowance" component={AllowanceCom} />
             <Route path="/test" component={MenuTest} />
             <Route path="/forgetpassword" component={ForgetpasswordCom} />
+            <Route path="/admin" component={MyAdminCom}  />
             
             
                 

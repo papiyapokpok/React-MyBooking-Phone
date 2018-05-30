@@ -23,8 +23,8 @@ export default class HomePage extends Component {
         this.state = {          
             mainDialogReset: false,            
             // username: '',
-            // email: '',            
-            // password: '',
+            email: '',            
+            password: '',
             isButtonDisabled: false,
             clicks: 0,
             menu: false,
@@ -57,45 +57,75 @@ export default class HomePage extends Component {
         });
     }  
 
-    loginGoogle = () => {
-        console.log('Start')
+
+    loginGoogle = () => {        
         var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // console.log(user)
-            // console.log(user.email)
+        var email = this.state.email
+        var password = this.state.password
 
-            var aname = 'staff_name'
-            var avalue = user.email
-            var exdays = 0.5
-            console.log(aname)
-            console.log(avalue)
-            console.log(exdays)
+        firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+                // Handle Errors here.
+                console.log(email)
+                console.log(password)
 
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays*24*60*60*1000));
-            var expires = "expires="+ d.toUTCString();
-            document.cookie = aname + "=" + avalue + ";" + expires + ";path=/";
-            console.log(avalue)
-            window.location.href = "/"
-            this.componentDidMount()
-        // ...
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-            console.log(error)
-            
-          });
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                var user = firebase.auth().currentUser;
+                var name, email, photoUrl, uid, emailVerified;
+
+                console.log(user)
+
+                if (user != null) {
+                name = user.displayName;
+                email = user.email;
+                photoUrl = user.photoURL;
+                emailVerified = user.emailVerified;
+                uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                                // this value to authenticate with your backend server, if
+                                // you have one. Use User.getToken() instead.
+                }
+            });
     }
+
+    // loginGoogle = () => {
+    //     console.log('Start')
+    //     var provider = new firebase.auth.GoogleAuthProvider();
+    //     firebase.auth().signInWithPopup(provider).then(function(result) {
+    //         // This gives you a Google Access Token. You can use it to access the Google API.
+    //         var token = result.credential.accessToken;
+    //         // The signed-in user info.
+    //         var user = result.user;
+    //         // console.log(user)
+    //         // console.log(user.email)
+
+    //         var aname = 'staff_name'
+    //         var avalue = user.email
+    //         var exdays = 0.5
+    //         console.log(aname)
+    //         console.log(avalue)
+    //         console.log(exdays)
+
+    //         var d = new Date();
+    //         d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    //         var expires = "expires="+ d.toUTCString();
+    //         document.cookie = aname + "=" + avalue + ";" + expires + ";path=/";
+    //         console.log(avalue)
+    //         window.location.href = "/"
+    //         this.componentDidMount()
+    //     // ...
+    //       }).catch(function(error) {
+    //         // Handle Errors here.
+    //         var errorCode = error.code;
+    //         var errorMessage = error.message;
+    //         // The email of the user's account used.
+    //         var email = error.email;
+    //         // The firebase.auth.AuthCredential type that was used.
+    //         var credential = error.credential;
+    //         // ...
+    //         console.log(error)
+            
+    //       });
+    // }
 
     componentDidMount = () => {
         const checkCookie = this.getCookie('staff_name')
@@ -200,79 +230,79 @@ export default class HomePage extends Component {
         // console.log(cvalue)
     }
 
-    login = (event) => {
-        event.preventDefault();      
-        const username = this.state.username
-        const password = this.state.password
-        const payload = {
-            username,
-            password,
-        }
-        request
+    // login = (event) => {
+    //     event.preventDefault();      
+    //     const username = this.state.username
+    //     const password = this.state.password
+    //     const payload = {
+    //         username,
+    //         password,
+    //     }
+    //     request
 
-            .post('http://172.25.11.98/oncall/login.php')
-            .set('content-type', 'application/json')
-            .send(payload) 
-            .end((err, res) => {
-                console.log(res)
+    //         .post('http://172.25.11.98/oncall/login.php')
+    //         .set('content-type', 'application/json')
+    //         .send(payload) 
+    //         .end((err, res) => {
+    //             console.log(res)
 
-                if(res.body.change === true) {
-                    swal({
-                        title: 'You first login !',
-                        text: 'Please change new password.',
-                        timer: 4000
-                    })
-                    .then(() => {
-                        this.dialog({})
-                        console.log('Change')        
-                    });                                   
-                }
+    //             if(res.body.change === true) {
+    //                 swal({
+    //                     title: 'You first login !',
+    //                     text: 'Please change new password.',
+    //                     timer: 4000
+    //                 })
+    //                 .then(() => {
+    //                     this.dialog({})
+    //                     console.log('Change')        
+    //                 });                                   
+    //             }
 
-                else if(res.body.status === true) {
-                    this.setCookie('staff_name', username, 1 )                    
-                    this.loginSuccess({})
-                }
+    //             else if(res.body.status === true) {
+    //                 this.setCookie('staff_name', username, 1 )                    
+    //                 this.loginSuccess({})
+    //             }
                 
-                else if(res.body.status === false) {
-                    this.handleClick()
-                    if(this.getCookieLogin('login_time') == 0 ) {
-                        swal({
-                            title: 'Incorect password!',
-                            // text: 'You have 1 time remaining!',
-                            icon: "warning",
-                            timer: 40000,
-                            dangerMode: true,
+    //             else if(res.body.status === false) {
+    //                 this.handleClick()
+    //                 if(this.getCookieLogin('login_time') == 0 ) {
+    //                     swal({
+    //                         title: 'Incorect password!',
+    //                         // text: 'You have 1 time remaining!',
+    //                         icon: "warning",
+    //                         timer: 40000,
+    //                         dangerMode: true,
 
-                        })
-                        return;
-                    }
+    //                     })
+    //                     return;
+    //                 }
 
-                    else if(this.getCookieLogin('login_time') == 1) {
-                        swal({
-                            title: 'Incorect password!',
-                            text: 'You have 1 time remaining!',
-                            icon: "warning",
-                            timer: 40000,
-                            dangerMode: true,
+    //                 else if(this.getCookieLogin('login_time') == 1) {
+    //                     swal({
+    //                         title: 'Incorect password!',
+    //                         text: 'You have 1 time remaining!',
+    //                         icon: "warning",
+    //                         timer: 40000,
+    //                         dangerMode: true,
 
-                        })
-                        return;
-                    }
+    //                     })
+    //                     return;
+    //                 }
 
-                    else if(this.getCookieLogin('login_time') >= 2) {
-                        swal({
-                            title: 'You exceeded wrong your password!',
-                            text: 'Please contact admin!',
-                            icon: "warning",
-                            timer: 40000,
-                            dangerMode: true,
-                            buttons:false,
-                        })
-                        return;
-                    }
-                } 
-            }, 'json')
-    }
+    //                 else if(this.getCookieLogin('login_time') >= 2) {
+    //                     swal({
+    //                         title: 'You exceeded wrong your password!',
+    //                         text: 'Please contact admin!',
+    //                         icon: "warning",
+    //                         timer: 40000,
+    //                         dangerMode: true,
+    //                         buttons:false,
+    //                     })
+    //                     return;
+    //                 }
+    //             } 
+    //         }, 'json')
+    // }
 
     dialog = () => {
         this.setState({
@@ -295,16 +325,11 @@ export default class HomePage extends Component {
     }
 
     loginSuccess = () => {
-        this.props.history.push('/MyMenuCom')
+        this.props.history.push('/home')
     }
 
     resetPassword = () => {
         this.props.history.push('/resetpassword')
-    }
-
-
-    loginSuccess = () => {
-        this.props.history.push('/menu')
     }
     
     notLogin = () => {
@@ -348,11 +373,11 @@ export default class HomePage extends Component {
                             <p onClick={this.resetPassword}>Forget password</p>  
                         </div> */}
                         <div id={'firebaseui-auth-container'} >
-                            {/* <HomePageBox id="email" value={this.state.email} title={'Email'} type="text" 
+                            <HomePageBox id="email" value={this.state.email} title={'Email'} type="text" 
                                         placeholder="Enter Email" onChange={this.handleChange} />
 
                             <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
-                                        placeholder="Enter Password" maxLength="8" onChange={this.handleChange} /> */}
+                                        placeholder="Enter Password" maxLength="8" onChange={this.handleChange} />
                             
                             <img style={{width:'240px'}} src={glogin} id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin with Google'}/>
                         </div>

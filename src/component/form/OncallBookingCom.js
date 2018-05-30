@@ -28,6 +28,7 @@ export default class OncallBookingCom extends Component {
             onCallNum: null,
             AlertNulls: false,
             defaultAlert: ['Please select oncall number'],
+            load: false,
             // db: firebase.firestore()
 
         };
@@ -43,6 +44,7 @@ export default class OncallBookingCom extends Component {
             // this.props.history.push('/')
         }
     }
+
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.startDate);
@@ -66,6 +68,7 @@ export default class OncallBookingCom extends Component {
     }
 
     onCallBooking = (e) => {
+        this.setState({load: true})
         const email = this.getCookie('staff_name')
         const oncallnumber = this.state.onCallNum
         const toDay = new Date()
@@ -75,17 +78,16 @@ export default class OncallBookingCom extends Component {
         start.setHours(0, 0, 0, 0);
         var end = new Date();
         end.setHours(23, 59, 59, 999); 
-
-        console.log("start", start, "end", end, "num=", oncallnumber)        
         
         db.collection("oncalllogs") 
             .where('dateTime', '>', start)
             .where('dateTime', '<', end)
             .where('oncallnumber', '==', oncallnumber)                
         .get()
-        .then(function(querySnapshot) {
-            console.log(querySnapshot)
-                if (querySnapshot.size > 0) {
+        .then((querySnapshot) => {
+            this.setState({load: false})
+            
+                if (querySnapshot.size > 0) {                    
                     console.log(querySnapshot.docs[0].data())
                     const numberName = querySnapshot.docs[0].data().oncallnumber
                     const emailName = querySnapshot.docs[0].data().email
@@ -99,119 +101,36 @@ export default class OncallBookingCom extends Component {
                         icon: "warning"
                     })
                 } else {
-                    // console.log('No Data')
-                    // this.writeUserData(oncallnumber, email, toDay)
 
-                        var db = firebase.firestore();
-                        db.collection("oncalllogs").add({
-                            oncallnumber: oncallnumber,
-                            email: email,
-                            dateTime: toDay
+                    var db = firebase.firestore();
+                    db.collection("oncalllogs").add({
+                        oncallnumber: oncallnumber,
+                        email: email,
+                        dateTime: toDay
+                    })
+                    .then((docRef) => {
+                        // console.log("Document written with ID: ", docRef.id);
+                        swal({
+                            title: 'Complete',
+                            text: "You booking oncall done",
+                            icon:'success'
                         })
-                        .then(function(docRef) {
-                            // console.log("Document written with ID: ", docRef.id);
-                            swal({
-                                title: 'Complete',
-                                text: "You booking oncall done",
-                                icon:'success'
-                            })
+                    })
+                    .catch((error) => {
+                        // console.error("Error adding document: ", error);
+                        swal({
+                            title: 'Failed',
+                            text: "This device has already been reserved.",
+                            icon:'failed'
                         })
-                        .catch(function(error) {
-                            // console.error("Error adding document: ", error);
-                            swal({
-                                title: 'Failed',
-                                text: "This device has already been reserved.",
-                                icon:'failed'
-                            })
-                        });
-
+                    });
                 }
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
         });
+        
     }
-
-
-
-    // writeUserData = () => {
-    //     console.log("oncallnumber",oncallnumber, "email", email, "toDay", toDay, )                    
-    //     var db = firebase.firestore();
-    //     this.db.collection("oncalllogs").add({
-    //         oncallnumber: oncallnumber,
-    //         email: email,
-    //         dateTime: toDay
-    //     })
-    //     .then(function(docRef) {
-    //         // console.log("Document written with ID: ", docRef.id);
-    //         swal({
-    //             title: 'Complete',
-    //             text: "You booking oncall done",
-    //             icon:'success'
-    //         })
-    //     })
-    //     .catch(function(error) {
-    //         // console.error("Error adding document: ", error);
-    //         swal({
-    //             title: 'Failed',
-    //             text: "This device has already been reserved.",
-    //             icon:'failed'
-    //         })
-    //     });
-    //   }
-
-
-    // onCallBooking = (e) => {
-    //     e.preventDefault();
-    //     console.log('kakakakakakak')
-    //     const staff_name = this.getCookie('staff_name')
-    //     const oncallnumber = this.state.onCallNum
-    //     const toDay = this.state.toDay.format('YYYY-MM-DD')
-    //     const payload = {
-    //         staff_name,
-    //         oncallnumber,
-    //         toDay,
-    //     }
-    //     if ( oncallnumber === null) {
-    //         // swal('Please select oncall! ');
-    //         this.setState({
-    //             AlertNulls: true,
-    //         })
-    //         console.log('Null')
-    //         return;
-    //     }
-    //     request
-    //         .post('http://172.25.11.98/oncall/bookOncall.php')
-    //         .set('content-type', 'application/json')
-    //         .send(payload)
-    //         .end((err, res) => {
-    //             // console.log(res.body.status)
-    //             if(res.body.status === true){
-    //                 swal({
-    //                     title: "Complete!",
-    //                     text: "You booking oncall done",
-    //                     icon: "success",
-
-    //                 })
-    //             }
-                
-    //             if(res.body.status === false) {
-    //                 swal({
-    //                     title: "Failed!",
-    //                     text: "You cannot booking oncall, please try again",
-    //                     icon: "failed",
-    //                 })
-    //             } 
-                
-    //             if(res.body.status === 'checkout') {
-    //                 swal({
-    //                     title: "Failed!",
-    //                     text: "This device has already been reserved.",
-    //                     icon: "warning",
-    //                 })
-    //             }
-    //         }, 'json')
-    // }
 
     onCall = (e) => {
         this.state.onCallNum = e
@@ -226,10 +145,20 @@ export default class OncallBookingCom extends Component {
     }
 
     loginSuccess = () => {
-        this.props.history.push('/menu')
+        this.props.history.push('/home')
     }
 
     render() {
+        const { book, load } = this.state
+
+        const loadingStyle = {
+            position: 'absolute',
+            fontSize: '24px',
+            zIndex: '999',
+            backgroundColor: '#fffffff5',
+            height: '100%',
+            width: '100%'
+        }
 
         // console.log(this.props) 
         const { startDate, endDate, status, AlertNulls, defaultAlert } = this.state
@@ -237,23 +166,26 @@ export default class OncallBookingCom extends Component {
         let AlertNullMessage = ''
         let classHide = '';
         let toDay = this.state.toDay
+        let loading = ''
+        if(load) {
+            loading = <p style={loadingStyle}>Now loading...</p>
+        }
         
         if(AlertNulls) {
             AlertNullMessage = <AlertNull title={defaultAlert} clickClose={this.clickClose} />
         }
-
-
         return(
-            <div>
+            <div style={{textAlign:'-webkit-center'}} >
                 <p>Today {this.state.toDay.format('DD-MM-YYYY')}</p>  
-                <div style={{marginTop:'40px', textAlign:'center'}}>
+                {loading}
+                <div style={{marginTop:'40px', textAlign:'center', width:'350px'}}>
                     <OncallBookingBox label={'HTC Eye One'} type="radio" id="oncall1" name="oncall" onClick={()=>{this.onCall(1)}}/>
                     <OncallBookingBox label={'Samsung A7'} type="radio" id="oncall2" name="oncall" onClick={()=>{this.onCall(2)}}/>
                     <ButtonBookBox className="bookButton" onClick={this.onCallBooking} title={'Book Now'}/>
                     
                 </div> 
 
-                <div>
+                <div style={{textAlign:'-webkit-center'}}>
                     <div style={{textAlign: '-webkit-center'}}>
                         <div style={{marginTop:'30px'}}>
                             {AlertNullMessage}

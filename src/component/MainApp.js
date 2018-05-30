@@ -9,7 +9,6 @@ export default class MainApp extends Component {
             <div>
                 <HeaderCom {...this.props}/>
                 {this.props.children}  
-                {/* <MyMenuCom />               */}
             </div>
         )
     }
