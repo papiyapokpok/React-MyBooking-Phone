@@ -18,7 +18,8 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
-    font-size: 14px;    
+    font-size: 14px;   
+    z-index: 0; 
 }
 
 button:hover {

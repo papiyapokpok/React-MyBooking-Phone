@@ -303,7 +303,8 @@ export default class HomePage extends Component {
             paddingTop: '50%',
             width: '100%',
             height: '100%',
-            backgroundColor: 'white'
+            backgroundColor: 'white',
+            zIndex:'999'
         }
         let sample = this.state
         let dialogChangePassword = ''

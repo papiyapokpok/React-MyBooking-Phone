@@ -157,7 +157,8 @@ getCookie = (cname) => {
       paddingTop: '50%',
       width: '100%',
       height: '100%',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      zIndex:'999'
     }
     let loading =''
     if(load) {
@@ -203,12 +204,13 @@ getCookie = (cname) => {
 
     return (
       <div className="App">
-        {loading}
         <header className="App-header"> {this.props.children}  
           {imgMenu}                
           <Route component={MainApp} />
           {menuList}
           <Switch>
+          {loading}
+            
             <Route exact path="/" component={HomePage} username={this.props.username} />
             <Route path="/home" component={OncallBookingCom} />  
             <Route path="/search" component={SearchDayCom} /> 
