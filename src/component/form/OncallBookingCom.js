@@ -38,6 +38,7 @@ export default class OncallBookingCom extends Component {
     componentDidMount() {
         const checkCookie = this.getCookie('staff_name')
         if(checkCookie) {
+            this.getDataEmployee()
             this.loginSuccess()
         } else {
             window.location.href = "/"
@@ -66,17 +67,51 @@ export default class OncallBookingCom extends Component {
         return "";
         // window.location.reload(true);               
     }
+    setCookie = (cname, cvalue, exdays) => {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        // console.log(cvalue)
+    }
+
+    getDataEmployee = () => {
+        const db = firebase.firestore();
+        const email = this.getCookie('staff_name')
+        db.collection("employee") 
+            .where('email', '==', email)
+            .get()
+            .then((querySnapshot) => {
+                const emailGet = querySnapshot.docs[0].data().email
+                const idGet = querySnapshot.docs[0].data().id
+                const nameGet = querySnapshot.docs[0].data().name
+                const nicknameGet = querySnapshot.docs[0].data().nickname
+                const surnameGet = querySnapshot.docs[0].data().surname
+
+                this.setCookie('emp_email', emailGet, 1)
+                this.setCookie('emp_id', idGet, 1)
+                this.setCookie('emp_name', nameGet, 1)
+                this.setCookie('emp_nickname', nicknameGet, 1)
+                this.setCookie('emp_surname', surnameGet, 1)
+            })
+    }
 
     onCallBooking = (e) => {
         this.setState({load: true})
-        const email = this.getCookie('staff_name')
+        const db = firebase.firestore();
+
+        const email = this.getCookie('emp_email')
+        const id = this.getCookie('emp_id')
+        const name = this.getCookie('emp_name')
+        const nickname = this.getCookie('emp_nickname')
+        const surname = this.getCookie('emp_surname')
+
         const oncallnumber = this.state.onCallNum
         const toDay = new Date()
-        var db = firebase.firestore();
 
-        var start = new Date();
+        const start = new Date();
         start.setHours(0, 0, 0, 0);
-        var end = new Date();
+        const end = new Date();
         end.setHours(23, 59, 59, 999); 
         if(oncallnumber == null ) {
             console.log('Failed, please select number')
@@ -104,9 +139,9 @@ export default class OncallBookingCom extends Component {
                         const numberName = querySnapshot.docs[0].data().oncallnumber
                         const emailName = querySnapshot.docs[0].data().email
                         
-                        var oncallCheckout=JSON.stringify(numberName) 
-                        var emailCheckout=JSON.stringify(emailName) 
-                        var dateCheckout= moment() .format('Y-MM-DD')
+                        const oncallCheckout=JSON.stringify(numberName) 
+                        const emailCheckout=JSON.stringify(emailName) 
+                        const dateCheckout= moment() .format('Y-MM-DD')
                         
                         swal({
                             title:'This device has already been reserved.',
@@ -126,6 +161,10 @@ export default class OncallBookingCom extends Component {
                         db.collection("oncalllogs").add({
                             oncallnumber: oncallnumber,
                             email: email,
+                            id: id,
+                            name: name,
+                            nickname: nickname,
+                            surname: surname,
                             dateTime: toDay
                         })
                         .then((docRef) => {
@@ -192,7 +231,7 @@ export default class OncallBookingCom extends Component {
 
         // console.log(this.props) 
         const { startDate, endDate, status, AlertNulls, defaultAlert } = this.state
-        console.log(this.state.toDay.format('YYYY-MM-DD'))
+        // console.log(this.state.toDay.format('YYYY-MM-DD'))
         let AlertNullMessage = ''
         let classHide = '';
         let toDay = this.state.toDay
@@ -211,8 +250,7 @@ export default class OncallBookingCom extends Component {
                 <div style={{marginTop:'40px', textAlign:'center', width:'350px'}}>
                     <OncallBookingBox label={'HTC Eye One'} type="radio" id="oncall1" name="oncall" onClick={()=>{this.onCall(1)}}/>
                     <OncallBookingBox label={'Samsung A7'} type="radio" id="oncall2" name="oncall" onClick={()=>{this.onCall(2)}}/>
-                    <ButtonBookBox className="bookButton" onClick={this.onCallBooking} title={'Book Now'}/>
-                    
+                    <ButtonBookBox className="bookButton" onClick={this.onCallBooking} title={'Book Now'}/>                    
                 </div> 
 
                 <div style={{textAlign:'-webkit-center'}}>

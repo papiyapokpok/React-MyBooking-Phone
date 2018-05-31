@@ -22,7 +22,6 @@ export default class HomePage extends Component {
         super(props);
         this.state = {          
             mainDialogReset: false,            
-            // username: '',
             email: '',            
             password: '',
             isButtonDisabled: false,
@@ -34,17 +33,6 @@ export default class HomePage extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    // componentWillMount = () => {
-    //     firebase.initializeApp({
-    //         apiKey: "AIzaSyDx3NphbbNrXRDKd7tH3AnO4tK9sXEl_6w",
-    //         authDomain: "my-oncall-69.firebaseapp.com",
-    //         databaseURL: "https://my-oncall-69.firebaseio.com",
-    //         projectId: "my-oncall-69",
-    //         storageBucket: "my-oncall-69.appspot.com",
-    //         messagingSenderId: "8354579435"
-    //     })
-    // }
 
     handleChange(event) {
         if(event.target.id === 'email') {
@@ -140,8 +128,6 @@ export default class HomePage extends Component {
     }
 
     loginFailed = () => {
-        console.log('login_time')
-        // alert("You exceeded wrong your password!, \n Please contact admin!")
         swal({
             title: 'You exceeded wrong your password!',
             text: 'Please contact admin!',
@@ -149,20 +135,6 @@ export default class HomePage extends Component {
         })
 
     }
-    
-
-
-    // onLaunchClicked = (event) => {
-    //     // event.preventDefault();
-    //     this.setState({
-    //         isButtonDisabled: true
-    //     });
-    //     console.log('dissssssss')
-    //     // **** here's the timeout ****
-    //     setTimeout(() => this.setState({ isButtonDisabled: false }), 7000);
-
-    // // return this.props.onLaunchClicked();
-    // }
 
     getCookie = (cname) => {
         var name = cname + "=";
@@ -179,8 +151,6 @@ export default class HomePage extends Component {
         return null;                       
     }
     
-
-
     setCookie = (cname, cvalue, exdays) => {
         var d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -189,92 +159,16 @@ export default class HomePage extends Component {
         // console.log(cvalue)
     }
 
-    // login = (event) => {
-    //     event.preventDefault();      
-    //     const username = this.state.username
-    //     const password = this.state.password
-    //     const payload = {
-    //         username,
-    //         password,
-    //     }
-    //     request
-
-    //         .post('http://172.25.11.98/oncall/login.php')
-    //         .set('content-type', 'application/json')
-    //         .send(payload) 
-    //         .end((err, res) => {
-    //             console.log(res)
-
-    //             if(res.body.change === true) {
-    //                 swal({
-    //                     title: 'You first login !',
-    //                     text: 'Please change new password.',
-    //                     timer: 4000
-    //                 })
-    //                 .then(() => {
-    //                     this.dialog({})
-    //                     console.log('Change')        
-    //                 });                                   
-    //             }
-
-    //             else if(res.body.status === true) {
-    //                 this.setCookie('staff_name', username, 1 )                    
-    //                 this.loginSuccess({})
-    //             }
-                
-    //             else if(res.body.status === false) {
-    //                 this.handleClick()
-    //                 if(this.getCookieLogin('login_time') == 0 ) {
-    //                     swal({
-    //                         title: 'Incorect password!',
-    //                         // text: 'You have 1 time remaining!',
-    //                         icon: "warning",
-    //                         timer: 40000,
-    //                         dangerMode: true,
-
-    //                     })
-    //                     return;
-    //                 }
-
-    //                 else if(this.getCookieLogin('login_time') == 1) {
-    //                     swal({
-    //                         title: 'Incorect password!',
-    //                         text: 'You have 1 time remaining!',
-    //                         icon: "warning",
-    //                         timer: 40000,
-    //                         dangerMode: true,
-
-    //                     })
-    //                     return;
-    //                 }
-
-    //                 else if(this.getCookieLogin('login_time') >= 2) {
-    //                     swal({
-    //                         title: 'You exceeded wrong your password!',
-    //                         text: 'Please contact admin!',
-    //                         icon: "warning",
-    //                         timer: 40000,
-    //                         dangerMode: true,
-    //                         buttons:false,
-    //                     })
-    //                     return;
-    //                 }
-    //             } 
-    //         }, 'json')
-    // }
-
     dialog = () => {
         this.setState({
             mainDialogReset: !this.state.mainDialogReset
         })
-        console.log('Password is Wrong');
     }
 
     resetForm = (payload) => { 
         this.setState({
             password:''
         })
-        console.log('reset form');
     }
     
 
@@ -326,34 +220,32 @@ export default class HomePage extends Component {
                 {loading}
                 <form >
                     <div className="containerHome">
-                        {/* <label className="label"><b>Username</b></label>
-                        <input id="username" value={this.state.username} type="text" placeholder="Enter Username" onChange={this.handleChange} /> 
-                        <br />
-                        <label className="label"><b>Password</b></label>
-                        <input id="password" value={this.state.password} type="password" placeholder="Enter Password" maxLength="8" onChange={this.handleChange}/>
-
-                        <button id="isButtonDisabled" type="button" onClick={this.login}>Login</button> */}
-                        {/* <button type="button" className="cancelbtn">Cancel</button>
-                        <div className="createAccount">
-                            <p onClick={this.createAcc}>Create account</p>                          
-                        </div> */}
-                        {/* <div className="forgetPassword">
-                            <p onClick={this.resetPassword}>Forget password</p>  
-                        </div> */}
                         <div id={'firebaseui-auth-container'} >
-                            <HomePageBox id="email" value={this.state.email} title={'Email'} type="text" 
-                                        placeholder="Enter Email" onChange={this.handleChange} />
-
-                            <HomePageBox id="password" value={this.state.password} title={'Password'} type="password" 
-                                        placeholder="Enter Password" maxLength="8" onChange={this.handleChange} />
+                            <HomePageBox
+                                id="email"
+                                value={this.state.email}
+                                title={'Email'}
+                                type="text" 
+                                placeholder="Enter Email"
+                                onChange={this.handleChange} />
+                            <HomePageBox
+                                id="password"
+                                value={this.state.password}
+                                title={'Password'}
+                                type="password" 
+                                placeholder="Enter Password"
+                                maxLength="8"
+                                onChange={this.handleChange} />
                             
-                            <ButtonLoginBox id="isButtonDisabled" type="button" onClick={this.loginGoogle} title={'Signin'}/>
+                            <ButtonLoginBox
+                                id="isButtonDisabled"
+                                type="button"
+                                onClick={this.loginGoogle}
+                                title={'Signin'}/>
                         </div>
-                        
                         <div>
                             {dialogChangePassword}
                         </div>
-                        
                     </div>
                 </form>
             </div>
