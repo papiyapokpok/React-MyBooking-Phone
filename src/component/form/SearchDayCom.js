@@ -94,14 +94,19 @@ export default class SearchDayCom extends Component {
             const oncallnumber = this.state.onCallNum
             var db = firebase.firestore();
             var start = this.state.startDate.toDate();
+            start.setHours(0,0,0)
             var end = this.state.endDate.toDate();
+            end.setHours(23, 59, 59)
+            console.log(start)
+            console.log(end)
+            
 
             this.setState({data: ''})
             this.setState({load: true})
 
             db.collection("oncalllogs") 
-                .where('dateTime', '>', start)
-                .where('dateTime', '<', end) 
+                .where('dateTime', '>=', start)
+                .where('dateTime', '<=', end) 
                 .where('email', '==', email)
             .onSnapshot((querySnapshot) => {
                 var data = [];
@@ -134,37 +139,6 @@ export default class SearchDayCom extends Component {
         } 
     }
 
-    // getData = () => {
-       
-    //     const staff_name = this.getCookie('staff_name') 
-    //     const startDate = this.state.startDate.format('YYYY-MM-DD')
-    //     const endDate = this.state.endDate.format('YYYY-MM-DD')  
-        
-    //     if(startDate) {
-    //         const payload = {
-    //             staff_name,
-    //             startDate,
-    //             endDate,
-    //         }
-    //         request
-    //             .post('http://172.25.11.98/oncall/searchDate.php')
-    //             .set('content-type', 'applecation/json')
-    //             .send(payload)
-    //             .end((err, res) => {
-    //                 // console.log(payload)
-    //             if(res.body.status === false) {
-    //                 swal('คุณไม่ได้ถือ OnCall เลยในเดือนนี้ ');
-    //                 this.setState({
-    //                     choose: 'Choose Month',
-    //                 })
-    //             }
-    //             this.setState({data: res.body})
-    //         })
-    //     } else {
-    //         swal("Please choose date for search.");
-    //     }
-    // }
-
     show = () => {
         this.setState({
             hide: !this.state.hide,
@@ -187,11 +161,6 @@ export default class SearchDayCom extends Component {
         history: PropTypes.object,
     }
 
-    // index = () => {
-    //     this.props.history.push('/')
-    //     console.log('test onclick menu')
-    // }
-
     oncallBook = () => {
         this.props.history.push('/menu')
     }
@@ -199,19 +168,6 @@ export default class SearchDayCom extends Component {
     search = () => {
         this.props.history.push('/search')
     }
-
-
-    // signOut = () => {    
-    // var cookies = document.cookie.split(";");
-    //     for (var i = 0; i < cookies.length; i++) {
-    //         var cookie = cookies[i];
-    //         var eqPos = cookie.indexOf("=");
-    //         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    //         document.cookie = 'staff_name=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    //         this.index({})
-    //     }
-    // console.log('Logout')
-    // }
 
     menuListClick = () => {
         this.setState({

@@ -192,9 +192,10 @@ export default class HomePage extends Component {
     render() {
         const { mainDialogReset, menu, load} = this.state
         const {...res } = this.props
+
         const loadingStyle = {
             position: 'absolute',
-            paddingTop: '50%',
+            paddingTop: '20%',
             width: '100%',
             height: '100%',
             backgroundColor: 'white',

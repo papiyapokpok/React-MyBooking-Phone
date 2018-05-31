@@ -9,7 +9,7 @@ export default class HomePageBox extends Component {
 
                     <div className="">
                     <label className="label"><b>{this.props.title}</b></label>
-                        <input {...res} /> 
+                        <input className={'defaultInput'} {...res} /> 
                         <br />
                     </div>
 

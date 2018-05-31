@@ -163,7 +163,7 @@ getCookie = (cname) => {
     }
     const loadingStyle = {
       position: 'absolute',
-      paddingTop: '50%',
+      paddingTop: '20%',
       width: '100%',
       height: '100%',
       backgroundColor: 'white',

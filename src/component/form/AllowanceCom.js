@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { DateRangePicker } from 'react-dates';
 import swal from 'sweetalert';
 import request from 'superagent';
+import moment from 'moment'
 import ReactToPrint from "react-to-print";
 
 import html2canvas from 'html2canvas';
@@ -16,6 +17,8 @@ import * as jsPDF from 'jspdf'
 
 import ButtonBookBox from '../button/ButtonBookBox'
 import PrintCom from '../Amenu/PrintCom'
+
+import firebase from '../../firebase'
 
 const leftStyle = {
     textAlign: 'left',
@@ -29,60 +32,27 @@ const centerStyle = {
 };
 
 export default class AllowanceCom extends Component {
-    
-    static PropType = {
-        history: PropTypes.object,
-    }
-
-
-    // adminMenu = () => {
-    //     this.props.history.push('/adminmenu')
-    // }
-
     constructor(props) {
         super(props);
         this.state = {
-            numPages: null,
-            pageNumber: 1,
             hide: true,
             choose: 'Month',
             menu: false,            
             startDate: null,
-            endDate: null,
+            endDate: '',
             focusedInput: null,
             onCallNum: null,
             bath:'',
-            month: [
-                "- Choose Month -",
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-
-            ],
             print: true,
+            views: true,
         };
+        // this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this); 
     }
 
-//     componentDidUpdate =() => {
-//         // const checkCookie = this.getCookie('staff_name')
-//         const monthSelect = this.state.monthSelect
-//         if(monthSelect) {
-//             // this.getData()
-//             // this.stopData()
-// console.log('dadadadadadad')
-//         }
-//         return null;        
-//     }
+    componentDidMount =() => {
+        
+    }
 
 
         getCookie = (cname) => {
@@ -100,28 +70,20 @@ export default class AllowanceCom extends Component {
             return null;                        
         }
 
-        handleSubmit(event) {
+        handleChange = (event) => {
+            this.setState({endDate: event.target.value})
+        }
+
+        handleSubmit = (event) => {
+            event.preventDefault();  
+            const endDate = this.state.endDate                      
             alert('A name was submitted: ' + this.state.startDate);
             alert('A name was submitted: ' + this.state.endDate);
-            event.preventDefault();
-        } 
-
-        getCookie = (cname) => {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for(var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) === ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) === 0) {
-                    return c.substring(name.length, c.length);
-                }              
+            if(alert) {
+                this.getData()
+                console.log(this.state.endDate)
             }
-            return "";
-            // window.location.reload(true); 
-            console.log               
-        }
+        } 
 
         onSubmit =  (e) => {
             if(e) e.preventDefault();
@@ -129,55 +91,58 @@ export default class AllowanceCom extends Component {
         }
 
         getData = (monthSelect) => {
-            console.log(monthSelect)
-            if(monthSelect) {
-                const payload = {
-                    monthSelect
-                }
-                request
-                    .post('http://172.25.11.98/oncall/searchMonthReport.php')
-                    .set('content-type', 'applecation/json')
-                    .send(payload)
-                    .end((err, res) => {
-                    if(res) {
-                        this.setState({data: res.body})
+            const db = firebase.firestore();
+
+            const start = this.state.startDate._d
+            start.setHours(0, 0, 0);
+            const end = this.state.endDate._d
+            end.setHours(23, 59, 59);
+            if(start, end) {
+                db.collection("oncalllogs") 
+                .where('dateTime', '>', start)
+                .where('dateTime', '<', end)             
+                // .get()
+                .onSnapshot((querySnapshot) => {
+                    var data = [];
+                    // console.log(data)
+                    if(querySnapshot.size > 0) {
+                        querySnapshot.forEach((querySnapshot) => {
+                            data.push(querySnapshot.data())
+                        });
+                        this.setState({
+                            data,
+                        })
+                        this.printReport()
+                        this.setState({load: false})
                     } else {
-                        swal('No Data on Month')
-                    }
-                })
-            } else {
-                swal("Please choose date for search.");
+                        swal('No booking on search')
+                        this.setState({load: false})                
+                    } 
+                });
             }
+        }
+
+        dataRender = (data) => {
+            return data.map((e, i) => {
+                return (
+                    <tr key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
+                        <td style={centerStyle} >{moment(e.dateTime).format('Y-MM-DD')}</td>                
+                        <td style={leftStyle} >{e.nickname}</td>
+                        <td style={centerStyle} >{e.id}</td>
+                        <td style={leftStyle} >{e.name}</td>
+                        <td style={leftStyle} >{e.surname}</td>
+                        <td style={centerStyle} >500</td>
+                        {/* <td style={{textAlign:'center'}}>{e.email}</td> */}
+                    </tr>
+                );            
+            });    
         }
 
         show = () => {
             this.setState({
                 hide: !this.state.hide,
             })
-        }
-
-        dataRender = (data) => {
-            return Object.keys(data).map(key => {
-                return (
-                    <tr key={key} >
-                        <td style={centerStyle} >{data[key].oncalldate}</td>
-                        <td style={leftStyle} >{data[key].staffName}</td>
-                        <td style={centerStyle} >{data[key].staffid}</td>
-                        <td style={leftStyle} >{data[key].staffName}</td>
-                        <td style={leftStyle} >{data[key].staffSurname}</td>
-                        <td style={centerStyle} id="cells" >500</td>
-                    </tr>
-                );         
-            });                 
-        }
-        
-        createMonths = (data) => {
-            return data.map((item, index) => {
-                return (
-                    <li className="liStyle" onClick={() => this.clickOnMe(("0"+index).slice(-2), item)} >{item}</li>
-                );
-            });    
-        }
+        }   
 
         savePDF() {
             console.log('Save to pdf')
@@ -187,18 +152,18 @@ export default class AllowanceCom extends Component {
               .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF(
-                {
-                    orientation: 'p',
-                    unit: 'mm',
-                    format: [210, 460],
-                }
-            );
+                    {
+                        orientation: 'p',
+                        unit: 'mm',
+                        format: [210, 460],
+                    }
+                );
                 pdf.addImage(imgData, 'JPEG', 0, 10);
                 // pdf.internal.getVerticalCoordinateString()
                 // pdf.output('dataurlnewwindow');
                 pdf.save("Oncall Allowance.pdf");
                 pdf.autoPrint()
-              })
+            })
         }
 
         setCookiePrint = (cname, cvalue, exdays) => {
@@ -209,20 +174,21 @@ export default class AllowanceCom extends Component {
         }
 
         printReport = () => {
-            
             swal({
                 title: "Do you want to print?",
                 buttons: true,
-              })
-              .then((willDelete) => {
+            })
+            .then((willDelete) => {
                 if (willDelete) {
                     window.print();
-                    this.afterPrint()                       
+                    this.afterPrint()  
+                    window.location.reload();
                 } else {
                     this.setState({})
-                    this.afterPrint()                       
+                    this.afterPrint()
+                    window.location.reload();                                                              
                 }
-              });
+            });
         }
 
         afterPrint = () => {           
@@ -245,17 +211,6 @@ export default class AllowanceCom extends Component {
             })
             // console.log(this.state.nameSearch);
         }
-    
-        clickOnMe = (id, month) => {
-            this.setCookiePrint('print_status', 'print', 1)            
-            this.setState({
-                monthSelect: id,
-                choose: month,  //วิธี setState
-                hide: true,
-            })
-            this.getData(id)            
-            console.log(id)
-        }
          
         changeData = (id, value) => {
             let temp = this.state.data.slice();
@@ -274,32 +229,27 @@ export default class AllowanceCom extends Component {
         menuListClick = () => {
             this.setState({
                 menu: !this.state.menu
-            })
-            console.log('Search Menu List')  
+            })  
         }
-
 
         loginSuccess = () => {
             this.props.history.push('/menu')
         }
 
     render() {
-        const { pageNumber, numPages } = this.state;
-        console.log(this.props)
         const { ...res } = this.props
 
-
-    const { startDate, endDate, data, menu, cells } =this.state  
-    let dataValue = '';
-    let dataSum = '';
-    let sumValue = 0
-    let rowCount = 'Total: 0 Day' ;
-    let sumCount = 'Sum:   0.  Bath';
-    let classHide = '';
-    // let menu = ''
+        const { startDate, endDate, data, menu, cells, views } =this.state  
+        let dataValue = '';
+        let dataSum = '';
+        let sumValue = 0
+        let rowCount = 'Total: 0 Day' ;
+        let sumCount = 'Sum:   0.  Bath';
+        let classHide = '';
+        // let menu = ''
     if(data) {
         dataValue = this.dataRender(data);
-        rowCount = 'Total: ' + data.length + 'Day';
+        rowCount = 'Total: ' + data.length + ' Day';
 
         sumValue = data.length*500
         sumCount = 'Sum: ' + sumValue.toLocaleString(navigator.language, { minimumFractionDigits: 0 })  + ' Bath.'
@@ -342,43 +292,76 @@ export default class AllowanceCom extends Component {
     }
 
     const chooseMonth = {
-        width: '10%',
-        position: 'relative',
-        top: '30px',
-        left: '-333px',
-        textAlign: 'left',
-        paddingLeft: '63px',
-        fontWeight: 'bold'
+        position: 'absolute',
+        top: '0px',
+        right: '-3px'
     }
     const printStyle = {
         position: 'relative',        
         width: '30px',
         right: '-360px',
-        top: '88px'
+        top: '32px'
     }
     const pdfStyle = {
         position: 'relative',        
         width: '50px',
         right: '-276px',
-        top: '94px'
+        top: '70px'
     }
+    const searchStyle = {
+        position: 'absolute',
+        top: '166px',
+        right: '45%',
+        left: '45%'
+    }
+    let viewer = ''
+    if(dataValue){
+        viewer = (
+            <div style={{marginTop:'-80px'}}>
+                {/* <img src={print} alt="print" style={printStyle} onClick={this.printReport}/>
+                <img src={pdf} alt="print" style={pdfStyle} onClick={this.savePDF}/>   */}
+                <br />   
+                <br />     
+            </div>
+        )
+    } else {
+        viewer = (
+            <div style={{marginTop:'-50px'}}>
+                <img src={print} alt="print" style={printStyle} onClick={this.getData}/>
+                {/* <img src={pdf} alt="print" style={pdfStyle} onClick={this.savePDF}/>   */}
+                {/* <p style={searchStyle} onClick={this.getData}>Search</p>               */}
+                <br />
+                <div style={chooseMonth}>
+                    {/* <p onClick={this.show} >{this.state.choose}</p> */}
+                    <DateRangePicker 
+                        orientation="horizontal" 
+                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                        startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                        endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }) } // PropTypes.func.isRequired,
+                        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                        onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                        minimumNights={0} 
+                        isOutsideRange={() => false}
+                        numberOfMonths={1}
+                        withFullScreenPortal
+                    />
+                </div>
+            </div>
+        )
+    }
+ 
         return(
             <div style={{backgroundColor:'white'}}>
-                <img src={print} alt="print" style={printStyle} onClick={this.printReport}/>
-                <img src={pdf} alt="print" style={pdfStyle} onClick={this.savePDF}/>                
-
-                <ul style={listMonth} className={classHide}>
-                    {this.createMonths(this.state.month)}
-                </ul>
-
-        <br />
-            <div id="divToPrint" className="SupperMainDiv" style={superMainDiv}>
-                <div > 
-                    <h2 style={{paddingTop:'0px', marginTop:'-8px'}}>On Call Allowance Request Form</h2>
-                </div>
-                <div style={chooseMonth}>
-                    <p onClick={this.show} >{this.state.choose}</p>
-                </div>
+                <br />
+                <br />
+                <br />
+                <div id="divToPrint" className="SupperMainDiv" style={superMainDiv}>
+                    <div > 
+                        <h2 style={{paddingTop:'0px', marginTop:'-8px'}}>On Call Allowance Request Form</h2>
+                    </div>  
+                    {viewer}
                     <div>
                         <table className="tebleStyle" style={{border:'1px solid', marginTop:'40px'}}>
                             <thead>
