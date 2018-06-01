@@ -125,9 +125,9 @@ export default class AllowanceCom extends Component {
                 return (
                     <tr key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
                         <td style={centerStyle} >{moment(e.dateTime).format('Y-MM-DD')}</td>                
-                        <td style={leftStyle} >{e.nickname}</td>
                         <td style={centerStyle} >{e.id}</td>
                         <td style={leftStyle} >{e.name}</td>
+                        <td style={leftStyle} >{e.nickname}</td>
                         <td style={leftStyle} >{e.surname}</td>
                         <td style={centerStyle} >500</td>
                         {/* <td style={{textAlign:'center'}}>{e.email}</td> */}
@@ -168,6 +168,7 @@ export default class AllowanceCom extends Component {
             d.setTime(d.getTime() + (exdays*24*60*60*1000));
             var expires = "expires="+ d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            this.afterPrint()
         }
 
         printReport = () => {
@@ -181,9 +182,9 @@ export default class AllowanceCom extends Component {
                     this.afterPrint()  
                     window.location.reload();
                 } else {
-                    this.setState({})
+                    // this.setState({})
                     this.afterPrint()
-                    window.location.reload();                                                              
+                    // window.location.reload();                                                              
                 }
             });
         }
@@ -288,9 +289,8 @@ export default class AllowanceCom extends Component {
     }
 
     const chooseMonth = {
-        position: 'absolute',
-        top: '0px',
-        right: '-3px'
+        position: 'initial',
+        marginTop: '0px'
     }
     const printStyle = {
         position: 'relative',        
@@ -312,17 +312,15 @@ export default class AllowanceCom extends Component {
     }
     let viewer = ''
     if(dataValue){
-        viewer = (
-            <div style={{marginTop:'-80px'}}>
-                {/* <img src={print} alt="print" style={printStyle} onClick={this.printReport}/>
-                <img src={pdf} alt="print" style={pdfStyle} onClick={this.savePDF}/>   */}
-                <br />   
-                <br />     
+        viewer = (                
+            <div style={{paddingTop:'-40px'}}>            
+                <h2 style={{paddingTop:'0px', marginTop:'-8px'}}>On Call Allowance Request Form</h2>     
             </div>
         )
     } else {
         viewer = (
             <div style={{marginTop:'-50px'}}>
+  
                 <img src={print} alt="print" style={printStyle} onClick={this.getData}/>
                 {/* <img src={pdf} alt="print" style={pdfStyle} onClick={this.savePDF}/>   */}
                 {/* <p style={searchStyle} onClick={this.getData}>Search</p>               */}
@@ -342,7 +340,7 @@ export default class AllowanceCom extends Component {
                         isOutsideRange={() => false}
                         numberOfMonths={1}
                         withFullScreenPortal
-                    />
+                    />                    
                 </div>
             </div>
         )
@@ -354,18 +352,16 @@ export default class AllowanceCom extends Component {
                 <br />
                 <br />
                 <div id="divToPrint" className="SupperMainDiv" style={superMainDiv}>
-                    <div > 
-                        <h2 style={{paddingTop:'0px', marginTop:'-8px'}}>On Call Allowance Request Form</h2>
-                    </div>  
+
                     {viewer}
                     <div>
                         <table className="tebleStyle" style={{border:'1px solid', marginTop:'40px'}}>
                             <thead>
                                 <tr>
                                     <th style={tableHeader}>Date</th>
-                                    <th style={tableHeader}>Nickname</th> 
                                     <th style={tableHeader}>ID</th>
                                     <th style={tableHeader}>Name</th>
+                                    <th style={tableHeader}>Nickname</th> 
                                     <th style={tableHeader}>Surname</th>                                
                                     <th style={tableHeaderL}>Allowance(THB)</th>
                                 </tr>

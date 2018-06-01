@@ -134,15 +134,22 @@ export default class OncallBookingCom extends Component {
                 
                     if (querySnapshot.size > 0) {                    
                         const numberName = querySnapshot.docs[0].data().oncallnumber
-                        const emailName = querySnapshot.docs[0].data().email
-                        
+                        const emailName = querySnapshot.docs[0].data().email.split('@kaidee.com'); 
+                        // const emailCheckout = emailName.split(',')
                         const oncallCheckout=JSON.stringify(numberName) 
-                        const emailCheckout=JSON.stringify(emailName) 
+                        // const emailCheckout=JSON.stringify(emailName); 
                         const dateCheckout= moment() .format('Y-MM-DD')
-                        
+
+                    if(oncallCheckout == 1) {
+                        const textView = ( 'Date: '
+                        + '  ' + dateCheckout +'\n'+'\n' 
+                        + 'Model:  '
+                        + 'HTC Eye One' +'\n'+'\n'
+                        + 'Book by: '
+                        + emailName)
                         swal({
                             title:'This device has already been reserved.',
-                            text: 'Date '+dateCheckout+'\n'+'\n' + 'OnCall Number: 0'+oncallCheckout+'\n'+'\n'+'Book by: '+emailCheckout,
+                            text: textView,
                             icon: "warning",
                             dangerMode:'true',
                             buttons: 'Done'
@@ -152,6 +159,27 @@ export default class OncallBookingCom extends Component {
                                 this.setState({load: false})
                             }
                         })
+                    } else if(oncallCheckout == 2) {
+                        const textView = ( 'Date: '
+                        + '  ' + dateCheckout +'\n'+'\n' 
+                        + 'Model:  '
+                        + 'Samsung A7' +'\n'+'\n'
+                        + 'Book by: '
+                        + emailName)
+                        swal({
+                            title:'This device has already been reserved.',
+                            text: textView,
+                            icon: "warning",
+                            dangerMode:'true',
+                            buttons: 'Done'
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                this.setState({load: false})
+                            }
+                        })
+                    }
+
                     } else {
 
                         var db = firebase.firestore();
@@ -215,12 +243,13 @@ export default class OncallBookingCom extends Component {
         const { book, load } = this.state
 
         const loadingStyle = {
-            position: 'absolute',
             fontSize: '24px',
-            zIndex: '999',
-            backgroundColor: '#fffffff5',
+            position: 'absolute',
+            paddingTop: '20%',
+            width: '100%',
             height: '100%',
-            width: '100%'
+            backgroundColor: 'white',
+            zIndex:'999'
         }
         const { startDate, endDate, status, AlertNulls, defaultAlert } = this.state
         let AlertNullMessage = ''

@@ -28,6 +28,7 @@ import { DB_CONFIG } from './config/config'
 // import firebase from 'firebase/app'
 import firebase from 'firebase'
 import AllowanceCom from './component/form/AllowanceCom';
+import DataMigrate from './component/lib/DataMigrate';
 
 class App extends Component {
   constructor(props) {
@@ -109,7 +110,6 @@ getCookie = (cname) => {
   // window.location.reload(true);               
 }
 
-
   render() {
     const { menu, book, img, load } = this.state
 
@@ -120,7 +120,7 @@ getCookie = (cname) => {
       top: '13px'
     }
     const listMenu = {
-      width: '50%',
+      width: '65%',
       height: '100%',
       position: 'absolute',
       top: '56px',
@@ -223,6 +223,7 @@ getCookie = (cname) => {
             <Route path="/home" component={OncallBookingCom} />  
             <Route path="/search" component={SearchDayCom} /> 
             <Route path="/allowance" component={AllowanceCom} />  
+            <Route path="/admin" component={DataMigrate} />  
              
 
             <Route path="/createacc" component={CreateAccountCom} />
