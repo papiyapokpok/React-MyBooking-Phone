@@ -37,10 +37,8 @@ export default class HomePage extends Component {
     handleChange(event) {
         if(event.target.id === 'email') {
             this.setState({email: event.target.value});
-            console.log({email: event.target.value})
         } else if(event.target.id === 'password') { 
             this.setState({password: event.target.value});
-            console.log({password: event.target.value})
         }
     }
 
@@ -92,11 +90,7 @@ export default class HomePage extends Component {
     	this.setState((prevState) => ({
       	   clicks: prevState.clicks + 1
         }));
-        console.log(this.state.clicks)
         this.setCookieLogin('login_time', clicks, 1)
-
-        console.log(this.getCookieLogin('login_time'))
-
         if(this.getCookieLogin('login_time') >= 2) {
 
             document.getElementById("isButtonDisabled").disabled = true;
@@ -109,7 +103,6 @@ export default class HomePage extends Component {
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        console.log(cvalue)
     }
 
     getCookieLogin = (cname) => {
@@ -156,7 +149,6 @@ export default class HomePage extends Component {
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        // console.log(cvalue)
     }
 
     dialog = () => {
@@ -235,7 +227,6 @@ export default class HomePage extends Component {
                                 title={'Password'}
                                 type="password" 
                                 placeholder="Enter Password"
-                                maxLength="8"
                                 onChange={this.handleChange} />
                             
                             <ButtonLoginBox

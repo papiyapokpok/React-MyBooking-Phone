@@ -1,10 +1,6 @@
 
 export default {
 
-  test() {
-    console.log('test function pppppppppppppp')
-  },
-
 //   signOut() {    
 //       var cookies = document.cookie.split(";");
 //           for (var i = 0; i < cookies.length; i++) {

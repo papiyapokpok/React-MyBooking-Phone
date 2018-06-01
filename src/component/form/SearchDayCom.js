@@ -78,9 +78,7 @@ export default class SearchDayCom extends Component {
                 return c.substring(name.length, c.length);
             }              
         }
-        return "";
-        // window.location.reload(true); 
-        console.log               
+        return "";              
     }
 
     onCallSearch = (e) => {
@@ -97,10 +95,6 @@ export default class SearchDayCom extends Component {
             start.setHours(0,0,0)
             var end = this.state.endDate.toDate();
             end.setHours(23, 59, 59)
-            console.log(start)
-            console.log(end)
-            
-
             this.setState({data: ''})
             this.setState({load: true})
 
@@ -172,8 +166,7 @@ export default class SearchDayCom extends Component {
     menuListClick = () => {
         this.setState({
             menu: !this.state.menu
-        })
-        console.log('Search Menu List')  
+        }) 
     }
 
 

@@ -72,7 +72,6 @@ export default class OncallBookingCom extends Component {
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        // console.log(cvalue)
     }
 
     getDataEmployee = () => {
@@ -114,7 +113,6 @@ export default class OncallBookingCom extends Component {
         const end = new Date();
         end.setHours(23, 59, 59, 999); 
         if(oncallnumber == null ) {
-            console.log('Failed, please select number')
             swal({
                 title:'Cannot booking now!',
                 text:'Please select oncall number!',
@@ -135,7 +133,6 @@ export default class OncallBookingCom extends Component {
             .then((querySnapshot) => {
                 
                     if (querySnapshot.size > 0) {                    
-                        // console.log(querySnapshot.docs[0].data())
                         const numberName = querySnapshot.docs[0].data().oncallnumber
                         const emailName = querySnapshot.docs[0].data().email
                         
@@ -168,7 +165,6 @@ export default class OncallBookingCom extends Component {
                             dateTime: toDay
                         })
                         .then((docRef) => {
-                            // console.log("Document written with ID: ", docRef.id);
                             swal({
                                 title: 'Complete',
                                 text: "You booking oncall done",
@@ -196,14 +192,12 @@ export default class OncallBookingCom extends Component {
                     }
             })
             .catch(function(error) {
-                console.log("Error getting documents: ", error);
             });            
         }        
     }
 
     onCall = (e) => {
-        this.state.onCallNum = e
-        console.log(this.state.onCallNum)       
+        this.state.onCallNum = e      
     }
 
     clickClose = () => {
@@ -228,10 +222,7 @@ export default class OncallBookingCom extends Component {
             height: '100%',
             width: '100%'
         }
-
-        // console.log(this.props) 
         const { startDate, endDate, status, AlertNulls, defaultAlert } = this.state
-        // console.log(this.state.toDay.format('YYYY-MM-DD'))
         let AlertNullMessage = ''
         let classHide = '';
         let toDay = this.state.toDay

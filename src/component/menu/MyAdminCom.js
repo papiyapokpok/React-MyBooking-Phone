@@ -13,12 +13,10 @@ export default class MyAdminCom extends Component {
 
     toCreatAcc = () => {
         window.location.href = "localhost:3000/createacc"
-        console.log(this.props)
     }
 
     render() {
         const {...res} = this.props
-        console.log(this.props)
         return(
             // <Route  {...res}>
                 <div>

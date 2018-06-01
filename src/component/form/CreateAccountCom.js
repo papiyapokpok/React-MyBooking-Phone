@@ -21,22 +21,16 @@ export default class CreateAccountBox extends Component {
     handleChange = (event) => {
         if(event.target.id === 'id') {
             this.setState({id: event.target.value})
-            console.log({id: event.target.value})
         } else if(event.target.id === 'username') {
-            this.setState({username: event.target.value})
-            console.log({username: event.target.value})            
+            this.setState({username: event.target.value})           
         } else if(event.target.id === 'surname') {
-            this.setState({surname: event.target.value})
-            console.log({surname: event.target.value})            
+            this.setState({surname: event.target.value})           
         } else if(event.target.id === 'nickname') {
-            this.setState({nickname: event.target.value})
-            console.log({nickname: event.target.value})            
+            this.setState({nickname: event.target.value})          
         } else if(event.target.id === 'email') {
-            this.setState({email: event.target.value})
-            console.log({email: event.target.value})            
+            this.setState({email: event.target.value})           
         } else if(event.target.id === 'password') {
-            this.setState({password: event.target.value})
-            console.log({password: event.target.value})            
+            this.setState({password: event.target.value})           
         }
     }
 

@@ -106,8 +106,7 @@ getCookie = (cname) => {
       }              
   }
   return "";
-  // window.location.reload(true); 
-  console.log               
+  // window.location.reload(true);               
 }
 
 

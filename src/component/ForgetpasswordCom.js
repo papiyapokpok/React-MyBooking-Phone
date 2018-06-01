@@ -22,29 +22,10 @@ export default class ForgetpasswordCom extends Component {
     handleChange(event) {
         if(event.target.id === 'username') {
             this.setState({username: event.target.value});
-            console.log({username: event.target.value})
         } else if(event.target.id === 'password') { 
             this.setState({password: event.target.value});
-            console.log({password: event.target.value})
         }
     }
-
-    // getCookie = (cname) => {
-    //     var name = cname + "=";
-    //     var ca = document.cookie.split(';');
-    //     for(var i = 0; i < ca.length; i++) {
-    //         var c = ca[i];
-    //         while (c.charAt(0) === ' ') {
-    //             c = c.substring(1);
-    //         }
-    //         if (c.indexOf(name) === 0) {
-    //             return c.substring(name.length, c.length);
-    //         }              
-    //     }
-    //     return "";
-    //     // window.location.reload(true); 
-    //     console.log               
-    // }
 
     updatePassword = (event) => {
         event.preventDefault();        
@@ -61,7 +42,6 @@ export default class ForgetpasswordCom extends Component {
             .end((err, res) => {
 
                 if(res.body.status == true) {
-                    console.log('Successsssssss')
                     swal({
                         title: 'You change password complete !',
                         text: 'Please login again.',
@@ -76,7 +56,6 @@ export default class ForgetpasswordCom extends Component {
                         }
                       });
                 } else if(res.body.status == false) {
-                    console.log('faileddddddddddddd')
                     swal({
                         title: 'Failed !',
                         text: 'No Account !',
@@ -104,8 +83,6 @@ export default class ForgetpasswordCom extends Component {
     closeDialog = () => {
         // window.location.reload();
         this.props.history.push('/')
-        
-        console.log('Close Dialog')
     }
 
 

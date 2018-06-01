@@ -32,12 +32,10 @@ export default class MainMenuCom extends Component {
 
     index = () => {
         this.props.history.push('/')
-        console.log('test onclick menu')
     }
 
     oncallBook = () => {
         this.props.history.push('/menu')
-        console.log('Menu list to Booking')
     }
 
     search = () => {
@@ -54,7 +52,6 @@ export default class MainMenuCom extends Component {
             document.cookie = 'staff_name=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             this.index({})
         }
-    console.log('Logout')
     }
 
 

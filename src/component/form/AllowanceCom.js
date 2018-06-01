@@ -81,7 +81,6 @@ export default class AllowanceCom extends Component {
             alert('A name was submitted: ' + this.state.endDate);
             if(alert) {
                 this.getData()
-                console.log(this.state.endDate)
             }
         } 
 
@@ -104,7 +103,6 @@ export default class AllowanceCom extends Component {
                 // .get()
                 .onSnapshot((querySnapshot) => {
                     var data = [];
-                    // console.log(data)
                     if(querySnapshot.size > 0) {
                         querySnapshot.forEach((querySnapshot) => {
                             data.push(querySnapshot.data())
@@ -145,7 +143,6 @@ export default class AllowanceCom extends Component {
         }   
 
         savePDF() {
-            console.log('Save to pdf')
             const input = document.getElementById('divToPrint');
 
             html2canvas(input)
@@ -209,7 +206,6 @@ export default class AllowanceCom extends Component {
             this.setState({
                 nameSearch:''
             })
-            // console.log(this.state.nameSearch);
         }
          
         changeData = (id, value) => {

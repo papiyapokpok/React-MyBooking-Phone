@@ -19,19 +19,15 @@ export default class SignOutCom extends Component {
                 var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
                 document.cookie = 'staff_name=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             }
-        console.log('Logout Complete')
         this.homePage()
         window.location.reload()
           }).catch(function(error) {
-            // An error happened.
-            console.log('Error Logout')
           });
 
         }
 
     homePage = () => {
         this.props.history.push('/')
-        console.log('test onclick menu')
     }
     
         

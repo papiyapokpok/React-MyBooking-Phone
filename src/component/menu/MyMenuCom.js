@@ -59,7 +59,6 @@ export default class MyMenuCom extends Component {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    // console.log(cvalue)
   }
 
   menuClickLeft = () => {
@@ -80,14 +79,10 @@ getCookie = (cname) => {
           return c.substring(name.length, c.length);
       }              
   }
-  return "";
-  // window.location.reload(true); 
-  console.log               
+  return "";          
 }
 
   render() {
-
-    console.log(this.props)
     let hide = {
       display: 'none'
     }
@@ -150,7 +145,6 @@ getCookie = (cname) => {
     }
 
   if(this.getCookie('print_status')) {
-    console.log('hide')
     booking = <Link to="/menu" style={hideStyle} >Booking </Link> 
 
     report = <Link to="/search" style={hideStyle} >Report</Link> 

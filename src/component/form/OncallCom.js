@@ -47,14 +47,11 @@ export default class OncallCom extends Component {
                 return c.substring(name.length, c.length);
             }              
         }
-        return "";
-        // window.location.reload(true); 
-        console.log               
+        return "";           
     }
 
     onCall = (e) => {
-        this.state.onCallNum = e
-        console.log(this.state.onCallNum)       
+        this.state.onCallNum = e     
     }
 
     onSubmit = (e) => {
@@ -62,17 +59,12 @@ export default class OncallCom extends Component {
         const oncallnumber = this.state.onCallNum        
         const { startDate, endDate } = this.state
         const email = this.getCookie('staff_name')
-        // var Alert = require('react-s-alert').default;
-        console.log(email)
-
-        console.log(oncallnumber)
 
         if ( oncallnumber === null) {
             // swal('Please select oncall! ');
             this.setState({
                 AlertNulls: true,
             })
-            console.log('2222222')
             return;
         }
 
@@ -116,18 +108,8 @@ export default class OncallCom extends Component {
                     .end((err, res) => {
                         if(res.body.status === false) {
                             resolve({ status: res.body.status })
-                            // const status = ('status: ' + res.body.status) 
-                            // console.log(res.body.status)    
-                            // alert("Oncall 0" + oncallnumber + " วันที่ " + oncalldate + " " +" มีคนลงทะเบียนไปแล้ว")
-                            // this.setState({
-                            //     AlertNulls: true,
-                            //     defaultAlert: `Oncall 0${oncallnumber}วันที่ ${oncalldate} มีคนลงทะเบียนไปแล้ว`
-                            // })
                         } else {
-                            resolve({ status: true })
-                            // const status = ('status: ' + res.body.status)                                
-                            // console.log(status)   
-                            // alert("คุณลงทะเบียนถือ Oncall 0" + oncallnumber + " วันที่ " + oncalldate + " เรียบร้อย ")                                                         
+                            resolve({ status: true })                                                       
                         }
                 }, 'json')
                 })
@@ -160,9 +142,7 @@ export default class OncallCom extends Component {
     }
 
     render() {
-        // console.log(this.props) 
         const { startDate, endDate, status, AlertNulls, defaultAlert } = this.state
-        // console.log(res.body.status)
         let AlertNullMessage = ''
         let classHide = '';
         

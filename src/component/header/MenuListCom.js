@@ -44,8 +44,7 @@ export default class MenuListCom extends Component {
     menuListClick = () => {
         this.setState({
             menu: !this.state.menu
-        })
-        console.log('Menu List')  
+        }) 
     }
     
     oncallBook = () => {
@@ -59,9 +58,6 @@ export default class MenuListCom extends Component {
     render() {
         const { menu } = this.state
         const {...res } = this.props
-
-        // const staff_name = this.getCookie('staff_name')
-        // console.log(staff_name)
 
         let menuView = ''
         let classHide = ''

@@ -17,7 +17,6 @@ export default class HeaderCom extends Component {
 
     home = () => {
         this.props.history.push('/menu')
-        console.log('test onclick menu')
     }
 
     homePage = () => {
@@ -31,8 +30,6 @@ export default class HeaderCom extends Component {
     
 
     render() {
-        console.log(this.props)
-        
         return(
             <div>
                 <HeaderBox image={logo}/>
