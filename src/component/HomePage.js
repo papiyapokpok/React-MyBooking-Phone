@@ -214,13 +214,14 @@ export default class HomePage extends Component {
                 <form >
                     <div className="containerHome">
                         <div id={'firebaseui-auth-container'} >
-                            <HomePageBox
+                            <HomePageBox 
                                 id="email"
                                 value={this.state.email}
                                 title={'Email'}
                                 type="text" 
                                 placeholder="Enter Email"
-                                onChange={this.handleChange} />
+                                onChange={this.handleChange} /> 
+
                             <HomePageBox
                                 id="password"
                                 value={this.state.password}

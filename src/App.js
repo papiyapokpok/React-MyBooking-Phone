@@ -20,6 +20,7 @@ import OncallBookingCom from './component/form/OncallBookingCom';
 import MenulistCom from './component/header/MenuListCom'
 import SignOutCom from './component/form/SignOutCom'
 import menuDraw from './component/assets/imgs/menu-list.png'
+import OncallBookDay from './component/form/OncallBookDay'
 
 import { PropTypes } from 'prop-types'
 import swal from 'sweetalert'
@@ -29,6 +30,7 @@ import { DB_CONFIG } from './config/config'
 import firebase from 'firebase'
 import AllowanceCom from './component/form/AllowanceCom';
 import DataMigrate from './component/lib/DataMigrate';
+import AdminReportCom from './component/form/AdminReportCom';
 
 class App extends Component {
   constructor(props) {
@@ -151,7 +153,7 @@ getCookie = (cname) => {
       color:'black',
       padding:'8px',
       lineHeight: '40px',
-      fontSize:'16px',
+      fontSize:'100%',
       color:'white'
     }
 
@@ -181,12 +183,19 @@ getCookie = (cname) => {
         menuList = (
           <div>
             <div style={listMenu}> 
-            <br />
-              <Link to="/home" style={linkStyle} onClick={this.show} >Booking</Link> <br />
-              <Link to="/search" style={linkStyle} onClick={this.show} >Report</Link><br />
-              <Link to="/allowance" style={linkStyle} onClick={this.show} >Allowance</Link> <br />                  
-              <Link to="admin" style={linkStyle} onClick={this.show} >Admin</Link><br />
-              <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link><br />
+            <h3>User Menu</h3>            
+              <Link to="/home" style={linkStyle} onClick={this.show} > - Booking</Link> <br />
+              <Link to="/search" style={linkStyle} onClick={this.show} > - Report</Link><br />                  
+              <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
+
+              <hr style={{width:'94%', float:'left'}} />
+              <h3>Admin Menu</h3>
+
+              <Link to="/AdminBookDay" style={linkStyle} onClick={this.show} > - Booking</Link><br />              
+              <Link to="/AdminReporter" style={linkStyle} onClick={this.show} > - Report</Link><br />
+              <Link to="/allowance" style={linkStyle} onClick={this.show} > - Allowance</Link> <br />
+              <Link to="/datamigrate" style={linkStyle} onClick={this.show} > - Data Migrate</Link><br />              
+              
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
             </div>
             <div  style={overlayStyle} onClick={this.show}/>
@@ -196,12 +205,11 @@ getCookie = (cname) => {
         menuList = (
           <div>
             <div style={listMenu}> 
-            <br />
-              <Link to="/home" style={linkStyle} onClick={this.show} >Booking</Link> <br />
-              <Link to="/search" style={linkStyle} onClick={this.show} >Report</Link><br />
-              {/* <Link to="/allowance" style={linkStyle} onClick={this.show} >Allowance</Link> <br />                   */}
-              {/* <Link to="admin" style={linkStyle} onClick={this.show} >Admin</Link><br /> */}
-              <Link onClick={this.signOut} to="/out" style={linkStyle} >Logout</Link><br />
+            <h3>User Menu</h3>                        
+              <Link to="/home" style={linkStyle} onClick={this.show} > - Booking</Link> <br />
+              <Link to="/search" style={linkStyle} onClick={this.show} > - Report</Link><br />
+              <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
+              <hr style={{width:'94%', float:'left'}} />              
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
             </div>
             <div  style={overlayStyle} onClick={this.show}/>
@@ -220,11 +228,14 @@ getCookie = (cname) => {
           {loading}
             
             <Route exact path="/" component={HomePage} username={this.props.username} />
+
             <Route path="/home" component={OncallBookingCom} />  
             <Route path="/search" component={SearchDayCom} /> 
+
+            <Route path="/AdminBookDay" component={OncallBookDay} />              
+            <Route path="/AdminReporter" component={AdminReportCom} />              
             <Route path="/allowance" component={AllowanceCom} />  
-            <Route path="/admin" component={DataMigrate} />  
-             
+            <Route path="/datamigrate" component={DataMigrate} />  
 
             <Route path="/createacc" component={CreateAccountCom} />
             <Route path="/forgetpassword" component={ForgetpasswordCom} /> 

@@ -29,68 +29,68 @@ export default class DataMigrate extends Component {
     }
 
     dataRender = (data) => {
-        var db = firebase.firestore();
+        // var db = firebase.firestore();
         
-        data.forEach((result) => {
-            // console.log(result)
-            const numberSql = result.oncallnumber
-            const dateSql = result.oncalldate 
-            // dateSql.setHours(1, 1, 1)
-            const emailSql = result.email
-            const staffidSql = result.staffid
-            const staffNameSql = result.staffName
-            const staffNickNameSql = result.staffNickName
-            const staffSurnameSql = result.staffSurname
+        // data.forEach((result) => {
+        //     // console.log(result)
+        //     const numberSql = result.oncallnumber
+        //     const dateSql = result.oncalldate 
+        //     // dateSql.setHours(1, 1, 1)
+        //     const emailSql = result.email
+        //     const staffidSql = result.staffid
+        //     const staffNameSql = result.staffName
+        //     const staffNickNameSql = result.staffNickName
+        //     const staffSurnameSql = result.staffSurname
             
-            // const date = moment(dateSql).format('LLL')
+        //     // const date = moment(dateSql).format('LLL')
 
-            // let date = moment(dateSql).format('YYYY/MM/DD h:mm:ss')
-            // const sss = (new Date(date).getTime()/1000)
+        //     // let date = moment(dateSql).format('YYYY/MM/DD h:mm:ss')
+        //     // const sss = (new Date(date).getTime()/1000)
 
-            const start = new Date(dateSql);
-            // start.setHours(0, 0, 0, 0);
+        //     const start = new Date(dateSql);
+        //     // start.setHours(0, 0, 0, 0);
 
-            // start.setHours(12, 0, 0, 0);
-            // console.log(numberSql)
-            console.log(start)
-            // console.log(emailSql)
+        //     // start.setHours(12, 0, 0, 0);
+        //     // console.log(numberSql)
+        //     console.log(start)
+        //     // console.log(emailSql)
 
 
-            db.collection("oncalllogs").add({
-                oncallnumber: numberSql,
-                email: emailSql,
-                id: staffidSql,
-                name: staffNameSql,
-                nickname: staffNickNameSql,
-                surname: staffSurnameSql,
-                dateTime: start
-            })
-            // .then((docRef) => {
-            //     // swal({
-            //     //     title: 'Complete',
-            //     //     text: "You booking oncall done",
-            //     //     icon:'success'
-            //     // })
-            //     // .then((willDelete) => {
-            //     //     if (willDelete) {
-            //     //         this.setState({load: false})
-            //     //     }
-            //     // })
-            // })
-            // .catch((error) => {
-            //     // console.error("Error adding document: ", error);
-            //     // swal({
-            //     //     title: 'Failed',
-            //     //     text: "This device has already been reserved.",
-            //     //     icon: "warning",
-            //     // })
-            //     // .then((willDelete) => {
-            //     //     if (willDelete) {
-            //     //         this.setState({load: false})
-            //     //     }
-            //     // })
-            // });
-        });
+        //     db.collection("oncalllogs").add({
+        //         oncallnumber: numberSql,
+        //         email: emailSql,
+        //         id: staffidSql,
+        //         name: staffNameSql,
+        //         nickname: staffNickNameSql,
+        //         surname: staffSurnameSql,
+        //         dateTime: start
+        //     })
+        //     // .then((docRef) => {
+        //     //     // swal({
+        //     //     //     title: 'Complete',
+        //     //     //     text: "You booking oncall done",
+        //     //     //     icon:'success'
+        //     //     // })
+        //     //     // .then((willDelete) => {
+        //     //     //     if (willDelete) {
+        //     //     //         this.setState({load: false})
+        //     //     //     }
+        //     //     // })
+        //     // })
+        //     // .catch((error) => {
+        //     //     // console.error("Error adding document: ", error);
+        //     //     // swal({
+        //     //     //     title: 'Failed',
+        //     //     //     text: "This device has already been reserved.",
+        //     //     //     icon: "warning",
+        //     //     // })
+        //     //     // .then((willDelete) => {
+        //     //     //     if (willDelete) {
+        //     //     //         this.setState({load: false})
+        //     //     //     }
+        //     //     // })
+        //     // });
+        // });
     }
 
     render() {
@@ -104,7 +104,7 @@ export default class DataMigrate extends Component {
 
         return(
             <div>
-                {/* <button onClick={this.getDataSql}>Dada to Mirgation</button> */}
+                <button style={{width: '80%'}} onClick={this.getDataSql}>Dada to Mirgation</button>
             </div>
         )
     }

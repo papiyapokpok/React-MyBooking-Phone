@@ -100,7 +100,6 @@ export default class AllowanceCom extends Component {
                 db.collection("oncalllogs") 
                 .where('dateTime', '>', start)
                 .where('dateTime', '<', end)             
-                // .get()
                 .onSnapshot((querySnapshot) => {
                     var data = [];
                     if(querySnapshot.size > 0) {
