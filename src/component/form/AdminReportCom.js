@@ -14,7 +14,9 @@ export default class AdminReportCom extends Component {
             email: 'sretthakan.t@kaidee.com',
             startDate: null,
             endDate: null,
-            data: [],
+            data:null,
+            load:false,
+            noData:false
         }
         this.handleChange =this.handleChange.bind(this)
         this.onClickDelete = this.onClickDelete.bind(this);
@@ -31,6 +33,9 @@ export default class AdminReportCom extends Component {
     } 
 
     getData = () => {
+        console.log('Get Data')
+        this.setState({load: true})                
+        
         const db = firebase.firestore();
         
         const email = this.state.email
@@ -38,81 +43,82 @@ export default class AdminReportCom extends Component {
         start.setHours(0, 0, 0)
         const end = new Date(this.state.endDate)
         end.setHours(23, 59, 59)
-        console.log(email)
-        console.log(start)
-        console.log(end)
 
-        if(start, end) {
+        if(start, end) {          
             db.collection("testLogs") 
-            .where('dateTime', '>', start)
-            .where('dateTime', '<', end)             
+            .where('dateTime', '>=', start)
+            .where('dateTime', '<=', end)             
             .where('email', '==', email)             
             .onSnapshot((querySnapshot) => {
                 const data = [];
-
-                // console.log(querySnapshot.docs[0].id)
-                // console.log(querySnapshot.docs[0].key.path.segments[7])
-                
-                
+                console.log('Get data 2')
                 if(querySnapshot.size > 0) {
-                    querySnapshot.forEach((querySnapshot) => {
-                        data.push(querySnapshot.data())   
-                        console.log(data)
-                                             
-                    });
+                    querySnapshot.forEach(querySnapshot => {
+                        data.push(Object.assign(querySnapshot.data(), { id: querySnapshot.id })) //Merge Object
+                    })
                     this.setState({data})
                     this.setState({load: false})
+                    this.setState({noData: false})
+                    
                 } else {
-                    swal('No booking on search')
-                    this.setState({load: false})                
+                    this.setState({load: false}) 
+                    this.setState({data: null})                                    
+                    this.setState({noData: true})
                 } 
             });
+        } else {
+            console.log('no start end')
+            this.setState({noData: false})
+            
         }
     }
 
     dataRender = (data) => {
-        return data.map((e, i) => {
+        return data.map((e, i) => {        
             return (
-                <tr id={'result'} key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
+                <tr id={'result'} key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)', lineHeight:'20px'}}>
                     <td>{e.oncallnumber}</td>
                     <td>{moment(e.dateTime).format('Y-MM-DD')}</td>
                     <td style={{textAlign:'center'}}>{e.email}</td>
-                    <td style={{textAlign:'center'}} onClick={() => this.onClickDelete(e)}>{'Del'}</td>
+                    <td style={{textAlign:'center'}} onClick={() => this.onClickDelete(e.id)}>{'Del'}</td>
                 </tr>
-            );            
+            );  
         }); 
+
     }
 
+    onClickDelete = (id) =>{
+        const db = firebase.firestore();
+        this.setState({load: true})                
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                db.collection('testLogs').doc(id).delete().then(function() {
+                    // console.log("Document successfully deleted!");
+                    swal("Document successfully deleted!")
+                }).catch(function(error) {
+                    // console.error("Error removing document: ", error);
+                    swal("Document cannot deleted!")        
+                });
+            } else {
+              swal("Your imaginary file is safe!");
+            }
+          });
 
 
-    onClickDelete = (data) =>{
-        // const items = e.email
-        // console.log(data)
-        console.log(data)
-
-
-        let email = data.email        
-
-        const db = firebase.firestore()
-        db.collection('testLogs').doc(email).delete().then(function() {
-            console.log("Document successfully deleted!");
-        }).catch(function(error) {
-            console.error("Error removing document: ", error);
-        });
     }
 
-    deleteItem = (id) => {
-        const db = firebase.firestore();        
-        console.log(id)
-        // this.itemsRef.update({
-        //   [id]: null
-
-        // })
-    }
 
     render() {
-        const { data } = this.state
-
+        const { data, load, noData } = this.state
+        // console.log(data)
         const inputEmail = {
             fontSize: '16px',
             width: '230px',
@@ -133,6 +139,15 @@ export default class AdminReportCom extends Component {
             dataValue = this.dataRender(data);
             // rowCount = `Total:  ${data.length} `;  //วิธีการต่อ String
         } 
+
+        let loading = ''
+        if(load) {
+            loading = <h3>Now loading...</h3>
+        }
+        let noDataView = ''
+        if(noData) {
+            noDataView = <h3>No data...</h3>
+        }
         return(
             <div>
                 <br />
@@ -168,11 +183,12 @@ export default class AdminReportCom extends Component {
                                 <th id={'status'} style={tableHeader}>Status</th>
                             </tr>
                         </thead>
-                        <tbody>                            
+                        <tbody>                                                        
                             {dataValue}
                         </tbody>                            
                     </table>
                 </div><br />
+                {loading}{noDataView}
                 
             </div>
         )

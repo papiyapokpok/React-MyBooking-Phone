@@ -42,7 +42,7 @@ export default class OncallBookDay extends Component {
         const end = new Date(this.state.date)
         end.setHours(23, 59, 59) 
             if(start, end) {
-                db.collection("oncalllogs") 
+                db.collection("testLogs") 
                 .where('dateTime', '>', start)
                 .where('dateTime', '<', end)
                 .where('oncallnumber', '==', number)              
@@ -115,7 +115,7 @@ export default class OncallBookDay extends Component {
                         // this.setCookie('emp_nickname', nicknameGet, 1)
                         // this.setCookie('emp_surname', surnameGet, 1)
 
-                        db.collection("oncalllogs").add({
+                        db.collection("testLogs").add({
                             oncallnumber: number,
                             email: emailGet,
                             id: idGet,
@@ -204,6 +204,7 @@ export default class OncallBookDay extends Component {
             AlertNullMessage = <AlertNull title={defaultAlert} clickClose={this.clickClose} />
         }
         const inputEmail = {
+            textAlign:'center',
             fontSize: '16px',
             width: '80%',
             height: '32px',
