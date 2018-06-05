@@ -43,9 +43,9 @@ export default class AdminReportCom extends Component {
         start.setHours(0, 0, 0)
         const end = new Date(this.state.endDate)
         end.setHours(23, 59, 59)
-
+// console.log(email)
         if(start, end) {          
-            db.collection("testLogs") 
+            db.collection("oncalllogs") 
             .where('dateTime', '>=', start)
             .where('dateTime', '<=', end)             
             .where('email', '==', email)             
@@ -59,7 +59,6 @@ export default class AdminReportCom extends Component {
                     this.setState({data})
                     this.setState({load: false})
                     this.setState({noData: false})
-                    
                 } else {
                     this.setState({load: false}) 
                     this.setState({data: null})                                    
@@ -69,7 +68,6 @@ export default class AdminReportCom extends Component {
         } else {
             console.log('no start end')
             this.setState({noData: false})
-            
         }
     }
 
@@ -100,7 +98,7 @@ export default class AdminReportCom extends Component {
           })
           .then((willDelete) => {
             if (willDelete) {
-                db.collection('testLogs').doc(id).delete().then(function() {
+                db.collection('oncalllogs').doc(id).delete().then(function() {
                     // console.log("Document successfully deleted!");
                     swal("Document successfully deleted!")
                 }).catch(function(error) {
