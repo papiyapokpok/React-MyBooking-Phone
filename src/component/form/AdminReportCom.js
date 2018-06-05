@@ -11,7 +11,7 @@ export default class AdminReportCom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'sretthakan.t@kaidee.com',
+            email: null,
             startDate: null,
             endDate: null,
             data:null,

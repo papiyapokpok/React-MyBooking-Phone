@@ -42,7 +42,7 @@ export default class OncallBookDay extends Component {
         const end = new Date(this.state.date)
         end.setHours(23, 59, 59) 
             if(start, end) {
-                db.collection("testLogs") 
+                db.collection("oncalllogs") 
                 .where('dateTime', '>', start)
                 .where('dateTime', '<', end)
                 .where('oncallnumber', '==', number)              
@@ -115,7 +115,7 @@ export default class OncallBookDay extends Component {
                         // this.setCookie('emp_nickname', nicknameGet, 1)
                         // this.setCookie('emp_surname', surnameGet, 1)
 
-                        db.collection("testLogs").add({
+                        db.collection("oncalllogs").add({
                             oncallnumber: number,
                             email: emailGet,
                             id: idGet,
