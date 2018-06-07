@@ -223,11 +223,13 @@ export default class OncallBookDay extends Component {
                     onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
                     id="your_unique_id" // PropTypes.string.isRequired,
                     numberOfMonths={1}
-                    isOutsideRange={() => false} />
+                    isOutsideRange={() => false} 
+                    withFullScreenPortal
+                    />
                 </div>
                 {loading}
                 <div style={{marginTop:'20px', textAlign:'center', width:'350px'}}>
-                    <input style={inputEmail} type={'text'} value={this.setState.email} onChange={this.handleChange}  ></input>
+                    <input style={inputEmail} type={'text'} value={this.setState.email} onChange={this.handleChange} placeholder={'Input email for book'} ></input>
                 <br />
                 <br />
                     <br />

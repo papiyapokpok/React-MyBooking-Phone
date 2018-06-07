@@ -22,7 +22,7 @@ export default class HomePage extends Component {
         super(props);
         this.state = {          
             mainDialogReset: false,            
-            email: '',            
+            emails: '',            
             password: '',
             isButtonDisabled: false,
             clicks: 0,
@@ -31,34 +31,38 @@ export default class HomePage extends Component {
             load: false
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
         if(event.target.id === 'email') {
-            this.setState({email: event.target.value});
+            this.setState({emails: event.target.value});
         } else if(event.target.id === 'password') { 
             this.setState({password: event.target.value});
         }
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        const itemsRef = firebase.database().ref('items');
-        const item = {
-          title: this.state.username,
-          user: this.state.password
-        }
-        itemsRef.push(item);
-        this.setState({
-            username: '',
-            password: ''
-        });
-    }  
+    // handleSubmit(e) {
+    //     e.preventDefault();
+    //     const itemsRef = firebase.database().ref('items');
+    //     const item = {
+    //       title: this.state.username,
+    //       user: this.state.password
+    //     }
+    //     itemsRef.push(item);
+    //     this.setState({
+    //         username: '',
+    //         password: ''
+    //     });
+    // }  
 
     loginGoogle = () => {
         this.setState({ error: '', load: true });
-        const { email, password } = this.state;
+        const { emails, password } = this.state;
+        // const { emails } = this.state;
+        const email = emails.toLowerCase();
+        
+        // console.log(email)
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             this.setState({ error: '', load: true });
