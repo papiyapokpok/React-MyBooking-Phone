@@ -70,7 +70,7 @@ export default class AdSearchingChild extends Component {
                         <tbody>{dataValue}</tbody>                            
                     </table>
                 </div><br />{loading}
-                <div className={'rowCount'}>{rowCount}</div>
+                <div className={'AdrowCount'}>{rowCount}</div>
             </div> 
         )
     }

@@ -17,7 +17,7 @@ export default class AdminBooking extends Component {
             AlertNulls: false,
             defaultAlert: ['Please select oncall number'],   
             date: null,
-            email: 'sretthakan.t@kaidee.com' ,
+            email: null ,
             onCallNum: null,
             focusedInput: null,
         }
@@ -42,8 +42,7 @@ export default class AdminBooking extends Component {
         const end = new Date(this.state.date)
         end.setHours(23, 59, 59, 999) 
             if(start, end) {
-                // db.collection("oncalllogs") 
-                db.collection("testLogs")                 
+                db.collection("oncalllogs")                 
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end)
                 .where('oncallnumber', '==', number) 
@@ -111,7 +110,7 @@ export default class AdminBooking extends Component {
                         const nicknameGet = querySnapshot.docs[0].data().nickname
                         const surnameGet = querySnapshot.docs[0].data().surname
                         // db.collection("oncalllogs").add({
-                        db.collection("testLogs").add({
+                        db.collection("oncalllogs").add({
                             oncallnumber: number,
                             email: emailGet,
                             id: idGet,
@@ -166,7 +165,8 @@ export default class AdminBooking extends Component {
                 onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
                 id="your_unique_id" // PropTypes.string.isRequired,
                 numberOfMonths={1}
-                isOutsideRange={() => false} />
+                isOutsideRange={() => false} 
+                withFullScreenPortal/>
 
                 <AdminBookingChild 
                     {...this.state}

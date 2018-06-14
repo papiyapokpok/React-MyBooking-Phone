@@ -7,9 +7,10 @@ import { DateRangePicker } from 'react-dates'
 import '../style/AllowanceStyle.css'
 
 export default class Allowance extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
-        // const { ...res } = this.props
-
         const { startDate, endDate, data, menu, cells, views, hide } =this.props  
         console.log(this.props.hide)
         let dataValue = '';
@@ -20,7 +21,7 @@ export default class Allowance extends Component {
         let classHide = '';
         // let menu = ''
     if(data) {
-        dataValue = this.dataRender(data);
+        dataValue = this.props.dataRender(data);
         rowCount = 'Total: ' + data.length + ' Day';
 
         sumValue = data.length*500
@@ -41,52 +42,51 @@ export default class Allowance extends Component {
         viewer = (
             <div style={{marginTop:'-50px'}}>
   
-                <img src={print} alt="print" className={'printStyle'} onClick={this.getData}/>
+                <img src={print} alt="print" className={'printStyle'} onClick={this.props.getData}/>
                 <br />
                 <div className={'chooseMonth'}>
-                    {/* <p onClick={this.show} >{this.state.choose}</p> */}
-                    {/* <DateRangePicker 
+                    {/* <p onClick={this.props.show} >{this.state.choose}</p> */}
+                    <DateRangePicker 
                         orientation="horizontal" 
                         startDate={this.props.startDate} // momentPropTypes.momentObj or null,
                         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
                         endDate={this.props.endDate} // momentPropTypes.momentObj or null,
                         endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-                        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                        onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                        onDatesChange={({ startDate, endDate }) => this.props.setDateTime(startDate, endDate) } // PropTypes.func.isRequired,
+                        focusedInput={this.props.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                        onFocusChange={focusedInput => this.props.setFocusState({ focusedInput })} // PropTypes.func.isRequired,
                         minimumNights={0} 
                         isOutsideRange={() => false}
                         numberOfMonths={1}
                         withFullScreenPortal
-                    />                     */}
+                    />                    
                 </div>
             </div>
         )
     }
  
         return(
-            <div style={{backgroundColor:'white'}}>
+            <div className={'AllowDivMain'}>
                 <br />
                 <br />
-                <br />
-                <div id="divToPrint" className="SupperMainDiv superMainDiv" >{viewer}<div>
-                        <table className="tebleStyle" style={{border:'1px solid', marginTop:'40px'}}>
+                <div className="divTable" >{viewer}<div>
+                        <table className="table-header" >
                             <thead>
                                 <tr>
-                                    <th className={'tableHeader'}>Date</th>
-                                    <th className={'tableHeader'}>ID</th>
-                                    <th className={'tableHeader'}>Name</th>
-                                    <th className={'tableHeader'}>Nickname</th> 
-                                    <th className={'tableHeader'}>Surname</th>                                
-                                    <th className={'tableHeader'}>Allowance(THB)</th>
+                                    <th className={'tableHeader'}>{'Date'}</th>
+                                    <th className={'tableHeader'}>{'ID'}</th>
+                                    <th className={'tableHeader'}>{'Name'}</th>
+                                    <th className={'tableHeader'}>{'Nickname'}</th> 
+                                    <th className={'tableHeader'}>{'Surname'}</th>                                
+                                    <th className={'tableHeader'}>{'Allowance(THB)'}</th>
                                 </tr>
                             </thead>
                             <tbody>{dataValue}</tbody>             
                         </table>
                     </div>
                     <div style={{width:'90%'}}>
-                        <div style={{textAlign:'left', padding:'18px', marginLeft:'-23px', width:'40%', float:'left'}}>{rowCount}</div>
-                        <div style={{textAlign:'right', padding:'18px', marginRight:'-27px', width:'40%', float:'right'}}>{sumCount}</div>
+                        <div className={'AllowRowCount'}>{rowCount}</div>
+                        <div className={'AllowSumCount'}>{sumCount}</div>
                     </div>
                 </div>                
             </div> 

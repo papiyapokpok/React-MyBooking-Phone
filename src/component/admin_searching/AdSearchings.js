@@ -76,7 +76,6 @@ export default class AdSearchings extends Component {
             console.log(end)
 
             db.collection("oncalllogs") 
-            // db.collection("testLogs") 
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end) 
                 .where('email', '==', email)
@@ -104,8 +103,7 @@ export default class AdSearchings extends Component {
             end.setHours(23, 59, 59)
             this.setState({data: ''})
             this.setState({load: true})
-            // db.collection("oncalllogs") 
-            db.collection("testLogs") 
+            db.collection("oncalllogs")  
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end) 
             .onSnapshot((querySnapshot) => {
@@ -163,7 +161,7 @@ export default class AdSearchings extends Component {
           })
           .then((willDelete) => {
             if (willDelete) {
-                db.collection('testLogs').doc(id).delete().then(function() {
+                db.collection('oncalllogs').doc(id).delete().then(function() {
                     // console.log("Document successfully deleted!");
                     swal("Document successfully deleted!")
                 }).catch(function(error) {

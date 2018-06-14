@@ -2,24 +2,38 @@
     display: none;
 }
 
-.adminStyle  {
-    position: absolute;
-    width: 24px;
-    right: 25px;
-    top: 260px    
-};
-
+.AllowDivMain {
+    /* background-color: rgb(211, 211, 211); */
+    text-align: center;
+    width: 100%;
+}
 .tableHeader {
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border: 1px solid;
+    background-color: rgb(225, 227, 228);
     padding-left: 4px;
-    width: 36mm
-};
-/* .tableHeader {
-    border-bottom: 1px solid black;
-    padding-left: 4px;
-    width: 36mm
-}; */
+    
+}
+
+.table-header {
+    width: 94%;
+    border:1px solid;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.centerStyle {
+    text-align: center;
+    border: 1px solid black;
+}
+.leftStyle {
+    text-align: left;
+    padding-left: 24px;
+    border: 1px solid black;
+}
+
+.divTable {
+    text-align: -webkit-center;
+}
 
 .superMainDiv {
     text-align: -webkit-center;
@@ -43,8 +57,8 @@
 .printStyle {
     position: relative;       
     width: 30px;
-    right: -360px;
-    top: 32px
+    right: -166px;
+    top: 42px;
 }
 .pdfStyle {
     position: relative;     
@@ -57,4 +71,19 @@
     top: 166px;
     right: 45%;
     left: 45%
+}
+
+.AllowRowCount {
+    text-Align: left;
+    padding: 18px;
+    margin-Left: -23px;
+    width: 40%;
+    float:left;
+}
+.AllowSumCount {
+    text-Align: right;
+    padding: 18px;
+    margin-Right: -27px;
+    width: 40%;
+    float: right;
 }

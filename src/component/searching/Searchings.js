@@ -96,8 +96,7 @@ export default class Searchings extends Component {
             console.log(start)
             console.log(end)
 
-            db.collection("testLogs") 
-            // db.collection("testLogs") 
+            db.collection("oncalllogs") 
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end) 
                 .where('email', '==', email)
