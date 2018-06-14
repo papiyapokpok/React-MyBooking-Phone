@@ -24,18 +24,75 @@
 }
 
 .logoutButton {
-  width: 92px;
-  height: fit-content;
-  line-height: 2px;
-  background-color: #c5c5c582;
+
   position: absolute;
-  top: 5px;
-  right: 6px;
-  color: red;
-  font-weight: bolder;
+  top: 8px;
+  right: 12px;
+
+  width: unset;
+  background: #d93434;
+  background-image: -webkit-linear-gradient(top, #ff0000, #ff0000);
+  background-image: -moz-linear-gradient(top, #ff0000, #ff0000);
+  background-image: -ms-linear-gradient(top, #ff0000, #ff0000);
+  background-image: -o-linear-gradient(top, #ff0000, #ff0000);
+  background-image: linear-gradient(to bottom, #ff0000, #ff0000);
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 3px 8px 6px 8px;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+
+/* Menu Slide */
+.overlayStyle  {
+  position: fixed;
+  background-Color: rgba(0,0,0,0.1);
+  width: 100%;
+  height: 100%;
+  z-Index: 99;
+
+  -webkit-animation: slideIn 0.1s forwards;
+  -moz-animation: slideIn 2s forwards;
+  animation: slideIn 0.5s forwards;
 }
+  .AppListMenu {
+    width: 55%;
+    height: 100%;
+    position: absolute;
+    top: 57px;
+    background-Color: rgba(0, 111, 197,0.9);
+    z-Index: 999;
+    text-Align: left;
+    padding-Left: 16px;
+    color: white;
+    
+    -webkit-animation: slideIn 0.5s forwards;
+    -moz-animation: slideIn 2s forwards;
+    animation: slideIn 0.9s forwards;
+  }
+
+  @-webkit-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @-moz-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }

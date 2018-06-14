@@ -26,7 +26,7 @@ export default class BookingChild extends Component {
         // }
         return(
             <div className={'Book-div-main'}><br />
-                <h3>Hi, {this.props.getCookie('staff_name').split('@kaidee.com')}</h3>
+                <h3 className={'StaffName'}>Hi, {this.props.getCookie('staff_name').split('@kaidee.com')}</h3>
                 <p>Today&nbsp;{this.props.toDay.format('DD-MM-YYYY')}</p>
                 <div className={'div-content'}>
                     <OncallBookingBox label={'HTC Eye One'} type="radio" id="oncall1" name="oncall" onClick={()=>{this.props.onCall(1)}}/>

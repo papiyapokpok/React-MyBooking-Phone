@@ -116,27 +116,7 @@ getCookie = (cname) => {
       left: '14px',
       top: '13px'
     }
-    const listMenu = {
-      width: '65%',
-      height: '100%',
-      position: 'absolute',
-      top: '56px',
-      backgroundColor: 'rgb(36, 153, 212)',
-      zIndex: '999',
-      textAlign: 'left',
-      paddingLeft: '16px',
-      color: 'white'
-    }
 
-    const overlayStyle = {
-      position: 'fixed',
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      width: '100%',
-      height: '100%',
-      zIndex:'99'
-    }
-    
-  
     let menuList = ''
     let imgMenu = ''
     const menuHide = {
@@ -177,7 +157,7 @@ getCookie = (cname) => {
       if(this.getCookie('staff_name') == 'sretthakan.t@kaidee.com') {
         menuList = (
           <div>
-            <div style={listMenu}> 
+            <div className={'AppListMenu'}> 
             <h3>User Menu</h3>            
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
               <Link to="/search" style={linkStyle} onClick={this.show} > - Searching</Link> <br />  
@@ -193,13 +173,13 @@ getCookie = (cname) => {
               
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
             </div>
-            <div  style={overlayStyle} onClick={this.show}/>
+            <div  className={'overlayStyle'} onClick={this.show}/>
           </div>
         )
       } else {
         menuList = (
           <div>
-            <div style={listMenu}> 
+            <div className={'AppListMenu'}> 
             <h3>User Menu</h3>                        
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
               <Link to="/search" style={linkStyle} onClick={this.show} > - Searching</Link> <br /> 
@@ -207,10 +187,17 @@ getCookie = (cname) => {
               <hr style={{width:'94%', float:'left'}} />              
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
             </div>
-            <div  style={overlayStyle} onClick={this.show}/>
+            <div  className={'overlayStyle'} onClick={this.show}/>
           </div>
         )
       }
+    }
+    
+    let logoutView = ''
+    if(this.getCookie('staff_name')) {
+      logoutView = (
+        <button onClick={this.signOut} to="/out" className={'logoutButton'} >Log out</button>
+      )
     }
 
     return (
@@ -218,9 +205,8 @@ getCookie = (cname) => {
         <header className="App-header"> {this.props.children}  
           {imgMenu}                
           <Route component={MainApp} />
-          {menuList}
+          {menuList}{logoutView}
           {loading}
-          <button onClick={this.signOut} to="/out" className={'logoutButton'} >Log out</button>       
           <Switch>
             <Route exact path="/" component={HomePage} username={this.props.username} />
             <Route exact path="/booking" component={Booking} /> 

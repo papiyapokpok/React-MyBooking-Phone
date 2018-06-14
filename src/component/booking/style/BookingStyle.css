@@ -1,6 +1,14 @@
 .Book-div-main {
     text-align: -webkit-center
 }
+
+.StaffName {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+}
+
+
 .div-content {
     margin-top: 20px;
     width: 400px;
