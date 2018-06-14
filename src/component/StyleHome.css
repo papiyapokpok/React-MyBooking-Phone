@@ -76,14 +76,6 @@ span.psw {
     color: grey;
 }
 
-.forgetPassword {
-    font-size: 12px;
-    color: grey;
-    position: absolute;
-    right: 24px;
-    top: 377px;
-}
-
 .hide {
     display: none;
 }

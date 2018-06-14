@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
-import HeaderCom from './header/HeaderCom'
-import ForgetpasswordCom from './ForgetpasswordCom'
+
 import HomePageBox from './HomePageBox'
 import ButtonLoginBox from './button/ButtonLoginBox'
 
 import { PropTypes } from 'prop-types';
-import request from 'superagent';
+// import request from 'superagent';
 import swal from 'sweetalert';
 import './StyleHome.css'
-import glogin from './assets/imgs/glogin.png'
 
 import firebase from '../firebase'
-import firebaseui from 'firebaseui'
-import App from '../App';
-import OncallBookingCom from './form/OncallBookingCom';
-// import './StyleHome.css';
 
 export default class HomePage extends Component {
 
@@ -170,7 +164,7 @@ export default class HomePage extends Component {
     }
 
     loginSuccess = () => {
-        this.props.history.push('/home')
+        this.props.history.push('/booking')
     }
 
     resetPassword = () => {
@@ -203,10 +197,6 @@ export default class HomePage extends Component {
         if(load) {
             loading = <h2 style={loadingStyle}>Now loading...</h2>
         }
-        
-        if(mainDialogReset) {
-            dialogChangePassword = <ForgetpasswordCom username={this.state.username} /> 
-        }
 
         return (
             <div>
@@ -235,9 +225,6 @@ export default class HomePage extends Component {
                                 type="button"
                                 onClick={this.loginGoogle}
                                 title={'Signin'}/>
-                        </div>
-                        <div>
-                            {dialogChangePassword}
                         </div>
                     </div>
                 </form>

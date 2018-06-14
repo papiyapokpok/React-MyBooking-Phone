@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import HeaderCom from './header/HeaderCom'
-import MenuListCom from './header/MenuListCom'
-import MyMenuCom from './menu/MyMenuCom'
 
 export default class MainApp extends Component {
     render() {

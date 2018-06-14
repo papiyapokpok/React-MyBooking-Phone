@@ -23,6 +23,18 @@
   font-size: large;
 }
 
+.logoutButton {
+  width: 92px;
+  height: fit-content;
+  line-height: 2px;
+  background-color: #c5c5c582;
+  position: absolute;
+  top: 56px;
+  right: 6px;
+  color: red;
+  font-weight: bolder;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

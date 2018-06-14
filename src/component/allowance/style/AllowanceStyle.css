@@ -1,0 +1,60 @@
+.hide {
+    display: none;
+}
+
+.adminStyle  {
+    position: absolute;
+    width: 24px;
+    right: 25px;
+    top: 260px    
+};
+
+.tableHeader {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-left: 4px;
+    width: 36mm
+};
+/* .tableHeader {
+    border-bottom: 1px solid black;
+    padding-left: 4px;
+    width: 36mm
+}; */
+
+.superMainDiv {
+    text-align: -webkit-center;
+    background-color: white;
+    width: 210mm;
+    height: auto;
+    min-height: 297mm;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10pt;
+    margin-top: 1pt;
+    /* linebreaks: 51pt; */
+    line-height: 16pt;
+    padding-bottom: 60px
+}
+
+.chooseMonth {
+    position: initial;
+    margin-top: 0px
+}
+.printStyle {
+    position: relative;       
+    width: 30px;
+    right: -360px;
+    top: 32px
+}
+.pdfStyle {
+    position: relative;     
+    width: 50px;
+    right: -276px;
+    top: 70px
+}
+.searchStyle {
+    position: absolute;
+    top: 166px;
+    right: 45%;
+    left: 45%
+}
