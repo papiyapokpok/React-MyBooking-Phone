@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import '../main_style/react_dates_overrides.css'
 import SearchingChild from './child/SearchingChild'
 
 import firebase from '../../firebase'
@@ -134,8 +134,6 @@ export default class Searchings extends Component {
         return(
             <div>
                 <br />
-
-
                 <SearchingChild 
                     {...this.state}
                     dataRender={this.dataRender}

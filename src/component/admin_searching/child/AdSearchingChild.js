@@ -54,7 +54,7 @@ export default class AdSearchingChild extends Component {
                     // value={this.props.emailSearch}
                 />
                 <div>
-                    <ButtonBookBox className="Search-Button" onClick={this.props.onCallSearch} title={'Search'} />
+                    <ButtonBookBox className="Search-Button" onClick={this.props.adBookNow} title={'Search'} />
                 </div>
 
                 <div className="divTable">

@@ -165,9 +165,9 @@ getCookie = (cname) => {
               <hr style={{width:'94%', float:'left'}} />
               <h3>Admin Menu</h3>              
                        
-              <Link to="/adbook" style={linkStyle} onClick={this.show} > - Admin Booking</Link> <br />   
-              <Link to="/adsearching" style={linkStyle} onClick={this.show} > - Admin Searching</Link> <br />                         
-              <Link to="/adallowance" style={linkStyle} onClick={this.show} > - Admin Allowance</Link> <br />   
+              <Link to="/adbook" style={linkStyle} onClick={this.show} > - Booking</Link> <br />   
+              <Link to="/adsearching" style={linkStyle} onClick={this.show} > - Searching</Link> <br />                         
+              <Link to="/adallowance" style={linkStyle} onClick={this.show} > - Allowance</Link> <br />   
               <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
                                     
               
@@ -182,7 +182,7 @@ getCookie = (cname) => {
             <div className={'AppListMenu'}> 
             <h3>User Menu</h3>                        
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
-              <Link to="/search" style={linkStyle} onClick={this.show} > - Searching</Link> <br /> 
+              <Link to="/search" style={linkStyle} onClick={this.show} > - Report</Link> <br /> 
               <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
               <hr style={{width:'94%', float:'left'}} />              
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>

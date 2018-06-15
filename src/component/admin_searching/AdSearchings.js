@@ -57,7 +57,7 @@ export default class AdSearchings extends Component {
         return null;                        
     }
 
-    onCallSearch = () => {
+    adBookNow = () => {
         if(this.state.startDate && this.state.endDate && this.state.emailSearch) {
             const db = firebase.firestore();
  
@@ -69,12 +69,6 @@ export default class AdSearchings extends Component {
             end.setHours(23, 59, 59)
             this.setState({data: ''})
             this.setState({load: true})
-
-            console.log(email)
-            // console.log(oncallnumber)
-            console.log(start)
-            console.log(end)
-
             db.collection("oncalllogs") 
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end) 
@@ -107,7 +101,7 @@ export default class AdSearchings extends Component {
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end) 
             .onSnapshot((querySnapshot) => {
-                var data = [];
+                const data = [];
                 if(querySnapshot.size > 0) {
                     querySnapshot.forEach((querySnapshot) => {
                         // data.push(querySnapshot.data())
@@ -132,10 +126,6 @@ export default class AdSearchings extends Component {
 
     dataRender = (data) => {
         return data.map((e, i) => {
-        console.log(e)    
-        console.log(i)    
-
-
             return (
                 <tr id={'result'} key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)', border:'1px solid'}}>
                     <td className={'tdResult1'} >{e.oncallnumber}</td>
@@ -149,9 +139,7 @@ export default class AdSearchings extends Component {
 
     onClickDelete = (id) =>{
         const db = firebase.firestore();
-        this.setState({load: true}) 
-        console.log(id)               
-
+        this.setState({load: true})             
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -181,7 +169,7 @@ export default class AdSearchings extends Component {
                 <AdSearchingChild 
                     {...this.state}
                     dataRender={this.dataRender}
-                    onCallSearch={this.onCallSearch}
+                    adBookNow={this.adBookNow}
                     handleChange={this.handleChange}
                     setDateTime={this.setDateTime}
                     setFocusState={this.setFocusState}

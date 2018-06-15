@@ -42,22 +42,11 @@ export default class SearchingChild extends Component {
                         minimumNights={0} 
                         isOutsideRange={() => false}
                         numberOfMonths={1}
-                        withFullScreenPortal
-                    />
+                        withFullScreenPortal />
                 </div>
-                <br />
-                {/* <input 
-                    className={'inputEmailSearch'} 
-                    type={'Text'} 
-                    placeholder={'Input email or null for all'}
-                    id="searchEmail"
-                    onChange={this.props.handleChange}
-                    value={this.props.emailSearch}
-                /> */}
                 <div>
                     <ButtonBookBox className="Search-Button" onClick={this.props.onCallSearch} title={'Search'} />
-                </div>
-
+                </div><br />
                 <div className="divTable">
                     <table className="table-header" >
 
@@ -67,8 +56,8 @@ export default class SearchingChild extends Component {
 
                         <tbody>{dataValue}</tbody>                            
                     </table>
-                </div>
-                <br />{loading}
+                </div><br />
+                {loading}
                 <div className={'rowCount'}>{rowCount}</div>
             </div> 
         )

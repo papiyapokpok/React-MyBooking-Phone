@@ -17,7 +17,7 @@ export default class Booking extends Component {
             focusedInput: null,
             onCallNum: null,
             load: false,
-
+            data:false,
             defaultAlert: ['Please select oncall number'],
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
@@ -32,7 +32,7 @@ export default class Booking extends Component {
         const checkCookie = this.getCookie('staff_name')
         if(checkCookie) {
             this.getDataEmployee()
-            // this.loginSuccess()
+            this.getToday()
         } else {
             window.location.href = "/"
             // this.props.history.push('/')
@@ -58,6 +58,49 @@ export default class Booking extends Component {
             this.setCookie('emp_nickname', nicknameGet, 1)
             this.setCookie('emp_surname', surnameGet, 1)
         })
+    }
+
+    getToday = () => {
+        this.setState({load: true})
+
+        const db = firebase.firestore();
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+        const end = new Date();
+        end.setHours(23, 59, 59, 999); 
+
+        db.collection("oncalllogs") 
+        .where('dateTime', '>=', start)
+        .where('dateTime', '<=', end)
+        // .where('oncallnumber', '==', oncallnumber)                
+    .get()
+    .then((querySnapshot) => {
+        const data = [];        
+            if(querySnapshot.size > 0) {
+                querySnapshot.forEach((querySnapshot) => {
+                    // data.push(querySnapshot.data())
+                    data.push(Object.assign(querySnapshot.data(), { id: querySnapshot.id })) //Merge Object
+                });
+                this.setState({
+                    data,
+                })
+                this.setState({load: false})
+            } else {
+                // swal('No booking on search')
+                // this.setState({load: false})                
+            } 
+        })
+    }
+
+    dataRender = (data) => {
+        return data.map((e, i) => {
+            return (
+                <div>
+                    <p >{e.oncallnumber}</p>
+                    <p >{e.name}</p>
+                </div>
+            );
+        })    
     }
 
     onCall = (e) => {
@@ -214,6 +257,8 @@ export default class Booking extends Component {
                                                 this.setState({load: false})
                                             }
                                         })
+                                        window.location.reload()
+
                                     })
                                     .catch((error) => {
                                         // console.error("Error adding document: ", error);
@@ -248,6 +293,7 @@ export default class Booking extends Component {
                     {...this.state}
                     onCallBooking={this.onCallBooking}
                     getCookie={this.getCookie}
+                    dataRender={this.dataRender}
                 />
             </div>
         )

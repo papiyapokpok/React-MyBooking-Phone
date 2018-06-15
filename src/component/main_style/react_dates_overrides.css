@@ -882,8 +882,11 @@
     vertical-align: middle
   }
   .DateRangePicker {
+    z-index: 9;
+    width: 319px;
+    background-color: rgb(255, 255, 255);
     position: relative;
-    display: inline-block
+    display: inline-block;
   }
   .DateRangePicker__block {
     display: block
@@ -939,7 +942,7 @@
   .DateRangePicker_closeButton_svg {
     position: absolute;
     top: -40px;
-    right: 16px;
+    left: 48px;
     margin-top: 50px;
     height: 20px;
     width: 20px;

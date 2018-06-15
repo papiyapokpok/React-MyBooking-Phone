@@ -32,7 +32,7 @@
 }
 
 .bookButton {
-    background-color: #4CAF50;
+    background-color: #178df5;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -42,4 +42,22 @@
     font-size: 14px;
     z-index: 0;
 
+}
+
+.user1Booking {
+    position: absolute;
+    top: 173px;
+    right: 240px;
+}
+.user2Booking {
+    position: absolute;
+    top: 209px;
+    right: 240px;
+}
+.greenLight {
+    width: 28px;
+    position: absolute;
+    top: 9px;
+    right: 330px;
+    z-index: 9;
 }
