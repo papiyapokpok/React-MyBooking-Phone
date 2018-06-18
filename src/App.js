@@ -160,13 +160,13 @@ getCookie = (cname) => {
             <div className={'AppListMenu'}> 
             <h3>User Menu</h3>            
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
-              <Link to="/search" style={linkStyle} onClick={this.show} > - Searching</Link> <br />  
+              <Link to="/search" style={linkStyle} onClick={this.show} > - Search</Link> <br />  
               
               <hr style={{width:'94%', float:'left'}} />
               <h3>Admin Menu</h3>              
                        
               <Link to="/adbook" style={linkStyle} onClick={this.show} > - Booking</Link> <br />   
-              <Link to="/adsearching" style={linkStyle} onClick={this.show} > - Searching</Link> <br />                         
+              <Link to="/adsearching" style={linkStyle} onClick={this.show} > - Search</Link> <br />                         
               <Link to="/adallowance" style={linkStyle} onClick={this.show} > - Allowance</Link> <br />   
               <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
                                     

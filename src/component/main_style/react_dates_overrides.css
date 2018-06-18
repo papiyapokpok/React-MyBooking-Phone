@@ -15,9 +15,10 @@
 
 /* The container */
 .container {
+  font-weight: lighter;
   display: block;
   position: relative;
-  padding-left: 0px;
+  padding-right: 28px;
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
@@ -40,7 +41,7 @@
   border-radius: 14px;
   position: absolute;
   top: 0;
-  left: 20%;
+  left: 10%;
   height: 25px;
   width: 25px;
   background-color: #eee;
@@ -84,7 +85,7 @@
   .bookButton {
     margin-top: 16px;
     width: 80%;
-
+    font-size: 20px;
     /* position: absolute;
     right: 40px;  */
     z-index: -1000;

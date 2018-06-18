@@ -1,17 +1,18 @@
 .Book-div-main {
-    text-align: -webkit-center
+    text-align: -webkit-center;
+    width: 100%;
 }
 
 .StaffName {
-    margin-top: 25px;
+    margin-top: 8px;
     font-size: 21px;
     text-align: center;
 }
 
 
 .div-content {
-    margin-top: 20px;
-    width: 400px;
+    margin-top: 32px;
+    width: device-width;
     text-align: center
 }
 
@@ -41,23 +42,30 @@
     width: 300px;
     font-size: 14px;
     z-index: 0;
-
+    font-size: 20px;
 }
 
 .user1Booking {
     position: absolute;
     top: 173px;
-    right: 240px;
+    right: 30px;
 }
 .user2Booking {
     position: absolute;
     top: 209px;
-    right: 240px;
+    right: 30px;
 }
 .greenLight {
     width: 28px;
     position: absolute;
     top: 9px;
-    right: 330px;
+    right: 282px;
     z-index: 9;
+}
+
+.pStatus {
+    font-size: 14px;
+    position: absolute;
+    top: -7px;
+    right: 10%;
 }

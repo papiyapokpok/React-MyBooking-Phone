@@ -9,8 +9,8 @@ export default class OncallBookingBox extends Component {
         return(
             <div className={'box-div-main'}>
                 <label className="container">{this.props.label}
-                    <input {...this.props}/>
-                    <span className="checkmark"></span>
+                    <input {...this.props}></input><p className={`pStatus`}>{this.props.text}</p>
+                    <span style={this.props.style} className="checkmark" ></span>
                 </label>
             </div>
         )

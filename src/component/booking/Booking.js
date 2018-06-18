@@ -52,11 +52,11 @@ export default class Booking extends Component {
             const nicknameGet = querySnapshot.docs[0].data().nickname
             const surnameGet = querySnapshot.docs[0].data().surname
 
-            this.setCookie('emp_email', emailGet, 1)
-            this.setCookie('emp_id', idGet, 1)
-            this.setCookie('emp_name', nameGet, 1)
-            this.setCookie('emp_nickname', nicknameGet, 1)
-            this.setCookie('emp_surname', surnameGet, 1)
+            this.setCookie('emp_email', emailGet, 30)
+            this.setCookie('emp_id', idGet, 30)
+            this.setCookie('emp_name', nameGet, 30)
+            this.setCookie('emp_nickname', nicknameGet, 30)
+            this.setCookie('emp_surname', surnameGet, 30)
         })
     }
 

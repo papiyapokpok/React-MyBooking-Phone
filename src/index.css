@@ -1,6 +1,6 @@
 body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  width: device-width;
+  margin: 0px;
+  padding: 0px;
   font-family: sans-serif;
 }

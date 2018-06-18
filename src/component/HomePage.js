@@ -16,7 +16,7 @@ export default class HomePage extends Component {
         super(props);
         this.state = {          
             mainDialogReset: false,            
-            email: '',            
+            emails: '',            
             password: '',
             isButtonDisabled: false,
             clicks: 0,
@@ -30,7 +30,7 @@ export default class HomePage extends Component {
 
     handleChange(event) {
         if(event.target.id === 'email') {
-            this.setState({email: event.target.value});
+            this.setState({emails: event.target.value});
         } else if(event.target.id === 'password') { 
             this.setState({password: event.target.value});
         }
@@ -52,7 +52,8 @@ export default class HomePage extends Component {
 
     loginGoogle = () => {
         this.setState({ error: '', load: true });
-        const { email, password } = this.state;
+        const { emails, password } = this.state;
+        const email = emails.toLowerCase();
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             this.setState({ error: '', load: true });
