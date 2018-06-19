@@ -200,9 +200,9 @@ export default class HomePage extends Component {
         }
 
         return (
-            <div>
+            <div style={{textAlign:'-webkit-center'}}>
                 {loading}
-                <form >
+                <form>
                     <div className="containerHome">
                         <div id={'firebaseui-auth-container'} >
                             <HomePageBox 

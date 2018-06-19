@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import red from '../../assets/imgs/red.png'
+import htc from '../../assets/imgs/htc.png'
+import samsung from '../../assets/imgs/samsung.png'
 
 import OncallBookingBox from '../child/OncallBookingBox'
 import ButtonBookBox from '../../button/ButtonBookBox'
@@ -24,150 +25,113 @@ export default class BookingChild extends Component {
 
         let dataValue = '';
         let rowCount = 'Total: 0';
-        // let user1 = <div className={``}><p>No Booking!</p></div>
-        // let user2 = <div><p>No Booking!</p></div>
-
-        // if (data) {
-        //     const result1 = data.filter(e => parseInt(e.oncallnumber) === 1)[0]
-        //     const result2 = data.filter(e => parseInt(e.oncallnumber) === 2)[0]
-        //     if(result1) {
-        //         user1 = (
-        //             <div>
-        //                 <img src={red} className={'greenLight'}/>
-        //                 <p >{'<- '}{result1.name}</p>
-        //             </div>
-        //         ); 
-        //     }
-
-        //     if(result2) {
-        //         user2 = (
-        //             <div>
-        //                 <img src={red} className={'greenLight'}/>
-        //                 <p >{'<- '}{result2.name}</p>
-        //             </div>
-        //         ); 
-        //     }   
-        // } 
-
-        let user1 = <div>
-                        <OncallBookingBox 
-                            label={'HTC Design'} 
-                            text={`No booking`}
-                            type="radio" 
-                            id="oncall1" 
-                            name="oncall" 
-                            onClick={()=>{this.props.onCall(1)}}
-                        />
+        let user1 =                     
+                <div style={{width:'100%',height:'120px'}}>
+                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                        <img src={htc} className={`htc`}/>
                     </div>
-
-        let user2 = <div>
-                        <OncallBookingBox 
-                            label={'Samsung A7'} 
-                            text={`No booking`}
-                            type="radio" 
-                            id="oncall2" 
-                            name="oncall" 
-                            onClick={()=>{this.props.onCall(2)}}
-                        />
+                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                    <br />
+                        <OncallBookingBox
+                        label={'OnCall-01'}
+                        type="radio" 
+                        id="oncall1" 
+                        name="oncall" 
+                        style={{zIndex:'-9'}}
+                        onClick={()=>{this.props.onCall(1)}}
+                    />
+                    <p className={`tel1`}>Tel. 081-123-4567</p>
+                    <p className={`heldBy1`}>No Booking</p>
                     </div>
+                </div>
+
+        let user2 = 
+                <div style={{width:'100%',height:'120px'}}>
+                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                        <img src={samsung} className={`htc`}/>
+                    </div>
+                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                    <br />
+                        <OncallBookingBox
+                        label={'OnCall-02'}
+                        type="radio" 
+                        id="oncall1" 
+                        name="oncall" 
+                        style={{zIndex:'-9'}}
+                        onClick={()=>{this.props.onCall(2)}}
+                    />
+                    <p className={`tel1`}>Tel. 081-123-4567</p>
+                    <p className={`heldBy1`}>No Booking</p>
+                    </div>
+                </div>
 
         if (data) {
             const result1 = data.filter(e => parseInt(e.oncallnumber) === 1)[0]
             const result2 = data.filter(e => parseInt(e.oncallnumber) === 2)[0]
             if(result1) {
                 user1 = (
-                    <div >
-                        <OncallBookingBox 
-                            readonly
-                            label={'HTC Design'}
-                            text={'<- '+ result1.name}
+                    <div style={{width:'100%',height:'120px'}}>
+                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                             <img src={htc} className={`htc`}/>
+                        </div>
+                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                        <br />
+                            <OncallBookingBox
+                            label={'OnCall-01'}
                             type="radio" 
                             id="oncall1" 
                             name="oncall" 
                             style={{backgroundColor:'red'}}
                             onClick={()=>{this.props.onCall(1)}}
                         />
-                        <p ></p>
+                        <p className={`tel1`}>Tel. 081-123-4567</p>
+                        <p className={`heldBy1`}>Held by: {result1.name}</p>
+                        </div>
                     </div>
                 ); 
             }
 
             if(result2) {
                 user2 = (
-                    <div>
-                        <OncallBookingBox 
-                            label={'Samsung A7'}
-                            text={'<- '+ result2.name}
-                            type="radio" 
-                            id="oncall2" 
-                            name="oncall" 
-                            style={{backgroundColor:'red'}}
-                            onClick={()=>{this.props.onCall(2)}}
-                        />
+
+                    <div style={{width:'100%',height:'120px'}}>
+                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                            <img src={samsung} className={`htc`}/>
+                        </div>
+                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                            <br />
+                                <OncallBookingBox
+                                label={'OnCall-02'}
+                                type="radio" 
+                                id="oncall1" 
+                                name="oncall" 
+                                style={{backgroundColor:'red'}}
+                                onClick={()=>{this.props.onCall(2)}}
+                            />
+                            <p className={`tel1`}>Tel. 081-123-4567</p>
+                            <p className={`heldBy1`}>Held by: {result2.name}</p>
+                        </div>
                     </div>
                 ); 
             }   
         }
-        
-        
-        // if(AlertNulls) {
-        //     AlertNullMessage = <AlertNull title={defaultAlert} clickClose={this.clickClose} />
-        // }
-
         return(
-            <div className={'Book-div-main'}><br />
-                <h3 className={'StaffName'}>Hi, {this.props.getCookie('staff_name').split('@kaidee.com')}</h3>
-                <h4>Today&nbsp;{this.props.toDay.format('DD-MM-YYYY')}</h4>
-                <div className={'div-content'}>
-                        {user1}
-                        <br />
-                        {user2}
-                    <ButtonBookBox 
-                        className="bookButton" 
-                        onClick={this.props.onCallBooking} 
-                        title={'Book Now'}
-                    />                    
-                </div> 
-
+            <div style={{textAlign:'-webkit-center'}}>
+                <div className={'Book-div-main'}><br />
+                        <p className={'StaffName'} style={{float:'left'}}>Hi, {this.props.getCookie('emp_nickname').split('@kaidee.com')}</p>
+                        <p className={'StaffName'} style={{textAlign:'right'}}>{this.props.toDay.format('DD-MM-YYYY')}</p>
+                    <div className={'div-content'}>
+                            {user1}
+                            <br />
+                            {user2}
+                        <ButtonBookBox 
+                            className="bookButton" 
+                            onClick={this.props.onCallBooking} 
+                            title={'Book Now'}
+                        />                    
+                    </div> 
+                </div>
             </div>
         )
-
-        // return(
-        //     <div className={'Book-div-main'}><br />
-        //         <h3 className={'StaffName'}>Hi, {this.props.getCookie('staff_name').split('@kaidee.com')}</h3>
-        //         <p>Today&nbsp;{this.props.toDay.format('DD-MM-YYYY')}</p>
-        //         <div className={'div-content'}>
-        //             <OncallBookingBox 
-        //                 label={'HTC Eye One'} 
-        //                 type="radio" 
-        //                 id="oncall1" 
-        //                 name="oncall" 
-        //                 onClick={()=>{this.props.onCall(1)}}
-        //             />
-        //             <div className={'user1Booking'}>
-        //                 {user1}
-        //             </div>
-        //             <OncallBookingBox 
-        //                 label={'Samsung A7'} 
-        //                 type="radio" 
-        //                 id="oncall2" 
-        //                 name="oncall" 
-        //                 onClick={()=>{this.props.onCall(2)}}
-        //             />
-        //             <div className={'user2Booking'}>
-        //                 {user2}
-        //             </div>
-        //             <ButtonBookBox 
-        //                 className="bookButton" 
-        //                 onClick={this.props.onCallBooking} 
-        //                 title={'Book Now'}
-        //             />                    
-        //         </div> 
-
-        //     </div>
-        // )
-
-
-
     }
 }

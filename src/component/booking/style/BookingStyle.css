@@ -1,12 +1,16 @@
 .Book-div-main {
     text-align: -webkit-center;
     width: 100%;
+    max-width: 500px;
+    background-color: #f4f4f3;
 }
 
 .StaffName {
-    margin-top: 8px;
+    margin-top: 1px;
     font-size: 21px;
-    text-align: center;
+    padding: 2px;
+    /* text-align: center; */
+    font-weight: bolder;
 }
 
 
@@ -66,6 +70,53 @@
 .pStatus {
     font-size: 14px;
     position: absolute;
-    top: -7px;
-    right: 10%;
+    top: 30px;
+    right: 2%;
+    display: inline-grid;
+
 }
+.ButtonBooking {
+    border: 1px solid lightgray;
+    line-height: 48px;
+}
+
+.htc {
+    height: 95px;
+    position: relative;
+    right: 5%;
+    top: -11px;
+    text-align: left;
+
+}
+
+.tel1 {
+    text-align: left;
+    font-weight: 100;
+    font-size: 12px;
+    padding-left: 27px;
+    line-height: 0px;
+    margin-top: 36px;
+}
+
+.heldBy1 {
+    color: #f70;
+    line-height: 48px;
+    text-align: left;
+    padding-left: 27px
+}
+
+.OncallNum {
+    position: absolute;
+    text-align: left;
+    padding-left: 27px;
+    font-weight: bolder;
+    font-size: 18px; 
+    margin-right: 10px;
+
+    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
