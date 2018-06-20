@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Route, Switch, Link } from 'react-router-dom';
-// import logo from '../src/component/assets/imgs/asset-logo.png'
 
 import HeaderCom from './component/header/HeaderCom';
 
@@ -17,15 +16,12 @@ import { PropTypes } from 'prop-types'
 import swal from 'sweetalert'
 
 import { DB_CONFIG } from './config/config'
-// import firebase from 'firebase/app'
 import firebase from 'firebase'
-// import DataMigrate from './component/lib/DataMigrate';
 import Searching from './component/searching/Searchings';
 import AdminBooking from './component/admin_booking/AdminBooking';
 import Allowance from './component/allowance/Allowance';
 
 import 'react-dates/initialize'
-import SlackChat from './component/slacking/SlackChat';
 
 
 class App extends Component {
@@ -162,7 +158,6 @@ getCookie = (cname) => {
             <h3>User Menu</h3>            
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
               <Link to="/search" style={linkStyle} onClick={this.show} > - Search</Link> <br />  
-              <Link to="/slacking" style={linkStyle} onClick={this.show} > - Slack</Link> <br />  
               
               <hr style={{width:'94%', float:'left'}} />
               <h3>Admin Menu</h3>              
@@ -184,8 +179,7 @@ getCookie = (cname) => {
             <div className={'AppListMenu'}> 
             <h3>User Menu</h3>                        
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
-              <Link to="/search" style={linkStyle} onClick={this.show} > - Report</Link> <br /> 
-              <Link to="/slacking" style={linkStyle} onClick={this.show} > - Slack</Link> <br />  
+              <Link to="/search" style={linkStyle} onClick={this.show} > - Report</Link> <br />  
 
               <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
               <hr style={{width:'94%', float:'left'}} />              
@@ -215,7 +209,6 @@ getCookie = (cname) => {
             <Route exact path="/" component={HomePage} username={this.props.username} />
             <Route exact path="/booking" component={Booking} /> 
             <Route path="/search" component={Searching} /> 
-            <Route path="/slacking" component={SlackChat} /> 
             <Route path="/adsearching" component={admin_searching} /> 
             <Route path="/adbook" component={AdminBooking} />  
             <Route path="/adallowance" component={Allowance} />          

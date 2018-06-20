@@ -50,9 +50,9 @@ export default class SearchingChild extends Component {
                 <div className="divTable">
                     <table className="table-header" >
 
-                                <th className={'tableHeader'}>Oncall</th>
-                                <th className={'tableHeader'}>Date</th> 
-                                <th className={'tableHeader'}>Account</th>
+                                <th style={{width: '150px'}} className={'tableHeader'}>Number</th>
+                                <th style={{width: '150px'}} className={'tableHeader'}>Date</th> 
+                                <th style={{width: '150px'}} className={'tableHeader'}>Account</th>
 
                         <tbody>{dataValue}</tbody>                            
                     </table>

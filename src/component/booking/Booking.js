@@ -7,6 +7,9 @@ import firebase from '../../firebase'
 import moment, { now } from 'moment';
 import swal from 'sweetalert';
 
+import slackPost from '../../config/SlackChat'
+import SlackChat from '../../config/SlackChat';
+
 export default class Booking extends Component {
     constructor(props) {
         super(props);
@@ -21,6 +24,13 @@ export default class Booking extends Component {
             defaultAlert: ['Please select oncall number'],
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
+    }
+
+    slackPost = () => {
+        const nickname = this.getCookie('emp_nickname')
+        const num = this.state.onCallNum
+        const date = this.state.toDay
+        SlackChat.slackPost(nickname, num, date)
     }
 
     handleSubmit(event) {
@@ -236,6 +246,7 @@ export default class Booking extends Component {
                         })
                         .then((willDelete) => {
                             if (willDelete) {
+                                this.slackPost()
                                     var db = firebase.firestore();
                                     db.collection("oncalllogs").add({
                                         oncallnumber: oncallnumber,
@@ -247,6 +258,7 @@ export default class Booking extends Component {
                                         dateTime: toDay
                                     })
                                     .then((docRef) => {
+                                        this.slackPost()
                                         swal({
                                             title: 'Complete',
                                             text: "You booking oncall done",
@@ -294,6 +306,7 @@ export default class Booking extends Component {
                     onCallBooking={this.onCallBooking}
                     getCookie={this.getCookie}
                     dataRender={this.dataRender}
+                    slackPost={this.slackPost}
                 />
             </div>
         )

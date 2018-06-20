@@ -122,9 +122,9 @@ export default class Searchings extends Component {
         return data.map((e, i) => {
             return (
                 <tr key={i} style={{backgroundColor:'rgba(228, 228, 228, 0.43)'}}>
-                    <td>{e.oncallnumber}</td>
-                    <td>{moment(e.dateTime).format('Y-MM-DD')}</td>
-                    <td style={{textAlign:'left', paddingLeft:'16px'}}>{e.email}</td>
+                    <td style={{border:'1px solid'}} >OnCall-0{e.oncallnumber}</td>
+                    <td style={{border:'1px solid'}} >{moment(e.dateTime).format('Y-MM-DD')}</td>
+                    <td >{e.email}</td>
                 </tr>
             );            
         });    

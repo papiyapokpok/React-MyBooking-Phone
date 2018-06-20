@@ -803,6 +803,7 @@
     border-left: none;
     border-right: none;
     margin-bottom: 8px;
+    padding-top: 10px;
   }
   .DateRangePickerInput__rtl {
     direction: rtl

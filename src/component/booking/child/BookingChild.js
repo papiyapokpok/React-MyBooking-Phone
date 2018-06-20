@@ -26,7 +26,7 @@ export default class BookingChild extends Component {
         let dataValue = '';
         let rowCount = 'Total: 0';
         let user1 =                     
-                <div style={{width:'100%',height:'120px'}}>
+                <div style={{width:'100%',height:'120px', marginBottom: '8px'}}>
                     <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
                         <img src={htc} className={`htc`}/>
                     </div>
@@ -40,7 +40,7 @@ export default class BookingChild extends Component {
                         style={{zIndex:'-9'}}
                         onClick={()=>{this.props.onCall(1)}}
                     />
-                    <p className={`tel1`}>Tel. 081-123-4567</p>
+                    <p className={`tel1`}>Tel. 092-260-9029</p>
                     <p className={`heldBy1`}>No Booking</p>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ export default class BookingChild extends Component {
                         style={{zIndex:'-9'}}
                         onClick={()=>{this.props.onCall(2)}}
                     />
-                    <p className={`tel1`}>Tel. 081-123-4567</p>
+                    <p className={`tel1`}>Tel. 092-272-1133</p>
                     <p className={`heldBy1`}>No Booking</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default class BookingChild extends Component {
             const result2 = data.filter(e => parseInt(e.oncallnumber) === 2)[0]
             if(result1) {
                 user1 = (
-                    <div style={{width:'100%',height:'120px'}}>
+                    <div style={{width:'100%',height:'120px', marginBottom: '8px'}}>
                         <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
                              <img src={htc} className={`htc`}/>
                         </div>
@@ -84,7 +84,7 @@ export default class BookingChild extends Component {
                             style={{backgroundColor:'red'}}
                             onClick={()=>{this.props.onCall(1)}}
                         />
-                        <p className={`tel1`}>Tel. 081-123-4567</p>
+                        <p className={`tel1`}>Tel. 092-260-9029</p>
                         <p className={`heldBy1`}>Held by: {result1.name}</p>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ export default class BookingChild extends Component {
                                 style={{backgroundColor:'red'}}
                                 onClick={()=>{this.props.onCall(2)}}
                             />
-                            <p className={`tel1`}>Tel. 081-123-4567</p>
+                            <p className={`tel1`}>Tel. 092-272-1133</p>
                             <p className={`heldBy1`}>Held by: {result2.name}</p>
                         </div>
                     </div>
@@ -122,13 +122,12 @@ export default class BookingChild extends Component {
                         <p className={'StaffName'} style={{textAlign:'right'}}>{this.props.toDay.format('DD-MM-YYYY')}</p>
                     <div className={'div-content'}>
                             {user1}
-                            <br />
                             {user2}
                         <ButtonBookBox 
                             className="bookButton" 
                             onClick={this.props.onCallBooking} 
                             title={'Book Now'}
-                        />                    
+                        />                   
                     </div> 
                 </div>
             </div>
