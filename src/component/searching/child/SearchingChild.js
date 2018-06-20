@@ -49,12 +49,14 @@ export default class SearchingChild extends Component {
                 </div><br />
                 <div className="divTable">
                     <table className="table-header" >
-
-                                <th style={{width: '150px'}} className={'tableHeader'}>Number</th>
-                                <th style={{width: '150px'}} className={'tableHeader'}>Date</th> 
-                                <th style={{width: '150px'}} className={'tableHeader'}>Account</th>
-
-                        <tbody>{dataValue}</tbody>                            
+                        <tr>
+                        <th style={{width: '150px'}} className={'tableHeader'}>Number</th>
+                        <th style={{width: '150px'}} className={'tableHeader'}>Date</th> 
+                        <th style={{width: '150px'}} className={'tableHeader'}>Account</th>
+                        </tr>
+                        <tbody>
+                            {dataValue}
+                        </tbody>                            
                     </table>
                 </div><br />
                 {loading}
