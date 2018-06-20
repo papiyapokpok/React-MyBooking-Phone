@@ -258,7 +258,6 @@ export default class Booking extends Component {
                                         dateTime: toDay
                                     })
                                     .then((docRef) => {
-                                        this.slackPost()
                                         swal({
                                             title: 'Complete',
                                             text: "You booking oncall done",
