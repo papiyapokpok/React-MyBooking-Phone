@@ -39,8 +39,10 @@ export default class Booking extends Component {
     } 
 
     componentDidMount() {
+        this.setState({load: true})
         const checkCookie = this.getCookie('staff_name')
         if(checkCookie) {
+            
             this.getDataEmployee()
             this.getToday()
         } else {

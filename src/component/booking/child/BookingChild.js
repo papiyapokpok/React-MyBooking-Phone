@@ -20,7 +20,7 @@ export default class BookingChild extends Component {
         let loading = ''
 
         if(load) {
-            loading = <p className={'loadingStyle'} >Now loading...</p>
+            loading = <p className={'BookingLoadingStyle'} >Now loading...</p>
         }
 
         let dataValue = '';
@@ -117,6 +117,8 @@ export default class BookingChild extends Component {
         }
         return(
             <div style={{textAlign:'-webkit-center'}}>
+                            {loading}
+
                 <div className={'Book-div-main'}><br />
                         <p className={'StaffName'} style={{float:'left'}}>Hi, {this.props.getCookie('emp_nickname').split('@kaidee.com')}</p>
                         <p className={'StaffName'} style={{textAlign:'right'}}>{this.props.toDay.format('DD-MM-YYYY')}</p>

@@ -75,17 +75,6 @@ export default class Searchings extends Component {
         return null;                        
     }
 
-    getDate = () => {
-        // const start = moment().startOf('month').format('YYYY-MM-DD 00:00:00');
-        // const end   = moment().endOf('month').format('YYYY-MM-DD 23:59:59');
-
-        const start = this.state.startDate.startOf('month').format('YYYY-MM-DD 00:00:00');
-        const end   = this.state.endDate.endOf('month').format('YYYY-MM-DD 23:59:59');
-
-        console.log(start)
-        console.log(end)
-    }
-
     onCallSearch = (e) => {
         if(!this.state.startDate && !this.state.endtDate) {
             swal({
@@ -94,8 +83,7 @@ export default class Searchings extends Component {
         } else {
             const db = firebase.firestore();
  
-            // const email = this.getCookie('staff_name')
-            const email = 'sriwan.k@kaidee.com'
+            const email = this.getCookie('staff_name')
             // const email = this.state.emailSearch
             const oncallnumber = this.state.onCallNum
             const start = this.state.startDate.toDate();
@@ -105,11 +93,6 @@ export default class Searchings extends Component {
 
             this.setState({data: ''})
             this.setState({load: true})
-
-            console.log(email)
-            console.log(start)
-            console.log(end)
-
             db.collection("oncalllogs") 
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end) 
