@@ -8,7 +8,9 @@ export default {
         const text =
             (
                 `mrkdwn = true`,
-                `text= *Today ${day}* \n *${nick}* is taking an *OnCall0${num}* `         
+                `text= *Today ${day}* \n *${nick}* is taking an *OnCall0${num}* ` ,
+                'username = sretthakan.t',
+                'bot = oncall'        
             )
         request.post('https://slack.com/api/chat.postMessage')
         .set('Content-type', 'application/x-www-form-urlencoded')

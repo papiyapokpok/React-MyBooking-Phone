@@ -22,6 +22,7 @@ import AdminBooking from './component/admin_booking/AdminBooking';
 import Allowance from './component/allowance/Allowance';
 
 import 'react-dates/initialize'
+import ResetPassword from './component/reset_password/ResetPassword';
 
 
 class App extends Component {
@@ -212,6 +213,7 @@ getCookie = (cname) => {
             <Route path="/adsearching" component={admin_searching} /> 
             <Route path="/adbook" component={AdminBooking} />  
             <Route path="/adallowance" component={Allowance} />          
+            <Route path="/resetpassword" component={ResetPassword} />          
           </Switch>
           
         </header>

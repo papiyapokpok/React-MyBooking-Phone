@@ -39,7 +39,7 @@ export default class Booking extends Component {
     } 
 
     componentDidMount() {
-        this.setState({load: true})
+        // this.setState({load: true})
         const checkCookie = this.getCookie('staff_name')
         if(checkCookie) {
             
@@ -99,7 +99,7 @@ export default class Booking extends Component {
                 this.setState({load: false})
             } else {
                 // swal('No booking on search')
-                // this.setState({load: false})                
+                this.setState({load: false})                
             } 
         })
     }

@@ -111,3 +111,11 @@ span.psw {
     right: 20px;
     font-size: 24px;
 }
+
+.resetPassword {
+    font-size: 12px;
+    text-align: right;
+    color: gray;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}

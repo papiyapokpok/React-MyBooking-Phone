@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import './StyleHome.css'
 
 import firebase from '../firebase'
+import ResetPassword from './reset_password/ResetPassword';
 
 export default class HomePage extends Component {
 
@@ -22,7 +23,7 @@ export default class HomePage extends Component {
             clicks: 0,
             menu: false,
             error: '', 
-            load: false
+            load: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -174,7 +175,7 @@ export default class HomePage extends Component {
     
     notLogin = () => {
         this.props.history.push('/')
-    }    
+    }        
 
     render() {
         const { mainDialogReset, menu, load} = this.state
@@ -227,6 +228,7 @@ export default class HomePage extends Component {
                                 onClick={this.loginGoogle}
                                 title={'Signin'}/>
                         </div>
+                        <p className={`resetPassword`} onClick={this.resetPassword} >Reset Password</p>
                     </div>
                 </form>
             </div>
