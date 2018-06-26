@@ -48,16 +48,22 @@ export default class CancelCom02 extends Component {
                 this.setState({load: true})
                 db.collection('oncalllogs').doc(id).delete().then(function() {
                     // console.log("Document successfully deleted!");
-                    swal("Document successfully deleted!") 
+                    // swal({
+                    //     title:"Cancel complete!",
+                    //     type: "success",
+                    //     timer:3000
+                    // });
                     window.location.reload(true);               
                 })
                 .catch(function(error) {
                     // console.error("Error removing document: ", error);
-                    swal("Cancel complete!") 
+                    // swal("Cancel complete!") 
                     window.location.reload(true);               
 
                 });
                 this.setState({load: false})
+                // window.location.reload(true);               
+
 
             } else {
             // swal("Your imaginary file is safe!");

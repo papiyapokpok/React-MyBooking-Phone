@@ -48,7 +48,7 @@ export default class CancelCom01 extends Component {
                 this.setState({load: true})
                 db.collection('oncalllogs').doc(id).delete().then(function() {
                     // console.log("Document successfully deleted!");
-                    swal("Document successfully deleted!") 
+                    swal("Cancel complete!") 
                     window.location.reload(true);               
                 })
                 .catch(function(error) {
