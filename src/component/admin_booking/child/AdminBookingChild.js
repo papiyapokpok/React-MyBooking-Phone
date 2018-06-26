@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import OncallBookingBox from '../../booking/child/OncallBookingBox'
+import BookingBox from '../../booking/child/BookingBox'
 import AlertNull from '../../dialog/AlertNull'
 import ButtonBookBox from '../../button/ButtonBookBox'
 import '../style/AdminBookingStyle.css'
@@ -39,8 +39,8 @@ export default class AdminBookingChild extends Component {
                 <br />
                 <br />
                     <br />
-                    <OncallBookingBox label={'HTC Eye One'} type="radio" id="oncall1" name="oncall" onClick={()=>{this.props.onCall(1)}}/>
-                    <OncallBookingBox label={'Samsung A7'} type="radio" id="oncall2" name="oncall" onClick={()=>{this.props.onCall(2)}}/>
+                    <BookingBox className={`AdOncallNum`} label={'HTC Eye One'} type="radio" id="oncall1" name="oncall" onClick={()=>{this.props.onCall(1)}}/>
+                    <BookingBox className={`AdOncallNum`} label={'Samsung A7'} type="radio" id="oncall2" name="oncall" onClick={()=>{this.props.onCall(2)}}/>
                     <ButtonBookBox className="bookButton" onClick={this.props.adminOnCallBooking} title={'Book Now'}/>                    
                 </div> 
 

@@ -27,3 +27,17 @@
     background-color: #f4f4f3;
     z-index: 999;
 }
+
+.AdOncallNum {
+    letter-spacing: 1px;
+    position: initial;
+    text-align: left;
+    padding-left: 27px;
+    font-weight: bolder;
+    font-size: 18px;
+    margin-right: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

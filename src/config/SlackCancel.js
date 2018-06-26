@@ -2,15 +2,16 @@ import request from 'superagent'
 import moment, { now } from 'moment'
 
 export default {
-    slackPost(nickname, num, date) {
+    
+    slackPostCancel(nickname, num, date) {
         const day = moment(date).format('LL');
         const nick = nickname
-        const taking = " `taking` "
-        const txt = "*"+"Today"+"* " + " *"+day+"* "+ "\n"+">"+ " *"+nick+"* "+"is"+taking+ "an"+ " *"+"OnCall0"+num+"* " 
         const text =
             (
                 `mrkdwn = true`,
-                `text=  ${txt}`       
+                `text= *Today ${day}* \n *${nick}* is *cancel* an *OnCall0${num}* ` ,
+                'username = sretthakan.t',
+                'bot = oncall'        
             )
         request.post('https://slack.com/api/chat.postMessage')
         .set('Content-type', 'application/x-www-form-urlencoded')

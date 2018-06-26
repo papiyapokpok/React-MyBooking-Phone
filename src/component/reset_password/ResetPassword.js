@@ -35,8 +35,7 @@ export default class ResetPassword extends Component {
         const auth = firebase.auth();
         const emails = this.state;
         const emailAddress = emails.emails.toLowerCase();
-
-        auth.sendPasswordResetEmail(emailAddress).then(function() {
+        auth.sendPasswordResetEmail(emailAddress).then(() => {
           // Email sent.
             swal({
                 title: "success!",
@@ -46,13 +45,14 @@ export default class ResetPassword extends Component {
             .then(() => {
                 this.login()
             })
-        }).catch(function(error) {
+        }).catch((error) => {
           // An error happened.
             swal({
                 title: "Failed!",
                 text: "Cannot reset password, please check internet",
                 icon: "warning",
             })
+            this.login()
         });
     }
 

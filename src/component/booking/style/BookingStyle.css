@@ -126,3 +126,14 @@
     user-select: none;
 }
 
+.cancel {
+    border: 1px solid;
+    position: initial;
+    top: -44px;
+    left: 0px;
+    color: whitesmoke;
+    width: 98%;
+    padding: 4px;
+    background-color: #f70;
+}
+

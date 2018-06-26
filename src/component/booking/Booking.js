@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-
 import BookingChild from './child/BookingChild'
-
 import firebase from '../../firebase'
-
-import moment, { now } from 'moment';
-import swal from 'sweetalert';
+import moment, { now } from 'moment'
+import swal from 'sweetalert'
+import SlackChat from '../../config/SlackChat'
+import request from 'superagent'
+import { PropTypes } from 'prop-types';
 
 import slackPost from '../../config/SlackChat'
-import SlackChat from '../../config/SlackChat';
+import SlackCancel from '../../config/SlackCancel'
 
 export default class Booking extends Component {
     constructor(props) {
@@ -22,9 +22,21 @@ export default class Booking extends Component {
             load: false,
             data:false,
             defaultAlert: ['Please select oncall number'],
+            cancels: false,
+            cancelView1: false,
+            cancelView2: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
     }
+
+    static PropType = {
+        history: PropTypes.object,
+    }
+
+    refresh = () => {
+        // this.props.history.push('/booking')
+       window.location.reload()
+    } 
 
     slackPost = () => {
         const nickname = this.getCookie('emp_nickname')
@@ -32,6 +44,35 @@ export default class Booking extends Component {
         const date = this.state.toDay
         SlackChat.slackPost(nickname, num, date)
     }
+
+    // SlackCancel = () => {
+    //     const nickname = this.getCookie('emp_nickname')
+    //     const num = this.getCookie('num')
+    //     const date = this.getCookie('today')
+    //     const canC = " `cancel` "
+        
+    //     const day = moment(date).format('LL');
+    //     const nick = nickname
+
+    //     const txt = " *"+"Today "+"* " + " *"+day+"* "+ "\n"+">"+ " *"+nick+"* "+" is "+canC+ " an"+ " *"+"OnCall0"+num+"* " 
+
+    //     const text =
+    //         (
+    //             `mrkdwn = true`,
+    //             `text= ${txt}`        
+    //         )
+    //     request.post('https://slack.com/api/chat.postMessage')
+    //     .set('Content-type', 'application/x-www-form-urlencoded')
+    //     .send('token=xoxb-360083493237-384365618711-2icVB5gT7OFa3BCU8MovFpGD')
+    //     .send('channel=who-is-oncall')
+    //     .send(`${text}`)
+    //     .then(e => {
+    //         console.log(e)
+    //     })
+    //     .catch(e => {
+    //         console.log(e)
+    //     })
+    // }
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.startDate);
@@ -54,6 +95,7 @@ export default class Booking extends Component {
     getDataEmployee = () => {
         const db = firebase.firestore();
         const email = this.getCookie('staff_name')
+        const day = this.state.toDay.format('LL')
         db.collection("employee") 
         .where('email', '==', email)
         .get()
@@ -69,6 +111,7 @@ export default class Booking extends Component {
             this.setCookie('emp_name', nameGet, 30)
             this.setCookie('emp_nickname', nicknameGet, 30)
             this.setCookie('emp_surname', surnameGet, 30)
+            this.setCookie('today', day, 1)
         })
     }
 
@@ -114,6 +157,41 @@ export default class Booking extends Component {
             );
         })    
     }
+
+    // cancelBook = (data) => {
+    //     const db = firebase.firestore();
+    //     const id = data[0].id
+    //     console.log(id)
+    //     console.log(data)
+    //     swal({
+    //         title: "Are you sure?",
+    //         text: "Do you want cancel booking today!",
+    //         icon: "warning",
+    //         buttons: true,
+    //         dangerMode: true,
+    //         })
+    //     .then((willDelete) => {
+    //         if (willDelete) {
+    //             this.SlackCancel()
+    //             this.setState({load: true})
+    //             db.collection('oncalllogs').doc(id).delete().then(function() {
+    //                 // console.log("Document successfully deleted!");
+    //                 swal("Document successfully deleted!") 
+    //                 window.location.reload(true);               
+    //             })
+    //             .catch(function(error) {
+    //                 // console.error("Error removing document: ", error);
+    //                 swal("Cancel complete!") 
+    //                 window.location.reload(true);               
+
+    //             });
+    //             this.setState({load: false})
+
+    //         } else {
+    //         // swal("Your imaginary file is safe!");
+    //         }
+    //     });
+    // }
 
     onCall = (e) => {
         this.state.onCallNum = e  
@@ -178,17 +256,17 @@ export default class Booking extends Component {
             db.collection("oncalllogs") 
                 .where('dateTime', '>=', start)
                 .where('dateTime', '<=', end)
-                .where('oncallnumber', '==', oncallnumber)                
+                // .where('oncallnumber', '==', oncallnumber)               
+                .where('email', '==', email)                
             .get()
             .then((querySnapshot) => {
                 console.log(querySnapshot)
                     if (querySnapshot.size > 0) {                    
                         const numberName = querySnapshot.docs[0].data().oncallnumber
                         const emailName = querySnapshot.docs[0].data().email.split('@kaidee.com'); 
-                        // const emailCheckout = emailName.split(',')
                         const oncallCheckout=JSON.stringify(numberName) 
-                        // const emailCheckout=JSON.stringify(emailName); 
                         const dateCheckout= moment() .format('Y-MM-DD')
+                        console.log('cannot booking')
 
                         if(oncallCheckout == 1) {
                             const textView = ( 'Date: '
@@ -231,16 +309,17 @@ export default class Booking extends Component {
                         }
                     } else {
                         this.setState({load: false})
-                        console.log(name)
+                        // console.log(name)
                         const bookingBy = 
                             ( 
-                                'by: ' + ' '
+                                'OnCall-0' +
+                                + oncallnumber + ' '
+                                + 'by: ' + ' '
                                 + ' ' + name 
-                                + ' ' + surname
                             )
 
                         swal({
-                            title:'Are you sure booking!',
+                            title:'Are you sure?',
                             text: bookingBy,
                             icon: "warning",
                             dangerMode: true,
@@ -249,6 +328,8 @@ export default class Booking extends Component {
                         .then((willDelete) => {
                             if (willDelete) {
                                 this.slackPost()
+                                this.setCookie('num', oncallnumber, 1)
+
                                     var db = firebase.firestore();
                                     db.collection("oncalllogs").add({
                                         oncallnumber: oncallnumber,
@@ -288,7 +369,8 @@ export default class Booking extends Component {
                                     });
 
                             } else {
-                              swal("Please logout and login again!");
+                            //   swal("Please logout and login again!");
+                            this.setState({onCallNum: null})
                             }
                           });
                     }
@@ -308,6 +390,7 @@ export default class Booking extends Component {
                     getCookie={this.getCookie}
                     dataRender={this.dataRender}
                     slackPost={this.slackPost}
+                    cancelBook={this.cancelBook}
                 />
             </div>
         )
