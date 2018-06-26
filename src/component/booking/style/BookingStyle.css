@@ -128,11 +128,13 @@
 
 .cancel {
     border: 1px solid;
-    position: initial;
+    position: inherit;
     top: -44px;
     left: 0px;
+    right: 0px;
     color: whitesmoke;
-    width: 98%;
+    /* width: 100%; */
+    /* max-width: 490px; */
     padding: 4px;
     background-color: #f70;
 }

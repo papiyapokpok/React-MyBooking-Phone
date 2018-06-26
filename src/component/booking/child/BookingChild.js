@@ -142,6 +142,7 @@ export default class BookingChild extends Component {
                     <div className={'div-content'}>
                             {user1}
                             {user2}
+                            <br />
                         <ButtonBookBox 
                             className="bookButton" 
                             onClick={this.props.onCallBooking} 
