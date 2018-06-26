@@ -269,14 +269,11 @@ export default class Booking extends Component {
                         console.log('cannot booking')
 
                         if(oncallCheckout == 1) {
-                            const textView = ( 'Date: '
-                            + '  ' + dateCheckout +'\n'+'\n' 
-                            + 'Model:  '
-                            + 'HTC Eye One' +'\n'+'\n'
-                            + 'Book by: '
-                            + emailName)
+                            const textView = ( 
+                                'OnCall-01, '+'you can only take one at a time'
+                            )
                             swal({
-                                title:'This device has already been reserved.',
+                                title:'You already booked',
                                 text: textView,
                                 icon: "warning",
                                 dangerMode:'true',
@@ -288,14 +285,11 @@ export default class Booking extends Component {
                                 }
                             })
                         } else if(oncallCheckout == 2) {
-                            const textView = ( 'Date: '
-                            + '  ' + dateCheckout +'\n'+'\n' 
-                            + 'Model:  '
-                            + 'Samsung A7' +'\n'+'\n'
-                            + 'Book by: '
-                            + emailName)
+                            const textView = (
+                                'OnCall-02, '+'you can only take one at a time'
+                            )
                             swal({
-                                title:'This device has already been reserved.',
+                                title:'You already booked',
                                 text: textView,
                                 icon: "warning",
                                 dangerMode:'true',

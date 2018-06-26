@@ -128,14 +128,13 @@
 
 .cancel {
     border: 1px solid;
-    position: inherit;
-    top: -44px;
-    left: 0px;
-    right: 0px;
-    color: whitesmoke;
-    /* width: 100%; */
-    /* max-width: 490px; */
+    width: fit-content;
     padding: 4px;
-    background-color: #f70;
+    border-radius: 4px;
+    font-size: 14px;
+    position: relative;
+    color: #f70;
+    top: -36px;
+    left: 27%;
 }
 

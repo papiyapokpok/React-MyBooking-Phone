@@ -78,9 +78,13 @@ export default class BookingChild extends Component {
             
             if(result1) {
                 user1 = (
-                    <div style={{width:'100%',height:'120px', marginBottom: '40px'}}>
+                    <div style={{width:'100%',height:'120px', marginBottom: '18px'}}>
                         <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
                              <img src={htc} className={`htc`}/>
+                             <CancelCom01 
+                                data={data}
+                                cancelBook={this.props.cancelBook}
+                            />
                         </div>
                         <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
                         <br />
@@ -95,10 +99,7 @@ export default class BookingChild extends Component {
                         <p className={`tel1`}>Tel. 092-260-9029</p>
                         <p className={`heldBy1`}>Held by: {result1.name}</p>
                         </div>
-                        <CancelCom01 
-                            data={data}
-                            cancelBook={this.props.cancelBook}
-                        />
+
                     </div>
                 ); 
             }
@@ -109,6 +110,10 @@ export default class BookingChild extends Component {
                     <div style={{width:'100%',height:'120px'}}>
                         <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
                             <img src={samsung} className={`htc`}/>
+                            <CancelCom02 
+                                data={data}
+                                cancelBook={this.props.cancelBook}
+                            />
                         </div>
                         <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
                             <br />
@@ -123,10 +128,6 @@ export default class BookingChild extends Component {
                             <p className={`tel1`}>Tel. 092-272-1133</p>
                             <p className={`heldBy1`}>Held by: {result2.name}</p>
                         </div>
-                        <CancelCom02 
-                            data={data}
-                            cancelBook={this.props.cancelBook}
-                        />
                     </div>
                 ); 
             }   
@@ -142,7 +143,6 @@ export default class BookingChild extends Component {
                     <div className={'div-content'}>
                             {user1}
                             {user2}
-                            <br />
                         <ButtonBookBox 
                             className="bookButton" 
                             onClick={this.props.onCallBooking} 
