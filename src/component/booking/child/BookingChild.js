@@ -30,10 +30,10 @@ export default class BookingChild extends Component {
         let rowCount = 'Total: 0';
         let user1 =                     
                 <div style={{width:'100%',height:'120px', marginBottom: '8px'}}>
-                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                    <div style={{width:'49%',height:'120px', backgroundColor:'white',float:'left'}}>
                         <img src={htc} className={`htc`}/>
                     </div>
-                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                    <div style={{width:'51%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
                     <br />
                         <OncallBookingBox
                         label={'OnCall-01'}
@@ -50,10 +50,10 @@ export default class BookingChild extends Component {
 
         let user2 = 
                 <div style={{width:'100%',height:'120px'}}>
-                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                    <div style={{width:'49%',height:'120px', backgroundColor:'white',float:'left'}}>
                         <img src={samsung} className={`htc`}/>
                     </div>
-                    <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                    <div style={{width:'51%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
                     <br />
                         <OncallBookingBox
                         label={'OnCall-02'}
@@ -79,14 +79,14 @@ export default class BookingChild extends Component {
             if(result1) {
                 user1 = (
                     <div style={{width:'100%',height:'120px', marginBottom: '18px'}}>
-                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                        <div style={{width:'49%',height:'120px', backgroundColor:'white',float:'left'}}>
                              <img src={htc} className={`htc`}/>
                              <CancelCom01 
                                 data={data}
                                 cancelBook={this.props.cancelBook}
                             />
                         </div>
-                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                        <div style={{width:'51%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
                         <br />
                             <OncallBookingBox
                             label={'OnCall-01'}
@@ -108,14 +108,14 @@ export default class BookingChild extends Component {
                 user2 = (
                     
                     <div style={{width:'100%',height:'120px'}}>
-                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'left'}}>
+                        <div style={{width:'49%',height:'120px', backgroundColor:'white',float:'left'}}>
                             <img src={samsung} className={`htc`}/>
                             <CancelCom02 
                                 data={data}
                                 cancelBook={this.props.cancelBook}
                             />
                         </div>
-                        <div style={{width:'50%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
+                        <div style={{width:'51%',height:'120px', backgroundColor:'white',float:'right',textAlign: 'left'}}>
                             <br />
                                 <OncallBookingBox
                                 label={'OnCall-02'}
