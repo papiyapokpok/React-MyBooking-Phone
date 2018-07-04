@@ -1,0 +1,241 @@
+.atlwdg-popup {
+    background: white;
+    border: 1px solid #ccc;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    z-index: 10000011;
+    border-radius: 5px;
+    background-clip: padding-box;
+    overflow: hidden;
+    width: 20%;
+    height: 0;
+    max-height: calc(100% - 100px);
+}
+
+form.aui .field-group, form.aui .group, form.aui .date-select {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: both;
+    padding: 4px 0px 4px 90px;
+    position: relative;
+    margin: 1px 0;
+    width: 100%;
+  }
+
+/* module-key = 'com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:form-collector', location = '/css/collector/base.less' */
+html,body,p,div,h1,h2,h3,h4,h5,h6,img,ul,ol,li,dl,dt,dd,pre,form,fieldset,textarea,input,select,option,button {
+    margin: 0;
+    padding: 0
+}
+
+body#atlScriptlet {
+    background-color: #fff;
+    min-width: inherit
+}
+
+.collector-dialog a {
+    color: #326ca6;
+    text-decoration: none
+}
+
+.collector-dialog a:focus,.collector-dialog a:hover,.collector-dialog a:active {
+    text-decoration: underline
+}
+
+.aui-dialog h2.dialog-title {
+    background: #f5f5f5;
+    color: #666;
+    font-size: 1.5em;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    height: 56px
+}
+
+input.title-submit.button {
+    height: 35px;
+    vertical-align: bottom;
+    padding: 5px 10px
+}
+
+.collector-dialog form.aui {
+    position: static
+}
+
+.aui-dialog .content-body {
+    padding: 20px;
+    overflow: auto;
+    position: absolute;
+    box-sizing: border-box;
+    top: 24px;
+    bottom: 51px;
+    left: 0;
+    right: 0;
+    background: #fff;
+}
+
+.aui-dialog .content-body *:first-child {
+    margin-top: 0
+}
+
+.aui-dialog .dialog-button-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    height: 51px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ccc;
+    overflow: hidden;
+    text-align: right
+}
+
+.aui-dialog .dialog-button-panel .cancel {
+    padding-right: 1em
+}
+
+img.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block
+}
+
+img#sorry-mate {
+    padding-bottom: 1em
+}
+
+p.center {
+    text-align: center
+}
+
+#atlScriptlet form.aui .dialog-button-panel input.button,#atlScriptlet .aui-dialog {
+    overflow: auto
+}
+
+.login-msg {
+    clear: both
+}
+
+form.aui fieldset.ratings {
+    box-sizing: border-box;
+    clear: both;
+    margin: 10px 0 0;
+    padding: 4px 0 4px 145px;
+    position: relative;
+    width: 100%
+}
+
+#jira #feedback-rating {
+    padding-left: 0
+}
+
+form.aui div.matrix.rating div.radio {
+    width: auto;
+    padding: 0;
+    padding-right: 15px;
+    clear: none;
+    float: left
+}
+
+form.aui div.matrix.rating div.radio.first {
+    padding: 0 15px 5px 140px
+}
+
+form.aui div.matrix.rating label {
+    vertical-align: top
+}
+
+form.aui.disabled .content-body {
+    opacity: 0.2
+}
+
+form.aui .msg-container {
+    margin: 1em;
+    position: absolute;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    z-index: 1000000
+}
+
+#atlScriptlet form.aui div.matrix {
+    width: auto
+}
+
+#feedback-rating .radio input {
+    vertical-align: top;
+    position: relative;
+    top: 3px;
+    left: 2px
+}
+
+form.aui div.matrix.rating .rating-label {
+    position: relative;
+    top: -2px;
+    left: 4px
+}
+
+#desc-group {
+    padding-top: 10px
+}
+
+#atlwdg-trigger {
+    display: none !important
+}
+
+#atlwdg-frame {
+    overflow-y: hidden;
+    -ms-overflow-y: hidden
+}
+
+form.aui fieldset.group .error {
+    margin-left: 140px !important
+}
+
+#atlScriptlet form.aui {
+    background-color: #fff;
+    margin: 0
+}
+
+.dialog-button-panel {
+    background-color: #f5f5f5
+}
+
+.jic-radio {
+    float: left;
+    margin-right: 10px
+}
+
+.custom-fields-container {
+    padding-top: 10px
+}
+
+.checkbox+#screenshot-group {
+    margin-top: 10px
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+span.icon.throbber {
+    display: inline
+}

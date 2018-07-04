@@ -15,17 +15,19 @@
 }
 
 .table-header {
-    width: 94%;
+    width: 860px;
     border:1px solid;
     text-align: center;
     border-collapse: collapse;
 }
 
 .centerStyle {
+    width: 100px;
     text-align: center;
     border: 1px solid black;
 }
 .leftStyle {
+    width: 100px;
     text-align: left;
     padding-left: 24px;
     border: 1px solid black;

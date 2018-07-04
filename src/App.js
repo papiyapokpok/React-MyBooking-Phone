@@ -24,7 +24,7 @@ import Allowance from './component/allowance/Allowance';
 import 'react-dates/initialize'
 import ResetPassword from './component/reset_password/ResetPassword';
 
-
+import Jira from './config/jira'
 class App extends Component {
   constructor(props) {
     super(props); 
@@ -159,6 +159,7 @@ getCookie = (cname) => {
             <h3>User Menu</h3>            
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
               <Link to="/search" style={linkStyle} onClick={this.show} > - Search</Link> <br />  
+              {/* <Link to="/jira" style={linkStyle} onClick={this.show} > - Jira</Link> <br />   */}
               
               <hr style={{width:'94%', float:'left'}} />
               <h3>Admin Menu</h3>              
@@ -210,6 +211,7 @@ getCookie = (cname) => {
             <Route exact path="/" component={HomePage} username={this.props.username} />
             <Route exact path="/booking" component={Booking} /> 
             <Route path="/search" component={Searching} /> 
+            {/* <Route path="/jira" component={Jira} />  */}
             <Route path="/adsearching" component={admin_searching} /> 
             <Route path="/adbook" component={AdminBooking} />  
             <Route path="/adallowance" component={Allowance} />          
