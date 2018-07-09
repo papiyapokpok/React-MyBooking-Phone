@@ -48,11 +48,11 @@ export default class SearchingChild extends Component {
                     <ButtonBookBox className="Search-Button" onClick={this.props.onCallSearch} title={'Search'} />
                 </div><br />
                 <div className="divTable">
-                    <table className="table-header" >
+                    <table className="table-headerS" >
                         <tr>
-                        <th style={{width: '150px'}} className={'tableHeader'}>Number</th>
-                        <th style={{width: '150px'}} className={'tableHeader'}>Date</th> 
-                        <th style={{width: '150px'}} className={'tableHeader'}>Account</th>
+                        <th style={{width: '24px'}} className={'tableHeaderS'}>Number</th>
+                        <th style={{width: '24px'}} className={'tableHeaderS'}>Date</th> 
+                        <th style={{width: '24px'}} className={'tableHeaderS'}>Account</th>
                         </tr>
                         <tbody>
                             {dataValue}

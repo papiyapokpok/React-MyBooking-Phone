@@ -1,15 +1,18 @@
-.tableHeader {
-    /* border: 1px solid; */
-    background-color: rgb(25, 169, 241);
-    padding-left: 4px;
+.tableHeaderS {
+    border: 1px solid;
+    background-color: rgb(255, 255, 255);
+    /* padding-left: 4px; */
+    /* max-width: 50px; */
 }
 
-.table-header {
+.table-headerS {
     width: 94%;
     /* border:1px solid; */
     text-align: center;
-    height: 32px;
+    border-collapse: collapse;
+    height: 16px;
     line-height: 32px;
+    font-size: 14px
 }
 
 .divTable {
@@ -20,7 +23,9 @@
 .rowCount {
     text-align: right;
     padding: 18px;
-    margin-right: 65px;
+    margin-right: 40px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .inputEmailSearch {

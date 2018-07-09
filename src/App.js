@@ -167,7 +167,7 @@ getCookie = (cname) => {
               <Link to="/adbook" style={linkStyle} onClick={this.show} > - Booking</Link> <br />   
               <Link to="/adsearching" style={linkStyle} onClick={this.show} > - Search</Link> <br />                         
               <Link to="/adallowance" style={linkStyle} onClick={this.show} > - Allowance</Link> <br />   
-              <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
+              {/* <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br /> */}
                                     
               
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
@@ -183,7 +183,7 @@ getCookie = (cname) => {
               <Link to="/booking" style={linkStyle} onClick={this.show} > - Booking</Link> <br />                         
               <Link to="/search" style={linkStyle} onClick={this.show} > - Report</Link> <br />  
 
-              <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br />
+              {/* <Link onClick={this.signOut} to="/out" style={linkStyle} > - Logout</Link><br /> */}
               <hr style={{width:'94%', float:'left'}} />              
               <p style={staffNameStyle}> {this.getCookie('staff_name')}</p>
             </div>
