@@ -1,4 +1,6 @@
-ReactJS
-Slack Post
-Firebase
-Onesignal - Notification
+Tools 
+ - ReactJS
+ - Slack Post
+ - Firebase
+ - Onesignal 
+  - Notification
