@@ -73,6 +73,11 @@ function registerValidSW(swUrl) {
     .catch(error => {
       console.error('Error during service worker registration:', error);
     });
+    
+// Connect Service-Worker Onesignal//
+    if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
+      navigator.serviceWorker.register('../public/OneSignalSDKWorker.js');
+    }
 }
 
 function checkValidServiceWorker(swUrl) {

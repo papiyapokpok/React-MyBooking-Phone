@@ -10,6 +10,8 @@ import { PropTypes } from 'prop-types';
 import slackPost from '../../config/SlackChat'
 import SlackCancel from '../../config/SlackCancel'
 
+import Audio from '../audio/noti.mp3'
+
 export default class Booking extends Component {
     constructor(props) {
         super(props);
@@ -25,8 +27,12 @@ export default class Booking extends Component {
             cancels: false,
             cancelView1: false,
             cancelView2: false,
+            play: false
         };
-        this.handleSubmit = this.handleSubmit.bind(this);  
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        // this.playMusic = this.playMusic.bind(this) 
+        // this.stopMusic = this.stopMusic.bind(this) 
+        
     }
 
     static PropType = {
@@ -45,35 +51,6 @@ export default class Booking extends Component {
         SlackChat.slackPost(nickname, num, date)
     }
 
-    // SlackCancel = () => {
-    //     const nickname = this.getCookie('emp_nickname')
-    //     const num = this.getCookie('num')
-    //     const date = this.getCookie('today')
-    //     const canC = " `cancel` "
-        
-    //     const day = moment(date).format('LL');
-    //     const nick = nickname
-
-    //     const txt = " *"+"Today "+"* " + " *"+day+"* "+ "\n"+">"+ " *"+nick+"* "+" is "+canC+ " an"+ " *"+"OnCall0"+num+"* " 
-
-    //     const text =
-    //         (
-    //             `mrkdwn = true`,
-    //             `text= ${txt}`        
-    //         )
-    //     request.post('https://slack.com/api/chat.postMessage')
-    //     .set('Content-type', 'application/x-www-form-urlencoded')
-    //     .send('token=xoxb-360083493237-384365618711-2icVB5gT7OFa3BCU8MovFpGD')
-    //     .send('channel=who-is-oncall')
-    //     .send(`${text}`)
-    //     .then(e => {
-    //         console.log(e)
-    //     })
-    //     .catch(e => {
-    //         console.log(e)
-    //     })
-    // }
-
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.startDate);
         event.preventDefault();
@@ -90,7 +67,26 @@ export default class Booking extends Component {
             window.location.href = "/"
             // this.props.history.push('/')
         }
+
+        // if(this.getCookie('num') == 'null') {
+        //     console.log('null')
+        //         this.playMusic()
+        // } else if(this.getCookie('num') == '1' || '2') {
+        //     console.log(this.getCookie('num'))
+        //     this.stopMusic()
+        // }
     }
+
+    // playMusic = () => {
+    //     setTimeout(function() {
+    //         document.getElementById('xyz').play()
+    //         var x = document.getElementById("xyz").loop;
+    //         document.getElementById("demo").innerHTML = x;
+    //     }, 5000)
+    // }
+    // stopMusic = () => {
+    //     document.getElementById('xyz').pause();
+    // }
 
     getDataEmployee = () => {
         const db = firebase.firestore();
@@ -112,6 +108,7 @@ export default class Booking extends Component {
             this.setCookie('emp_nickname', nicknameGet, 30)
             this.setCookie('emp_surname', surnameGet, 30)
             this.setCookie('today', day, 1)
+            this.setCookie('num', null)
         })
     }
 
@@ -141,7 +138,6 @@ export default class Booking extends Component {
                 })
                 this.setState({load: false})
             } else {
-                // swal('No booking on search')
                 this.setState({load: false})                
             } 
         })
@@ -157,41 +153,6 @@ export default class Booking extends Component {
             );
         })    
     }
-
-    // cancelBook = (data) => {
-    //     const db = firebase.firestore();
-    //     const id = data[0].id
-    //     console.log(id)
-    //     console.log(data)
-    //     swal({
-    //         title: "Are you sure?",
-    //         text: "Do you want cancel booking today!",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //         })
-    //     .then((willDelete) => {
-    //         if (willDelete) {
-    //             this.SlackCancel()
-    //             this.setState({load: true})
-    //             db.collection('oncalllogs').doc(id).delete().then(function() {
-    //                 // console.log("Document successfully deleted!");
-    //                 swal("Document successfully deleted!") 
-    //                 window.location.reload(true);               
-    //             })
-    //             .catch(function(error) {
-    //                 // console.error("Error removing document: ", error);
-    //                 swal("Cancel complete!") 
-    //                 window.location.reload(true);               
-
-    //             });
-    //             this.setState({load: false})
-
-    //         } else {
-    //         // swal("Your imaginary file is safe!");
-    //         }
-    //     });
-    // }
 
     onCall = (e) => {
         this.state.onCallNum = e  
@@ -377,6 +338,8 @@ export default class Booking extends Component {
     render() {
         return(
             <div>
+                <audio id="xyz" src={Audio} preload="auto"  loop></audio>
+                <p id="demo" hidden></p>
                 <BookingChild 
                     onCall={this.onCall}                
                     {...this.state}

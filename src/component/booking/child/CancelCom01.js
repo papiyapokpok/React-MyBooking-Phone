@@ -87,10 +87,10 @@ export default class CancelCom01 extends Component {
         .send('channel=who-is-oncall')
         .send(`${text}`)
         .then(e => {
-            console.log(e)
+            // console.log(e)
         })
         .catch(e => {
-            console.log(e)
+            // console.log(e)
         })
     }
 
@@ -105,10 +105,10 @@ export default class CancelCom01 extends Component {
                 const res1 = result1
                 if(res1.name===user){
                     cancelView1 = <h4 className={`cancel`} onClick={() => this.cancelBook(result1.id)}>Cancel</h4>
-                    console.log(user + ' Owner')
+                    // console.log(user + ' Owner')
                 } else {
                     cancelView1 =''
-                    console.log('No Owner')
+                    // console.log('No Owner')
                 }
             } 
         }

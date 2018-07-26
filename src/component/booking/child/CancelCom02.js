@@ -15,6 +15,14 @@ export default class CancelCom02 extends Component {
         }
     }
 
+    setCookie = (cname, cvalue, exdays) => {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+
     getCookie = (cname) => {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -33,8 +41,8 @@ export default class CancelCom02 extends Component {
     cancelBook = (result2) => {
         const db = firebase.firestore();
         const id = result2
-        console.log(id)
-        console.log(result2)
+        // console.log(id)
+        // console.log(result2)
         swal({
             title: "Are you sure?",
             text: "Do you want cancel booking today!",
@@ -46,6 +54,7 @@ export default class CancelCom02 extends Component {
             if (willDelete) {
                 this.SlackCancel()
                 this.setState({load: true})
+                this.setCookie('num', null)
                 db.collection('oncalllogs').doc(id).delete().then(function() {
                     // console.log("Document successfully deleted!");
                     // swal({
@@ -93,10 +102,10 @@ export default class CancelCom02 extends Component {
         .send('channel=who-is-oncall')
         .send(`${text}`)
         .then(e => {
-            console.log(e)
+            // console.log(e)
         })
         .catch(e => {
-            console.log(e)
+            // console.log(e)
         })
     }
 
@@ -112,11 +121,11 @@ export default class CancelCom02 extends Component {
                 const res2 = result2
                 if(res2.name===user) {
                     cancelView2 = <h4 className={`cancel`} onClick={() => this.cancelBook(result2.id)} >Cancel</h4>
-                    console.log(user + ' Owner')
+                    // console.log(user + ' Owner')
                 }else {
                     cancelView2 =''
                     // cancelView2 =<h4 className={`cancel`} onClick={() => this.props.cancelBook(data)}  >Test</h4>
-                    console.log('No Owner2')
+                    // console.log('No Owner2')
                 }
             }
         }

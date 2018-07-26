@@ -17,6 +17,18 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <link rel="manifest" href="/manifest.json" />
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script src="OneSignalSDKWorker.js"></script>
+    <script>
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "5fe8d9a0-0a2b-4a54-bf64-2a235da99302",
+        });
+      });
+    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -34,18 +46,12 @@
     </noscript>
     <div id="root"></div>
       <!-- <div class="atlwdg-popup aui-message.aui-message">
-        <script
-            rel="stylesheet" href="customStyleIndex.css" 
-            type="text/javascript" 
-            class="form.aui .field-group, form.aui .group, form.aui .date-select "
-            src="https://jira.24x7th.com/s/523a17cb67f42882cbdfb5c0bf6ddaa5-T/en_USe6qr9h/71008/2be798243c9f65026f1ac77429c707de/2.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=25d0e0ca">
+        <script 
+          type="text/javascript" 
+          src="https://jira.24x7th.com/s/80bbc05541c751d038d879c59f1282b2-T/en_USe6qr9s/71008/2be798243c9f65026f1ac77429c707de/2.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=07f73191">
         </script>
       </div> -->
-<!-- 
-      <script 
-        type="text/javascript" 
-        src="https://jira.24x7th.com/s/523a17cb67f42882cbdfb5c0bf6ddaa5-T/en_USe6qr9h/71008/2be798243c9f65026f1ac77429c707de/2.0.11/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=25d0e0ca">
-      </script>
+
 
 
     <style>
@@ -101,7 +107,7 @@
       }
       .atlwdg-trigger.atlwdg-RIGHT {
         left: 100%;
-        top: 70%;
+        top: 80%;
         -webkit-transform: rotate(90deg);
         -webkit-transform-origin: top left;
         -moz-transform: rotate(90deg);
@@ -121,7 +127,7 @@
           word-wrap: break-word;
       }
     </style>
-     -->
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

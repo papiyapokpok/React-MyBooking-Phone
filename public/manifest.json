@@ -1,6 +1,7 @@
 {
   "short_name": "KD-OnCall",
   "name": "Welcome to KD-OnCall",
+  "gcm_sender_id": "8354579435",
   "icons": [
     {
       "src": "favicon.ico",
@@ -13,4 +14,3 @@
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
-
